@@ -1,0 +1,1 @@
+16:00:59.092 [main] WARN  o.h.c.e.AbstractEhcacheRegionFactory - HHH020003: Could not find a specific ehcache configuration for cache named [cn.meyoung.wlfz.webapi.entity.Car]; using defaults.

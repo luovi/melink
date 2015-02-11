@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="false">
+
+    <context:property-placeholder location="classpath*:/application.properties" ignore-resource-not-found="true"
+                                  ignore-unresolvable="true"/>
+    <!--
+    <context:annotation-config />
+    -->
+    <!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 把标记了@Controller注解的类转换为bean -->
+    <context:component-scan base-package="cn.meyoung.wlfz.webapi.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <mvc:annotation-driven validator="validator">
+        <mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+
+            <bean id="fastJsonHttpMessageConverter"
+                  class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <array>
+                        <value>WriteMapNullValue</value>
+                        <value>QuoteFieldNames</value>
+                        <value>WriteDateUseDateFormat</value>
+                        <value>WriteNullStringAsEmpty</value>
+                    </array>
+                </property>
+            </bean>
+            <!-- 将Jackson2HttpMessageConverter的默认格式化输出设为true -->
+            <!--        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                        <property name="prettyPrint" value="true"/>
+                    </bean>-->
+
+
+        </mvc:message-converters>
+
+        <mvc:argument-resolvers>
+
+            <bean class="cn.meyoung.wlfz.webapi.bind.CurrentTokenMethodArgumentResolver"/>
+
+        </mvc:argument-resolvers>
+
+    </mvc:annotation-driven>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+                <property name="entityManagerFactory" ref="entityManagerFactory"/>
+            </bean>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/users/login"/>
+            <mvc:exclude-mapping path="/users/reg"/>
+            <mvc:exclude-mapping path="/users/captcha"/>
+            <mvc:exclude-mapping path="/users/logout"/>
+            <mvc:exclude-mapping path="/upload"/>
+            <bean class="cn.meyoung.wlfz.webapi.interceptor.UserTokenInterceptor">
+
+            </bean>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
+
+    <bean id="exceptionHandlerExceptionResolver"
+          class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
+    </bean>
+
+    <bean class="cn.meyoung.wlfz.webapi.DefaultExceptionHandler"/>
+
+    <aop:config proxy-target-class="true"></aop:config>
+
+    <!--文件上传-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="20480000"/>
+    </bean>
+</beans>

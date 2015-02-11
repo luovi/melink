@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+       default-lazy-init="false">
+
+    <description>Spring公共配置</description>
+
+
+    <util:properties id="settings" location="classpath:settings.properties"/>
+
+    <!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+    <context:component-scan base-package="cn.meyoung.wlfz.webapi">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <task:executor id="myExecutor" pool-size="30"/>
+    <task:annotation-driven executor="myExecutor"/>
+
+    <context:property-placeholder ignore-unresolvable="true"
+                                  location="classpath*:/application.properties"/>
+
+    <!--
+    <util:properties id="settings" location="classpath:settings.properties"/>
+    -->
+
+    <!-- Jpa Entity Manager 配置 -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="persistenceUnit"/>
+        <property name="packagesToScan" value="cn.meyoung.wlfz.webapi.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="false"/>
+                <property name="generateDdl" value="false"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <!-- 命名规则 My_NAME->MyName -->
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+                <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+                <prop key="net.sf.ehcache.configurationResourceName">${net.sf.ehcache.configurationResourceName}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+                <prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+                <prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+                <prop key="hibernate.connection.isolation">3</prop>
+                <prop key="javax.persistence.validation.mode">none</prop>
+                <prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+                <prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}
+                </prop>
+                <prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
+                <prop key="javax.persistence.sharedCache.mode">${javax.persistence.sharedCache.mode}</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <!-- Spring Data Jpa配置 -->
+    <!--Spring 初始化容器时将会扫描 base-package 指定的包目录及其子目录，
+    为继承 Repository 或其子接口的接口创建代理对象，并将代理对象注册为 Spring Bean，
+    业务层便可以通过 Spring 自动封装的特性来直接使用该对象。
+    此外，<jpa:repository> 还提供了一些属性和子标签，便于做更细粒度的控制。可以在 <jpa:repository>
+     内部使用 <context:include-filter>、<context:exclude-filter> 来过滤掉一些不希望被扫描到的接口-->
+    <jpa:repositories
+            base-package="cn.meyoung.wlfz.webapi.dao"
+            repository-impl-postfix="Impl"
+            entity-manager-factory-ref="entityManagerFactory"
+            transaction-manager-ref="transactionManager"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${jdbc.pool.initialSize}"/>
+        <property name="minIdle" value="${jdbc.pool.minIdle}"/>
+        <property name="maxActive" value="${jdbc.pool.maxActive}"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+        <property name="validationQuery" value="SELECT 1"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="false"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="false"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat"/>
+        <!--<property name="filters" value="stat,config"/>-->
+        <property name="connectionProperties" value="config.decrypt=true"/>
+    </bean>
+
+
+    <!-- Jpa 事务配置 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!-- 使用annotation定义事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!-- 定义aspectj -->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+
+
+    <!-- 事务拦截 -->
+    <aop:config expose-proxy="true">
+        <!-- 事务切入点 -->
+        <aop:pointcut id="servicesPointcut"
+                      expression="execution(* cn.meyoung.wlfz.webapi.service.*.*(..))"/>
+    </aop:config>
+
+    <!-- 业务服务层日志拦截 -->
+    <bean id="serviceLogAspect"
+          class="cn.meyoung.wlfz.webapi.service.ServiceLogAspect"/>
+    <aop:config expose-proxy="true">
+        <aop:aspect id="serviceLogAspect_AOP" ref="serviceLogAspect"
+                    order="1">
+            <aop:pointcut id="serviceLogPointcut"
+                          expression="execution(* cn.meyoung.wlfz.webapi.service.*.*(..))"/>
+            <aop:before pointcut-ref="serviceLogPointcut" method="doBefore"/>
+            <aop:after pointcut-ref="serviceLogPointcut" method="doAfter"/>
+            <aop:around pointcut-ref="serviceLogPointcut" method="doAround"/>
+            <aop:after-throwing pointcut-ref="serviceLogPointcut"
+                                method="doThrowing" throwing="ex"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- 类型转换及数据格式化 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
+
+    <!-- 直接把id转换为entity 必须非lazy否则无法注册-->
+    <bean id="domainClassConverter" class="org.springframework.data.repository.support.DomainClassConverter">
+        <constructor-arg ref="conversionService"/>
+    </bean>
+
+
+    <bean id="druid-stat-interceptor"
+          class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+    </bean>
+
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>cn.meyoung.wlfz.webapi.service.*</value>
+            </list>
+        </property>
+    </bean>
+
+    <aop:config expose-proxy="true">
+        <aop:advisor advice-ref="druid-stat-interceptor"
+                     pointcut-ref="druid-stat-pointcut"/>
+    </aop:config>
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="cacheSeconds" value="${message.cache_seconds}"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+        <property name="fileEncodings" value="utf-8"/>
+        <property name="basenames">
+            <list>
+                <value>${message.path}</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
+        <property name="defaultLocale" value="${locale}"/>
+    </bean>
+
+
+</beans>
