@@ -96,11 +96,12 @@
 
     <aop:config proxy-target-class="true"></aop:config>
 
-    <!--文件上传-->
+    <!--文件上传;配置上传拦截，如最大上传值及最小上传值-->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- one of the properties available; the maximum file size in bytes -->
         <property name="defaultEncoding" value="utf-8"/>
-        <property name="maxUploadSize" value="20480000"/>
+        <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="20480000"/><!--20mb-->
     </bean>
 </beans>

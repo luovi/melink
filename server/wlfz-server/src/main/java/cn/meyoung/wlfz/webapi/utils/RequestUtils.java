@@ -77,7 +77,7 @@ public final class RequestUtils {
         conn.setConnectTimeout(TIMEOUT_IN_MILLIONS);
         //post需要设置
         conn.setDoOutput(true);
-        conn.setDoInput(true);
+        //  conn.setDoInput(true);
 
         // 设置默认的http请求消息头。。。
         conn.setRequestProperty("Content-Type",
@@ -280,10 +280,11 @@ public final class RequestUtils {
 
     /**
      * 判断是否是数字
+     *
      * @param str
      * @return
      */
-    public static boolean isNumeric(String str){
+    public static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(str).matches();
     }
