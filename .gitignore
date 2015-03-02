@@ -1,0 +1,6 @@
+server/wlfz-server/.idea/
+server/wlfz-server/target
+server/wlfz-server/src/main/webapp/WEB-INF/logs
+.DS_Store
+*swp
+*~
