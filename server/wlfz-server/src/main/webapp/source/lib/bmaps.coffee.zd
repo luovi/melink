@@ -1,0 +1,347 @@
+define ['jquery', 'underscore', 'bmapapi'], ($, _, bmapapi) ->
+  'use strict'
+
+  class Convert
+    constructor: ->
+      @urlRoot = 'http://api.map.baidu.com/geoconv/v1/'
+      @options =
+        from: 1
+        to: 5
+        output: 'jsonp'
+        #callback: 'convert'
+        ak: 'EF6aee05088be9901b4b11fcab5da1d1'
+
+    fetch: (points) ->
+      defer = $.Deferred()
+      return defer.reject() unless points.length
+      coords = []
+      for i in points
+        coords.push "#{ i.get('longitude') },#{ i.get('latitude') }"
+      _.extend @options, coords:coords.join(';')
+      $.ajax
+        url: @urlRoot
+        data: @options
+        dataType: 'jsonp'
+        success: (data,success,xhr) ->
+          if data.status is 0
+            for i,index in points
+              i.set('x', data.result[index].x)
+              i.set('y', data.result[index].y)
+            defer.resolve(points)
+          else
+            defer.reject()
+        error: ->
+          defer.reject()
+      defer.promise()
+
+
+  class BMapWrapper
+    @_instance: null
+    @singleton: -> @_instance or= new @
+  
+    constructor: (elemID = 'load_map') ->
+      @map = new BMap.Map elemID
+      @map.centerAndZoom(@Point(106.346, 33.866), 5)  # 中国省全景缩放
+      @_el = $(@map.container)
+      #@map.addControl(new BMap.MapTypeControl())      # 类型控制
+      @map.addControl(new BMap.NavigationControl())   # 导航控制
+      @map.enableScrollWheelZoom()                    # 开启缩放
+      @map.enableContinuousZoom()
+      @_eventAlias @map                               # 给地图设置方法别名
+      @map.on 'tilesloaded', @copyrightRemove, 'remove'
+      @map.on 'covertdone', @copyrightRemove, 'remove'
+  
+    # 版权移除
+    copyrightRemove: => $('div.anchorBL', @_el).remove()
+  
+    Size: (width, height) -> new BMap.Size width, height
+    Pixel: (x, y) -> new BMap.Pixel x, y
+    Point: (lng, lat) -> new BMap.Point lng, lat
+    Icon: (url, size, opt) -> new BMap.Icon url, size, opt or {}
+    Label: (str, opt) -> @_eventAlias new BMap.Label(str, opt or {})
+    Marker: (point, opt) -> @_eventAlias new BMap.Marker(point, opt or {})
+  
+    # FIXME 作用域问题, mkr 里用时就不行， mkr.map.centerandzoom 作用域名是 mkr
+    # - [ ] 增加调用者实例判断
+    zoomTo: (position) ->
+      if typeof position is String
+        @map.centerAndZoom position
+      else
+        @map.centerAndZoom position, 14
+  
+    # 扩展百度地图事件别名
+    _eventAlias: (obj) ->
+      obj.on = obj.addEventListener
+      obj.off = obj.removeEventListener
+      obj.trigger = obj.dispatchEvent
+      obj.one = (evt, fn, name) ->
+        obj.on evt, (e)->
+          obj.off evt, name
+          fn.call(obj, e)
+        , name
+      obj
+  
+  class Orbit extends BMapWrapper
+    constructor: ->
+      super
+      @_orbitMarkers = []
+      @_cityMarkers = []
+  
+    Icon: (style) ->
+      url = '/static/images/ico-location-4.png'  # 图片地址
+      imgOffset =                                # 图片偏移
+        'orig': [0, 0]                           # 起点
+        'dest': [-30, 0]                         # 终点
+        'curt': [-90, 0]                         # 当前
+        'orbt': [-60, 0]                         # 轨迹
+      opt =
+        anchor: @Size 16, 36
+        imageOffset: @Size imgOffset[style][0], imgOffset[style][1]
+      super url, @Size(30, 37), opt
+  
+    InfoWindow: (name, time, location) ->
+      content = """
+      <b class='iw_poi_title'> #{name} </b>
+      <div class='iw_poi_content'> #{time} 到达 #{location} </div>
+      """
+      new BMap.InfoWindow content, { offset: @Size 0, -35 }
+  
+    Label: (num) ->
+      content = "<b>#{num}</b>"
+      offset = @calcLabelOffset(num)
+      lab = super content, { offset }
+      style =
+        border: 'none', fontSize: '12px',
+        backgroundColor: 'transparent', color: '#fff'
+      lab.setStyle style
+      lab
+  
+    calcLabelOffset: (num) ->
+      offset = @Size 8, 5
+      if num <= 9
+        offset = @Size 11, 5
+      else if num >= 100
+        offset = @Size 4, 5
+      offset
+  
+    # 按所有 marker 缩放 并 显示第一个 mkr 的 infowindow
+    setViewport: (points = @getViewPoints()) ->
+      @map.setViewport points
+      if @_orbitMarkers.length and (mkr = @_orbitMarkers[0]) and not mkr.iw.isOpen()
+        mkr.openInfoWindow(mkr.iw)
+  
+    # 获取所有 marker 的坐标
+    getViewPoints: ->
+      results = []
+      results.push(mkr.N) for mkr in @_orbitMarkers
+      results.push(mkr.N) for mkr in @_cityMarkers
+      results
+  
+    # 批量单个城市 marker
+    addCityMarker: (city, style) ->
+      infowindowclosegeo = new BMap.Geocoder()
+      geo.getPoint city, (pt) =>
+        if pt
+          mkr = @Marker(pt, {icon: @Icon(style)})
+          #mkr.setZIndex r
+          #console.log +new Date(), 'debug geo mkr:', mkr
+          @map.addOverlay mkr
+          @_cityMarkers.push mkr
+          #@_covtPoints.push pt
+          @map.trigger('addcitymarker')
+  
+    ###
+    addOrbitMarker: (pt, index, last) ->
+      iconStyleName = if (isUpdate or r) isnt last then 'orbt' else 'curt'
+      icon = @Icon( )
+      mkr = @Marker @Point(pt.longitude, pt.latitude), { icon }
+      # 在每一个 mkr 记录数据 方便处理回调
+      mkr.orbit = { time: pt.locate_time, location: pt.location }
+      # 信息窗口
+      mkr.iw = @InfoWindow title, pt.locate_time, pt.location
+      @_orbitListener mkr
+      # zindex , mkrs 数组
+      mkr.zi = r
+      mkr.setZIndex r
+      # 设置 icon 数字
+      if index > 0
+        mkr.setLabel @Label r + 1
+      @_orbitMarkers.push mkr
+      @map.addOverlay mkr
+      r -= 1  # 数字处理
+    ###
+  
+    # 批量添加轨迹 marker
+    # 添加完毕缩放
+    addOrbitMarkers: (originalPoints, isUpdate = false) ->
+      return if not originalPoints or not originalPoints.length
+      title = $('h1').text()
+      _tmpPointsArray = []
+      convert = new Convert
+      convert.fetch(originalPoints).then (points) =>
+        len = points.length
+        last = len - 1
+        r = len - 1  # 倒序
+        # 循环开始
+        for pt, index in points
+          iconStyleName = if (isUpdate or (index > 0)) then 'orbt' else 'curt'
+          icon = @Icon iconStyleName
+          pt = pt.attributes
+          mkr = @Marker @Point(pt.x, pt.y), { icon }
+          # 在每一个 mkr 记录数据 方便处理回调
+          mkr.orbit = { time: pt.locate_time, location: pt.location }
+          # 信息窗口
+          mkr.iw = @InfoWindow title, pt.locate_time, pt.location
+          @_orbitListener mkr
+          # zindex , mkrs 数组
+          mkr.zi = r
+          mkr.setZIndex r
+          # 设置 icon 数字
+          (isUpdate or (index > 0)) and mkr.setLabel @Label r + 1
+          @_orbitMarkers.push mkr
+          @map.addOverlay mkr
+          r--  # 数字处理
+        @setViewport()
+  
+    changeOrder: (num) ->
+      padding = num + 1
+      first = @_orbitMarkers[0]
+      first.zi += padding
+      first.setZIndex first.zi
+      for mkr in @_orbitMarkers.slice(1)
+        mkr.zi += padding
+        mkr.setZIndex mkr.zi
+        mkr._config.label.setContent "<b>#{mkr.zi}</b>"
+        mkr._config.label.setOffset @calcLabelOffset mkr.zi
+      return
+  
+    #TODO 改成 监听 map 的事件 然后判断 e.overlay 分发 事件委托
+    _orbitListener: (mkr) ->
+      mkr.on 'click', ->
+        @openInfoWindow @iw
+        @map.centerAndZoom @point, @map.getZoom()
+      mkr.on 'infowindowopen', -> @setZIndex (@zi+2000)
+      mkr.on 'infowindowclose', ->
+        #this.setAnimation null
+        @setZIndex @zi
+  
+    reset: ->
+      @map.clearOverlays()
+      @_orbitMarkers.forEach (mkr) ->
+        mkr.off 'click'
+        mkr.off 'infowindowopen'
+        mkr.off 'infowindowclose'
+        mkr = null
+      @_orbitMarkers = null
+      @_orbitMarkers = []
+  
+  class MarkerTool extends BMap.Marker
+    constructor: (point, opt) ->
+      super point, opt or {}
+      # 事件别名
+      @on = @addEventListener
+      @off = @removeEventListener
+      @trigger = @dispatchEvent
+      @_lab = new BMap.Label '请稍侯…'
+      @setLabel @_lab
+      # 反向解析地址
+      @on 'markend', (e) =>
+        @trigger 'geocoding'
+        @_lab.setContent '请稍侯…'
+        geo = new BMap.Geocoder()
+        pt = new BMap.Point e.target.point.lng, e.target.point.lat
+        geo.getLocation pt, (rt) =>
+          if rt
+            @_lab.setContent rt.address
+            #console.log 'debug mkr rt', rt
+            @location =
+              address: rt.address
+              city: rt.addressComponents.city
+              lng: rt.point.lng
+              lat: rt.point.lat
+            @trigger 'geodone'
+      @hide()
+  
+  class FollowMarker extends BMap.Marker
+    constructor: (point, opt) ->
+      super point, opt or {}
+      @_lab = new BMap.Label('左击添加标注', {offset: new BMap.Size(20, 0)})
+      @setLabel @_lab
+      @setZIndex 1000
+      @hide()
+  
+  class Pushpin extends BMapWrapper
+    constructor: ->
+      super
+      @_isOpen = false
+      @_mkr = new MarkerTool(@Point(106, 31))
+      @_fol = new FollowMarker(@map.getCenter(), { offset: @Size(-10, -10) })
+      #@_preCursor = @map.getDefaultCursor()
+      @map.addOverlay @_mkr
+      @map.addOverlay @_fol
+  
+    zoomToLocalCity: ->
+      lc = new BMap.LocalCity()
+      lc.get (r) =>
+        @map.centerAndZoom(r.name)
+  
+    open: ->
+      return false unless @map
+      return true if @_isOpen
+      @_isOpen = true
+      unless @_binded
+        @_events()
+        @_binded = true
+      #u = 'http://api.map.baidu.com/library/MarkerTool/'
+      #u += '1.2/src/images/transparent.cur'
+      #@map.setDefaultCursor 'zoom-in'
+      if @hasMarkend()
+        @show()
+      else
+        @zoomToLocalCity()
+      true
+  
+    close: ->
+      return false unless @_isOpen
+      # 取消绑定事件
+      @map.off 'mousemove', @_mouseMoveHandler
+      @map.off 'click', @_clickHandler
+      @_fol.hide()
+      #@map.setDefaultCursor(@_preCursor) # 设置鼠标样式
+      @_isOpen = false
+      #BMapLib._toolInUse = false
+      @_binded = false
+      true
+  
+    _events: ->
+      return unless @_isOpen
+      @_mouseMoveHandler = (e) =>
+        @_fol.setPosition e.point
+        @_fol.show()
+  
+      @_clickHandler = (e) =>
+        iconPix = @Pixel e.pixel.x - 10, e.pixel.y - 10
+        @_mkr.setPosition @map.pixelToPoint(iconPix)
+        @_mkr.trigger 'markend'
+        @_mkr.show()
+  
+      @map.on 'mousemove', @_mouseMoveHandler
+      @map.on 'click', @_clickHandler
+      @map.on 'open.pushpin', (e) => @open()
+      @map.on 'close.pushpin', (e) => @close()
+      #@map.on 'movestart', (e) => @_fol.hide()
+  
+    hasMarkend: -> (!!@_lng and !!@_lat)
+  
+    show: ->
+      pt = @Point(parseFloat(@_lng), parseFloat(@_lat))
+      @zoomTo(pt)
+      @_mkr.setPosition pt
+      @_mkr._lab.setContent @_address
+      @_mkr.show()
+
+  BMapWrapper  : BMapWrapper
+  Orbit        : Orbit
+  MarkerTool   : MarkerTool
+  FollowMarker : FollowMarker
+  Pushpin      : Pushpin

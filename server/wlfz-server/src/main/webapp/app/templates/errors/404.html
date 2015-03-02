@@ -1,0 +1,23 @@
+<div class="container">
+<div class="exceptions">
+	<div class="exc-img">
+		<div class="error-img img-404"></div>
+	</div>
+	<div class="exc-info">
+		<h1>您访问的页面不存在，可能已被删除或您输错了网址！</h1>
+		<p><span>请尝试以下操作：</span></p>
+		<ul>
+			<li>如果您已经在地址栏中输入该网页的地址，请确认其拼写正确。</li>
+			<li>单击 <a href="javascript:history.go(-1)">后退</a> 链接，尝试点击其他链接。</li>
+		</ul>
+		<%if (current_user !=''){%>
+			<p><a href="#">返回联联看首页</a></p>
+		<%}else {%>
+			<p><a href="#login">返回联联看首页</a></p>
+		<%}
+		%>
+		
+	</div>
+</div>
+</div>
+
