@@ -461,7 +461,7 @@ sup {
 </table>
 
 
-<h4>2.2 货源 /cargos</h4>
+<h4>2.2 货单 /cargos</h4>
 
 <table>
 <thead>
@@ -477,37 +477,55 @@ sup {
 <td align="right">1</td>
 <td><a href="#add_cargo">/cargos</a>                </td>
 <td>POST   </td>
-<td>发布货源</td>
+<td>发布货单</td>
 </tr>
 <tr>
 <td align="right">2</td>
 <td><a href="#cargo_list">/cargos</a>               </td>
 <td>GET    </td>
-<td>获取货源列表</td>
+<td>获取货单列表</td>
 </tr>
 <tr>
 <td align="right">3</td>
 <td><a href="#view_cargo">/cargos/:id</a>       </td>
 <td>GET    </td>
-<td>获取货源详情</td>
+<td>获取货单详情</td>
 </tr>
 <tr>
 <td align="right">4</td>
 <td><a href="#update_cargo">/cargos/:id</a>     </td>
 <td>PUT    </td>
-<td>修改货源</td>
+<td>修改货单</td>
 </tr>
 <tr>
 <td align="right">5</td>
 <td><a href="#del_cargo">/cargos/:id</a>            </td>
 <td>DELETE </td>
-<td>删除货源</td>
+<td>删除货单</td>
 </tr>
 <tr>
 <td align="right">6</td>
 <td><a href="#cargos_status">/cargos/:id/status</a> </td>
 <td>GET </td>
 <td>获取货单状态</td>
+</tr>
+<tr>
+<td align="right">* 7</td>
+<td><a href="#cargos_confirm">/cargos/:id/confirm</a></td>
+<td>POST </td>
+<td>车货匹配确认</td>
+</tr>
+<tr>
+<td align="right">* 8</td>
+<td><a href="#add_cargos_log">/cargos/log</a> </td>
+<td>POST </td>
+<td>新增车货匹配记录</td>
+</tr>
+<tr>
+<td align="right">* 9</td>
+<td><a href="#cargos_log_list">/cargos/log</a>    </td>
+<td>GET </td>
+<td>列表车货匹配记录列表</td>
 </tr>
 </tbody>
 </table>
@@ -541,7 +559,7 @@ sup {
 </table>
 
 
-<h4>2.4 车货交易 /trades</h4>
+<h4>2.4 车货匹配记录 /cargologs</h4>
 
 <table>
 <thead>
@@ -554,50 +572,32 @@ sup {
 </thead>
 <tbody>
 <tr>
-<td align="right">1</td>
-<td><a href="#add_trade">/trades</a>                </td>
+<td align="right">* 1</td>
+<td><a href="#add_trade">/trades</a>               </td>
 <td>POST   </td>
 <td>生成交易</td>
 </tr>
 <tr>
-<td align="right">2</td>
-<td><a href="#trade_list">/trades</a>               </td>
+<td align="right">* 2</td>
+<td><a href="#trade_list">/trades</a>          </td>
 <td>GET    </td>
 <td>交易列表</td>
 </tr>
 <tr>
-<td align="right">3</td>
-<td><a href="#view_trade">/trades/:id</a>       </td>
+<td align="right">* 3</td>
+<td><a href="#view_trade">/trades/:id</a>      </td>
 <td>GET    </td>
 <td>交易详情</td>
 </tr>
 <tr>
-<td align="right">4</td>
-<td><a href="#update_trade">/trades/:id</a>     </td>
-<td>POST   </td>
-<td>修改交易信息</td>
-</tr>
-<tr>
-<td align="right">5</td>
-<td><a href="#add_tradelog">/trades/:id/logs</a></td>
-<td>POST   </td>
-<td>添加交易记录</td>
-</tr>
-<tr>
-<td align="right">6</td>
-<td><a href="#trades_status">/trades/:id/status</a> </td>
-<td>GET </td>
-<td>获取订单状态信息</td>
-</tr>
-<tr>
-<td align="right">7</td>
-<td><a href="#trades_cancel">/trades/:id/cancel</a> </td>
+<td align="right">* 4</td>
+<td><a href="#trades_cancel">/trades/:id/cancel</a>    </td>
 <td>DELETE</td>
 <td>取消订单信息</td>
 </tr>
 <tr>
-<td align="right">8</td>
-<td><a href="#trade_log">/trades/:id/logs</a>   </td>
+<td align="right">* 5</td>
+<td><a href="#trade_log">/trades/:id/logs</a>  </td>
 <td>GET    </td>
 <td>获取指定交易的交易记录</td>
 </tr>
@@ -605,7 +605,7 @@ sup {
 </table>
 
 
-<h4>2.4 车辆 /cars</h4>
+<h4>2.5 交易订单 /trades</h4>
 
 <table>
 <thead>
@@ -618,26 +618,78 @@ sup {
 </thead>
 <tbody>
 <tr>
-<td align="right">1</td>
-<td><a href="#cars_list">/cars</a>              </td>
+<td align="right">* 1</td>
+<td><a href="#add_trade">/trades</a>               </td>
+<td>POST   </td>
+<td>生成交易</td>
+</tr>
+<tr>
+<td align="right">* 2</td>
+<td><a href="#trade_list">/trades</a>          </td>
+<td>GET    </td>
+<td>交易列表</td>
+</tr>
+<tr>
+<td align="right">* 3</td>
+<td><a href="#view_trade">/trades/:id</a>      </td>
+<td>GET    </td>
+<td>交易详情</td>
+</tr>
+<tr>
+<td align="right">* 4</td>
+<td><a href="#trades_cancel">/trades/:id/cancel</a>    </td>
+<td>DELETE</td>
+<td>取消订单信息</td>
+</tr>
+<tr>
+<td align="right">* 5</td>
+<td><a href="#trade_log">/trades/logs</a>      </td>
+<td>POST   </td>
+<td>添加交易记录</td>
+</tr>
+<tr>
+<td align="right">* 6</td>
+<td><a href="#add_trade_log">/trades/logs</a>  </td>
+<td>GET    </td>
+<td>获取指定交易的交易记录</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>2.7 车辆 /cars</h4>
+
+<table>
+<thead>
+<tr>
+<th align="right">序号      </th>
+<th>接口名称  </th>
+<th>请求方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">* 1</td>
+<td><a href="#cars_list">/cars</a>             </td>
 <td>GET    </td>
 <td>车辆列表,从melink获取</td>
 </tr>
 <tr>
-<td align="right">2</td>
-<td><a href="#view_car">/cars/:id</a>               </td>
+<td align="right">* 2</td>
+<td><a href="#view_car">/cars/:id</a>          </td>
 <td>GET    </td>
 <td>车辆详情,从melink获取</td>
 </tr>
 <tr>
-<td align="right">3</td>
-<td><a href="#get_status">/cars/:id/status</a>  </td>
+<td align="right">* 3</td>
+<td><a href="#get_status">/cars/:id/status</a> </td>
 <td>GET    </td>
 <td>获取车辆状态,须melink修改</td>
 </tr>
 <tr>
-<td align="right">4</td>
-<td><a href="#put_status">/cars/:id/status</a>  </td>
+<td align="right">* 4</td>
+<td><a href="#put_status">/cars/:id/status</a> </td>
 <td>PUT    </td>
 <td>设置车辆状态,须melink修改</td>
 </tr>
@@ -645,7 +697,7 @@ sup {
 </table>
 
 
-<h4>2.5 车辆位置 /locations</h4>
+<h4>2.8 车辆位置 /locations</h4>
 
 <table>
 <thead>
@@ -658,14 +710,14 @@ sup {
 </thead>
 <tbody>
 <tr>
-<td align="right">1</td>
-<td><a href="#add_location">/locations</a>      </td>
+<td align="right">* 1</td>
+<td><a href="#add_location">/locations</a>     </td>
 <td>GET    </td>
 <td>添加车辆位置</td>
 </tr>
 <tr>
-<td align="right">2</td>
-<td><a href="#list_location">/locations</a>     </td>
+<td align="right">* 2</td>
+<td><a href="#list_location">/locations</a>        </td>
 <td>GET    </td>
 <td>获取车辆位置列表</td>
 </tr>
@@ -673,7 +725,7 @@ sup {
 </table>
 
 
-<h4>2.5 消息推送 /message</h4>
+<h4>2.9 消息推送 /message</h4>
 
 <table>
 <thead>
@@ -686,32 +738,32 @@ sup {
 </thead>
 <tbody>
 <tr>
-<td align="right">1</td>
-<td><a href="#sms">/message/sms</a>             </td>
+<td align="right">* 1</td>
+<td><a href="#sms">/message/sms</a>                </td>
 <td>POST</td>
 <td>推送短信</td>
 </tr>
 <tr>
-<td align="right">2</td>
-<td><a href="#app">/message/app</a>             </td>
+<td align="right">* 2</td>
+<td><a href="#app">/message/app</a>                </td>
 <td>POST</td>
 <td>app推送</td>
 </tr>
 <tr>
-<td align="right">3</td>
-<td><a href="#weixin">/message/weixin</a>       </td>
+<td align="right">* 3</td>
+<td><a href="#weixin">/message/weixin</a>      </td>
 <td>POST</td>
 <td>微信推送</td>
 </tr>
 <tr>
-<td align="right">4</td>
-<td><a href="#message">/message</a>             </td>
+<td align="right">* 4</td>
+<td><a href="#message">/message</a>                </td>
 <td>GET </td>
 <td>获取推送信息列表</td>
 </tr>
 <tr>
-<td align="right">5</td>
-<td><a href="#sms_count">/message/sms/count</a> </td>
+<td align="right">* 5</td>
+<td><a href="#sms_count">/message/sms/count</a>    </td>
 <td>GET </td>
 <td>当日免费短信剩余</td>
 </tr>
@@ -719,7 +771,7 @@ sup {
 </table>
 
 
-<h4>2.6 上传文件 /uploads</h4>
+<h4>2.10 上传文件 /uploads</h4>
 
 <table>
 <thead>
@@ -732,28 +784,74 @@ sup {
 </thead>
 <tbody>
 <tr>
-<td align="right">1</td>
-<td><a href="#add_uploads">/uploads/</a>            </td>
+<td align="right">* 1</td>
+<td><a href="#add_uploads">/uploads/</a>           </td>
 <td>POST</td>
 <td>生成上传附件</td>
 </tr>
 <tr>
-<td align="right">2</td>
-<td><a href="#list_uploads">/uploads/</a>       </td>
+<td align="right">* 2</td>
+<td><a href="#list_uploads">/uploads/</a>      </td>
 <td>GET </td>
 <td>获取附件列表</td>
 </tr>
 <tr>
-<td align="right">3</td>
-<td><a href="#update_uploads">/uploads/:id</a>  </td>
+<td align="right">* 3</td>
+<td><a href="#update_uploads">/uploads/:id</a> </td>
 <td>PUT </td>
 <td>修改附件信息</td>
 </tr>
 <tr>
-<td align="right">4</td>
-<td><a href="#get_uploads">/uploads/:id</a>     </td>
+<td align="right">* 4</td>
+<td><a href="#get_uploads">/uploads/:id</a>        </td>
 <td>GET </td>
 <td>获取附件信息</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>2.11 账户 /accounts</h4>
+
+<table>
+<thead>
+<tr>
+<th align="right">序号      </th>
+<th>接口名称  </th>
+<th>请求方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">* 1</td>
+<td><a href="#recharge">/accounts/:id/recharge</a> </td>
+<td>POST</td>
+<td>充值</td>
+</tr>
+<tr>
+<td align="right">* 2</td>
+<td><a href="#pay">/accounts/:id/pay</a>               </td>
+<td>POST</td>
+<td>支付</td>
+</tr>
+<tr>
+<td align="right">* 3</td>
+<td><a href="#account_info">/accounts/:id</a>      </td>
+<td>GET </td>
+<td>帐户信息</td>
+</tr>
+<tr>
+<td align="right">* 4</td>
+<td><a href="#account_log">/accounts/:id/log</a>   </td>
+<td>GET </td>
+<td>支付与充值记录</td>
+</tr>
+<tr>
+<td align="right">* 5</td>
+<td><a href="#account_cash">/accounts/:id/cash</a> </td>
+<td>POST</td>
+<td>提现</td>
 </tr>
 </tbody>
 </table>
@@ -812,7 +910,7 @@ sup {
 验证通过,在users表中根据login_name查找
     查找不到,说明该用户未激活,前端提示并转到激活页面
 
-获取将查找到的信息,将
+将查找到的数据中的(值为null时,取key="",而不是key=null)
     login_name,
     user_name,
     role,
@@ -821,7 +919,7 @@ sup {
     checked,
     status,
     expired_time(过期时间,当前时间加一天),
-用AESC加密后再用Base64加密,作为token
+用AES加密后再用Base64加密,作为token
 </code></pre>
 
 <p>返回数据:</p>
@@ -840,7 +938,22 @@ sup {
         "login_time":"2015-03-01 12:30:00",//上次登录时间
         "login_ip":"10.10.10.10",           //上次登录ip
         "login_count":10,                   //登录次数
-        "sign":"这个家伙很懒,什么也没有留下"
+        "sign":"这个家伙很懒,什么也没有留下",
+        "consignors":{
+            "id":123,
+            "contact_number":"货方联系电话",
+            "contact_name":"货方联系人",
+            "company":"公司名",
+            "address":"地址",
+            "memo":"货方备注"
+        },
+        "drivers":{
+            "id":345
+            "contact_number":"货方联系电话",
+            "contact_name":"货方联系人",
+            "plate_number":"车牌",
+            "memo":"车方备注"
+        }
     }
 }
 </code></pre></blockquote>
@@ -1131,6 +1244,7 @@ users表中area字段可空,配合role作为合作方的扩展
         "sign":"这个家伙很懒,什么也没有留下",
         "memo":"备注信息",
         "consignors":{
+            "id":123,
             "contact_number":"货方联系电话",
             "contact_name":"货方联系人",
             "company":"公司名",
@@ -1141,6 +1255,7 @@ users表中area字段可空,配合role作为合作方的扩展
             "img_biz":"biz/123.jpg",
         },
         "drivers":{
+            "id":345,
             "contact_number":"货方联系电话",
             "contact_name":"货方联系人",
             "plate_number":"车牌",
@@ -1191,6 +1306,7 @@ users表中area字段可空,配合role作为合作方的扩展
             "checked":1,
             "status":1,
             "consignors":{
+                "id":123,
                 "contact_number":"货方联系电话",
                 "contact_name":"货方联系人",
                 "company":"公司名",
@@ -1198,6 +1314,7 @@ users表中area字段可空,配合role作为合作方的扩展
                 "app_id":"货主端appid"
             },
             "drivers":{
+                "id":345,
                 "contact_number":"货方联系电话",
                 "contact_name":"货方联系人",
                 "plate_number":"车牌",
@@ -1278,7 +1395,7 @@ users表中area字段可空,配合role作为合作方的扩展
 }
 </code></pre></blockquote>
 
-<h4>1. <label id="add_cargo">发布货源</label></h4>
+<h4>1. <label id="add_cargo">发布货单</label></h4>
 
 <table>
 <thead>
@@ -1461,7 +1578,7 @@ users表中area字段可空,配合role作为合作方的扩展
 }
 </code></pre></blockquote>
 
-<h4>2. <label id="cargo_list">货源列表</label></h4>
+<h4>2. <label id="cargo_list">货单列表</label></h4>
 
 <table>
 <thead>
@@ -1632,7 +1749,7 @@ users表中area字段可空,配合role作为合作方的扩展
 }
 </code></pre>
 
-<h4>3. <label id="view_cargo">货源详情</label></h4>
+<h4>3. <label id="view_cargo">货单详情</label></h4>
 
 <table>
 <thead>
@@ -1708,6 +1825,900 @@ users表中area字段可空,配合role作为合作方的扩展
             "attch":"attch/20150302/123.zip",
             "memo":"我是备注信息,乱七八糟的都可以写在这里"
         }
+}
+</code></pre></blockquote>
+
+<h4>4. <label id="update_cargo">修改货单</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/cargos/:id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">PUT</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">title</td>
+<td align="left"></td>
+<td>货货名称,长度不超过200个字符</td>
+</tr>
+<tr>
+<td align="left">origin_city</td>
+<td align="left"></td>
+<td>启运地所在城市(地级市)</td>
+</tr>
+<tr>
+<td align="left">origin_addr</td>
+<td align="left"></td>
+<td>启运地详细地址</td>
+</tr>
+<tr>
+<td align="left">origin_lng</td>
+<td align="left"></td>
+<td>启运地经度(从百度地图API中获取)</td>
+</tr>
+<tr>
+<td align="left">origin_lat</td>
+<td align="left"></td>
+<td>启运地纬度(从百度地图API中获取)</td>
+</tr>
+<tr>
+<td align="left">destin_city</td>
+<td align="left"></td>
+<td>抵达地所在城市(地级市)</td>
+</tr>
+<tr>
+<td align="left">destin_addr</td>
+<td align="left"></td>
+<td>抵达地详细地址</td>
+</tr>
+<tr>
+<td align="left">destin_lng</td>
+<td align="left"></td>
+<td>抵达地经度(从百度地图API中获取)</td>
+</tr>
+<tr>
+<td align="left">destin_lat</td>
+<td align="left"></td>
+<td>抵达地纬度(从百度地图API中获取)</td>
+</tr>
+<tr>
+<td align="left">load_time</td>
+<td align="left"></td>
+<td>装货时间</td>
+</tr>
+<tr>
+<td align="left">ref_distance</td>
+<td align="left"></td>
+<td>参考货运距离(根据百度地图导航数据,获取默认线路的总距离)</td>
+</tr>
+<tr>
+<td align="left">ref_carriage</td>
+<td align="left"></td>
+<td>参考运费,根据距离与车型计算,具体计算方式另外给出</td>
+</tr>
+<tr>
+<td align="left">carriage</td>
+<td align="left"></td>
+<td>运费(即货方运费报价)</td>
+</tr>
+<tr>
+<td align="left">weight</td>
+<td align="left"></td>
+<td>重量</td>
+</tr>
+<tr>
+<td align="left">volume</td>
+<td align="left"></td>
+<td>体积</td>
+</tr>
+<tr>
+<td align="left">length</td>
+<td align="left"></td>
+<td>货长</td>
+</tr>
+<tr>
+<td align="left">car_length</td>
+<td align="left"></td>
+<td>所需车长</td>
+</tr>
+<tr>
+<td align="left">car_model</td>
+<td align="left"></td>
+<td>所需车型,平板,高栏等</td>
+</tr>
+<tr>
+<td align="left">sender_name</td>
+<td align="left"></td>
+<td>发货方联系人姓名</td>
+</tr>
+<tr>
+<td align="left">sender_phone</td>
+<td align="left"></td>
+<td>发货方联系电话</td>
+</tr>
+<tr>
+<td align="left">receiver_name</td>
+<td align="left"></td>
+<td>收货方联系人姓名</td>
+</tr>
+<tr>
+<td align="left">receiver_phone</td>
+<td align="left"></td>
+<td>收货方联系电话</td>
+</tr>
+<tr>
+<td align="left">voice</td>
+<td align="left"></td>
+<td>语音文件路径与文件名</td>
+</tr>
+<tr>
+<td align="left">img</td>
+<td align="left"></td>
+<td>图片文件路径与文件名</td>
+</tr>
+<tr>
+<td align="left">attch</td>
+<td align="left"></td>
+<td>附件路径与文件名,只允许一个附件,多个附件建议压缩成一个包,留作以后扩展用</td>
+</tr>
+<tr>
+<td align="left">memo</td>
+<td align="left"></td>
+<td>所需车型,平板,高栏等</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>说明:</p>
+
+<pre><code>修改 cargos 中相应的字段
+修改前要判断权限,
+    1.只有未成交的货单可以被修改
+        cargos.status==10
+
+    2. 只有管理员与发布人能修改,
+        token.login_name==cargos.login_name or token.role==99
+</code></pre>
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1
+}
+</code></pre></blockquote>
+
+<h4>5. <label id="del_cargo">删除货单</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/cargos/:id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">DELETE</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>说明:</p>
+
+<pre><code>删除前要判断权限,
+    1.只有未成交的货单可以被删除
+        cargos.status==10
+
+    2. 只有管理员与发布人能删除,
+        token.login_name==cargos.login_name or token.role==99
+</code></pre>
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1
+}
+</code></pre></blockquote>
+
+<h4>6. <label id="cargos_status">货单状态</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/cargos/:id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">GET</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1
+    "data":{
+        "status":10
+    }
+}
+</code></pre></blockquote>
+
+<table>
+<thead>
+<tr>
+<th align="right">序号      </th>
+<th>接口名称  </th>
+<th>请求方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">1</td>
+<td><a href="#add_call">/calllogs</a>               </td>
+<td>POST   </td>
+<td>添加电话沟通交易</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td><a href="#call_list">/calllogs</a>          </td>
+<td>GET    </td>
+<td>交易列表</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>1. <label id="add_call">通话记录</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/calllogs/:id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">POST</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type           </td>
+<td align="left">N  </td>
+<td>通话类型,1,车找货,2货找车,默认1</td>
+</tr>
+<tr>
+<td align="left">login_name </td>
+<td align="left">N  </td>
+<td>拔出用户登录名</td>
+</tr>
+<tr>
+<td align="left">to_login_name  </td>
+<td align="left">N  </td>
+<td>拔入用户登录名</td>
+</tr>
+<tr>
+<td align="left">cargo_id       </td>
+<td align="left">N  </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td align="left">hold_time      </td>
+<td align="left">N  </td>
+<td>通话时长,单位为秒</td>
+</tr>
+<tr>
+<td align="left">result         </td>
+<td align="left">   </td>
+<td>通话结果,0未达成交易,1达成交易,默认为0</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>说明:</p>
+
+<pre><code>result==0时,只添加通话记录,
+当result==1 &amp;&amp; cargos.status!=99 需要生成或者修改交易记录
+规则 如下:
+    当type==1 &amp;&amp; result==1 &amp;&amp; cargos.status!=99 时
+        根据cargos_id对应的货单,生成一条交易记录 trades,状态为20
+
+    当type==2 &amp;&amp; result==1 &amp;&amp; cargos.status!=99
+        根据cargos_id对应的货单生成一条交易记录,状态为30
+</code></pre>
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1
+}
+</code></pre></blockquote>
+
+<h4>1. <label id="add_call">添加通话记录</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/calllogs/:id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">POST</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type           </td>
+<td align="left">N  </td>
+<td>通话类型,1,车找货,2货找车,默认1</td>
+</tr>
+<tr>
+<td align="left">login_name </td>
+<td align="left">N  </td>
+<td>拔出用户登录名</td>
+</tr>
+<tr>
+<td align="left">to_login_name  </td>
+<td align="left">N  </td>
+<td>拔入用户登录名</td>
+</tr>
+<tr>
+<td align="left">cargo_id       </td>
+<td align="left">N  </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td align="left">hold_time      </td>
+<td align="left">N  </td>
+<td>通话时长,单位为秒</td>
+</tr>
+<tr>
+<td align="left">end_time       </td>
+<td align="left">   </td>
+<td>通话结束时间,默认为当前时间</td>
+</tr>
+<tr>
+<td align="left">result         </td>
+<td align="left">   </td>
+<td>通话结果,0未达成交易,1达成交易,默认为0</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>说明:</p>
+
+<pre><code>result==0时,只添加通话记录,
+当result==1 &amp;&amp; cargos.status!=99 需要生成或者修改交易记录
+规则 如下:
+    当type==1 &amp;&amp; result==1 &amp;&amp; cargos.status!=99 时
+        根据cargos_id对应的货单,生成一条交易记录 trades,状态为20
+
+    当type==2 &amp;&amp; result==1 &amp;&amp; cargos.status!=99
+        根据cargos_id对应的货单生成一条交易记录,状态为30
+
+
+考虑到客户端的时间可能与服务端时间不一致,所以不采用传入开始时间,直接由服务器当前时间作为结束时间,减去通话时长可以得到开始时间.
+end_time参数的功能为某些特殊需求(如假设数据)预留
+</code></pre>
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1
+}
+</code></pre></blockquote>
+
+<h3>2. <lable id="call_list">通话记录列表</label></h3>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/calllogs/:id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">GET</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">type           </td>
+<td align="left">   </td>
+<td>通话类型,1,车找货,2货找车,默认1</td>
+</tr>
+<tr>
+<td align="left">login_name </td>
+<td align="left">   </td>
+<td>拔出用户登录名</td>
+</tr>
+<tr>
+<td align="left">to_login_name  </td>
+<td align="left">   </td>
+<td>拔入用户登录名</td>
+</tr>
+<tr>
+<td align="left">cargo_id       </td>
+<td align="left">   </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td align="left">result         </td>
+<td align="left">   </td>
+<td>通话结果,0未达成交易,1达成交易,默认为0</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1,
+    "data":{
+        "type":1,
+        "login_name":13812345678,
+        "to_login_name":"13087654321",
+        "cargo_id":123,
+        "start_time":"2015-03-02 12:30",
+        "end_time":"2015-03-02 12:31:30",
+        "hold_time":90,
+        "result":0
+    }
+}
+</code></pre></blockquote>
+
+<h4>1. <label id="add_trade">生成交易订单</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/trades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">POST</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">cargo_id       </td>
+<td align="left">N  </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td align="left">login_name </td>
+<td align="left">N  </td>
+<td>车方登录名,货方的信息在货单中已经存在</td>
+</tr>
+<tr>
+<td align="left">trade_time </td>
+<td align="left">   </td>
+<td>交易达成时间,默认为当前服务器时间</td>
+</tr>
+<tr>
+<td align="left">carriage       </td>
+<td align="left">   </td>
+<td>运费</td>
+</tr>
+<tr>
+<td align="left">pre_pay        </td>
+<td align="left">   </td>
+<td>预付,默认为0</td>
+</tr>
+<tr>
+<td align="left">status         </td>
+<td align="left">   </td>
+<td>状态,默认为10</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>说明:</p>
+
+<pre><code>交易订单生成后,要同时在trade_log中增加一条记录 status为当前交易订单的状态
+</code></pre>
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1
+}
+</code></pre></blockquote>
+
+<h4>2. <label id="trade_list">交易订单列表</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/trades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">GET</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">cargo_id       </td>
+<td align="left">   </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td align="left">login_name </td>
+<td align="left">   </td>
+<td>车方登录名,货方的信息在货单中已经存在</td>
+</tr>
+<tr>
+<td align="left">trade_time_from</td>
+<td align="left">   </td>
+<td>交易达成时间,默认为当前服务器时间</td>
+</tr>
+<tr>
+<td align="left">trade_time_to  </td>
+<td align="left">   </td>
+<td>交易达成时间,默认为当前服务器时间</td>
+</tr>
+<tr>
+<td align="left">carriage_from  </td>
+<td align="left">   </td>
+<td>运费</td>
+</tr>
+<tr>
+<td align="left">carriage_to    </td>
+<td align="left">   </td>
+<td>运费</td>
+</tr>
+<tr>
+<td align="left">status         </td>
+<td align="left">   </td>
+<td>状态,默认为10</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>排序:</p>
+
+<pre><code>cargo_id desc,trade_time desc,status desc
+</code></pre>
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1,
+    "data":[
+        {
+            "cargo_id":123,
+            "login_name":"13812345678",
+            "trade_time":"2015-03-02 12:30:00",
+            "carriage":150.00,
+            "pay_type":0,
+            "status":10
+        },
+        {
+            ...
+        },
+        ...
+    ]
+}
+</code></pre></blockquote>
+
+<h4>3. <label id="view_trade">交易订单详情</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/trades:id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">GET</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1,
+    "data":{
+            "cargo_id":123,
+            "login_name":"13812345678",
+            "trade_time":"2015-03-02 12:30:00",
+            "carriage":150.00,
+            "pay_type":0,
+            "status":10
+        }
+}
+</code></pre></blockquote>
+
+<p>序号      |接口名称  |请求方式|说明
+------:|--------|-------------------|------------------</p>
+
+<p> 7|<a href="#trades_cancel">/trades/:id/cancel</a> |DELETE|取消订单信息
+ 8|<a href="#trade_log">/trades/:id/logs</a>   |GET    |获取指定交易的交易记录</p>
+
+<h4>4. <label id="trades_cancel">取消交易订单</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/trades:id/cancel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">POST</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>说明:</p>
+
+<pre><code>确认交易只有未启运的交易订单(status=10,)可以取消
+只有交易双方可以进行取消操作
+</code></pre>
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1
+}
+</code></pre>
+
+<h4>5. <label id="add_trade_log">交易状态变更</label></h4></blockquote>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/trades/logs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">POST</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trade_id       </td>
+<td align="left">N  </td>
+<td>订单id</td>
+</tr>
+<tr>
+<td align="left">login_name </td>
+<td align="left">   </td>
+<td>变更用户,默认为空</td>
+</tr>
+<tr>
+<td align="left">type           </td>
+<td align="left">   </td>
+<td>变更类型,默认为0</td>
+</tr>
+<tr>
+<td align="left">change_time    </td>
+<td align="left">   </td>
+<td>变更时间,默认为服务器当前时间</td>
+</tr>
+<tr>
+<td align="left">status         </td>
+<td align="left">N  </td>
+<td>变更状态</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1,
+    "data":[
+        {
+            "cargo_id":123,
+            "trade_id":345,
+            "type":"0",//变更类型,1为车方发起,2为货方发起,0为系统自动变更
+            "login_name":"13812345678",//当type=1时,为车方,type=2时为货方,type=0时,此值为空
+            "status":20,
+            "memo":"变动原因"
+        },
+        {
+            ...
+        }
+        ...
+    ]
+}
+</code></pre></blockquote>
+
+<h4>6. <label id="trade_log">交易状态变更记录</label></h4>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法名称</th>
+<th align="left">/trades/logs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">请求方式</td>
+<td align="left">GET</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">可空</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trade_id       </td>
+<td align="left">   </td>
+<td>订单id</td>
+</tr>
+<tr>
+<td align="left">cargo_id       </td>
+<td align="left">   </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td align="left">login_name </td>
+<td align="left">   </td>
+<td>变更用户</td>
+</tr>
+<tr>
+<td align="left">type           </td>
+<td align="left">   </td>
+<td>变更类型</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>返回数据:</p>
+
+<blockquote><pre><code>{
+    "result":1,
+    "data":[
+        {
+            "cargo_id":123,
+            "trade_id":345,
+            "type":"0",//变更类型,1为车方发起,2为货方发起,0为系统自动变更
+            "login_name":"13812345678",//当type=1时,为车方,type=2时为货方,type=0时,此值为空
+            "status":20,
+            "memo":"变动原因"
+        },
+        {
+            ...
+        }
+        ...
+    ]
 }
 </code></pre></blockquote>
 </body>

@@ -351,18 +351,38 @@ sup {
 </tr>
 <tr>
 <td>7 </td>
-<td><a href="#trades">trades</a>                </td>
-<td>交易信息表</td>
+<td><a href="#call_logs">call_logs</a>      </td>
+<td>电话沟通记录表</td>
 </tr>
 <tr>
 <td>8 </td>
-<td><a href="#trade_log">trade_logs</a>     </td>
-<td>交易过程记录表</td>
+<td><a href="#cargo_logs">cargo_logs</a>        </td>
+<td>车货匹配记录表</td>
 </tr>
 <tr>
 <td>9 </td>
-<td><a href="#call_log">call_logs</a>           </td>
-<td>电话沟通记录表</td>
+<td><a href="#trades">trades</a>                </td>
+<td>订单信息表</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="#trade_logs">trade_logs</a>        </td>
+<td>订单状态变更表</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="#accounts">accounts</a>            </td>
+<td>用户资金账户表</td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="#account_logs">account_logs</a>    </td>
+<td>账户变动记录表</td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="#settings">settings</a>            </td>
+<td>系统配置表</td>
 </tr>
 </tbody>
 </table>
@@ -485,6 +505,14 @@ sup {
 <td>   </td>
 <td>   </td>
 <td>签名档</td>
+</tr>
+<tr>
+<td>balance         </td>
+<td>decimal(18,2)  </td>
+<td>   </td>
+<td>   </td>
+<td>0  </td>
+<td>帐户余额,充值</td>
 </tr>
 <tr>
 <td>memo            </td>
@@ -665,15 +693,15 @@ sup {
 <td>所需车型</td>
 </tr>
 <tr>
-<td>sender_login_name   </td>
-<td>int        </td>
+<td>login_name      </td>
+<td>varchar(50)    </td>
 <td>   </td>
 <td>   </td>
 <td>   </td>
-<td>发货方登录名</td>
+<td>发布人登录名</td>
 </tr>
 <tr>
-<td>sender_contact  </td>
+<td>sender_name </td>
 <td>varchar(50)    </td>
 <td>   </td>
 <td>   </td>
@@ -689,7 +717,7 @@ sup {
 <td>发货方联系电话</td>
 </tr>
 <tr>
-<td>receiver_contact</td>
+<td>receiver_name   </td>
 <td>varchar(50)    </td>
 <td>   </td>
 <td>   </td>
@@ -722,11 +750,27 @@ sup {
 </tr>
 <tr>
 <td>voice           </td>
-<td>varchar(100)   </td>
+<td>varchar(50)    </td>
 <td>   </td>
 <td>   </td>
 <td>   </td>
 <td>语音信息文件路径</td>
+</tr>
+<tr>
+<td>img             </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>图片文件路径</td>
+</tr>
+<tr>
+<td>attch           </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>附加文件路径</td>
 </tr>
 <tr>
 <td>memo            </td>
@@ -909,7 +953,7 @@ sup {
 <td>身份证号码</td>
 </tr>
 <tr>
-<td>driving license</td>
+<td>driving_license</td>
 <td>varchar(50) </td>
 <td>   </td>
 <td>   </td>
@@ -1191,6 +1235,334 @@ sup {
 <td>   </td>
 <td>   </td>
 <td>文件相对url,包括文件名</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>7 <label id="call_logs">通话记录表 call_logs</label></h3>
+
+<table>
+<thead>
+<tr>
+<th>字段名   </th>
+<th>类型(长度) </th>
+<th>索引 </th>
+<th>可空 </th>
+<th>默认</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id              </td>
+<td>int            </td>
+<td>PK </td>
+<td>N  </td>
+<td>   </td>
+<td>id,自增</td>
+</tr>
+<tr>
+<td>type            </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>1  </td>
+<td>通话类型,1车找货,2货找车</td>
+</tr>
+<tr>
+<td>login_name      </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>拔出用户</td>
+</tr>
+<tr>
+<td>to_login_name   </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>拔入用户</td>
+</tr>
+<tr>
+<td>cargo_id        </td>
+<td>int            </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td>start_time      </td>
+<td>datetime       </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>开始时间,结束时间-通话时间</td>
+</tr>
+<tr>
+<td>end_time        </td>
+<td>datetime       </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>结束时间</td>
+</tr>
+<tr>
+<td>hold_time       </td>
+<td>int            </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>通话时长,单位为秒</td>
+</tr>
+<tr>
+<td>result          </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>0  </td>
+<td>通话结果,0未达成交易,1达成交易</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>8 <label id="cargo_logs">车货匹配记录表 cargo_logs</label></h3>
+
+<table>
+<thead>
+<tr>
+<th>字段名   </th>
+<th>类型(长度) </th>
+<th>索引 </th>
+<th>可空 </th>
+<th>默认</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id              </td>
+<td>int            </td>
+<td>PK </td>
+<td>N  </td>
+<td>   </td>
+<td>id,自增</td>
+</tr>
+<tr>
+<td>cargo_id        </td>
+<td>int            </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td>type            </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>类型,1车找货,2货找车</td>
+</tr>
+<tr>
+<td>plate_number    </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>车方车牌号</td>
+</tr>
+<tr>
+<td>login_name      </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>车方登录名</td>
+</tr>
+<tr>
+<td>create_time </td>
+<td>datetime       </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>达成交易的时间</td>
+</tr>
+<tr>
+<td>status          </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>状态,20待成交(车找货),30待成交(货找车),99已成交</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>9 <label id="trades">交易信息表 trades</label></h3>
+
+<table>
+<thead>
+<tr>
+<th>字段名   </th>
+<th>类型(长度) </th>
+<th>索引 </th>
+<th>可空 </th>
+<th>默认</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id              </td>
+<td>int            </td>
+<td>PK </td>
+<td>N  </td>
+<td>   </td>
+<td>id,自增</td>
+</tr>
+<tr>
+<td>cargo_id        </td>
+<td>int            </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>货单id</td>
+</tr>
+<tr>
+<td>login_name      </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>车方登录名</td>
+</tr>
+<tr>
+<td>trade_time      </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>交易生成时间</td>
+</tr>
+<tr>
+<td>carriage        </td>
+<td>decimal(18,2)  </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>运费</td>
+</tr>
+<tr>
+<td>pre_pay         </td>
+<td>decimal(18,2)  </td>
+<td>   </td>
+<td>   </td>
+<td>0  </td>
+<td>预付</td>
+</tr>
+<tr>
+<td>pay_type        </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>0  </td>
+<td>支付方式,0未知,1月结,2提付,3到付,4回单付,99其它</td>
+</tr>
+<tr>
+<td>status          </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>10 </td>
+<td>承运状态,0取消,10未启运,20运输中,90支付,99完成</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>10 <label id="trade_logs">交易记录变更表 trade_logs</label></h3>
+
+<table>
+<thead>
+<tr>
+<th>字段名   </th>
+<th>类型(长度) </th>
+<th>索引 </th>
+<th>可空 </th>
+<th>默认</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id              </td>
+<td>int            </td>
+<td>PK </td>
+<td>N  </td>
+<td>   </td>
+<td>id,自增</td>
+</tr>
+<tr>
+<td>cargo_id        </td>
+<td>int            </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>货单id,冗余</td>
+</tr>
+<tr>
+<td>trade_id        </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>订单id</td>
+</tr>
+<tr>
+<td>type            </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>变更类型,0系统,1车方,2货方</td>
+</tr>
+<tr>
+<td>login_name      </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>变更者的登录名,可能是空</td>
+</tr>
+<tr>
+<td>status          </td>
+<td>tinyint        </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>变更的状态</td>
+</tr>
+<tr>
+<td>change_time </td>
+<td>datetime       </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>变更的时间</td>
+</tr>
+<tr>
+<td>memo            </td>
+<td>varchar(50)    </td>
+<td>   </td>
+<td>   </td>
+<td>   </td>
+<td>变更说明</td>
 </tr>
 </tbody>
 </table>
