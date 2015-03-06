@@ -2,8 +2,8 @@
 
 序号		|接口名称  |请求方式|说明
 ------:|--------|-------------------|------------------
- 1|[/trades](#add_trade)				|POST 	|生成交易
- 2|[/trades](#trade_list)				|GET 	|交易列表
+ 1|[/trades](#add_trade)			|POST 	|生成交易
+ 2|[/trades](#trade_list)			|GET 	|交易列表
  3|[/trades/:id](#view_trade)		|GET 	|交易详情
  4|[/trades/:id/cancel](#trades_cancel)	|DELETE|取消订单信息
  5|[/trades/logs](#trade_log)		|POST	|添加交易记录
@@ -59,6 +59,9 @@
 >
 	{
 		"result":1,
+		"total":30,/记录数
+		"page_no":1,//当前页码1开始
+		"page_size":20,//每页记录数
 		"data":[
 			{
 				"cargo_id":123,
