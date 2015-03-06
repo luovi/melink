@@ -2,6 +2,7 @@
 
 序号		|接口名称  |请求方式|说明
 ------:|--------|-------------------|------------------
+ 0|[/users/check](#user_check)		|GET	|验证用户是否存在
  1|[/users/login](#login)			|POST	|登录
  2|[/users/register](#register)		|POST	|注册用户,用户在MeFP中不存在
  3|[/users/activate](#activate)		|POST	|激活用户,用户在MeFP中已存在
@@ -15,7 +16,26 @@
  11|[/users/drivers](#drivers)				|POST|添加车主信息
  12|[/users/driver/:id](#update_drivers)	|PUT|修改货主信息
  13|[/users/drivers/:id](#drivers_info)	|GET|获取车主信息
+ 
+#### 0. <label id="user_check">验证用户是否存在</label>
 
+|方法名称|/users/check|
+|:----|:--------|
+|请求方式|GET|
+
+|参数名称|可空|说明|
+|:--|:--------|
+|login_name||登录名|
+
+返回数据:
+>
+	{
+		"result":1,
+		"data:{
+			"reg_app": "melink"	,//不存在时值为空字符串
+        	"reg_time": "2011-07-23 20:27:00"
+		}
+	}	
  
 #### 1. <label id="login">用户登录</label>
 
