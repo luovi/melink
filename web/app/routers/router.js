@@ -1,7 +1,7 @@
 (function() {
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  define(['backbone', 'store', 'views/header'], function(Backbone, Store, HeaderView) {
+  define(['backbone', 'store', 'views/header', 'text!templates/modules/footer.html'], function(Backbone, Store, HeaderView, footer) {
     'use strict';
     var AppRouter;
     return AppRouter = Backbone.Router.extend({
@@ -25,7 +25,7 @@
         'cars/:id/edit': 'carsEdit',
         '*path': 'notFound'
       },
-      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset'],
+      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd'],
       notFound: function(path) {
         var self;
         self = this;
@@ -107,6 +107,13 @@
           return document.title = '注册';
         });
       },
+      cargoAdd: function() {
+        var self;
+        self = this;
+        return require(['views/cargo_new'], function(cargoAddView) {
+          return self.switchView(new cargoAddView);
+        });
+      },
       home: function() {
         var self;
         self = this;
@@ -127,7 +134,8 @@
         }
         this.el.html(view.el);
         this.header = new HeaderView;
-        return this.el.prepend(this.header.el);
+        this.el.prepend(this.header.el);
+        return this.el.append(this.template(footer, {}));
       },
       hasChange: function() {
         var self;
