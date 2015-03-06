@@ -26,8 +26,16 @@
         '*path': 'notFound'
       },
       anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset', 'home'],
+      notFound: function(path) {
+        var self;
+        self = this;
+        return require(['views/notfound'], function(NotFoundView) {
+          return self.switchView(new NotFoundView);
+        });
+      },
       before: function() {
         var _current_user, _ref;
+        alert(this.current_route());
         if (!(_ref = this.current_route().route, __indexOf.call(this.anonymous, _ref) >= 0)) {
           _current_user = this._current_user();
           if (_current_user) {
@@ -44,13 +52,6 @@
       },
       after: function() {
         return window.addRoute("/#" + Backbone.history.fragment);
-      },
-      notFound: function(path) {
-        var self;
-        self = this;
-        return require(['views/notfound'], function(NotFoundView) {
-          return self.switchView(new NotFoundView);
-        });
       },
       loginByApi: function() {
         var self;
