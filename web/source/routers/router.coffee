@@ -37,16 +37,10 @@ define [
 
         # 匿名权限页面
         anonymous: [
-            'notFound', 'login', 'signup', 'loginByApi', 'pswReset'
+            'notFound', 'login', 'signup', 'loginByApi', 'pswReset', 'home'
             ]
 
-        # 不存在的地址显示
-        notFound: (path) ->
-            self = @
-            require ['views/notfound'], (NotFoundView) ->
-                self.switchView(new NotFoundView)
 
-        
         # 路由前执行
         before: ->
             if not (@current_route().route in @anonymous)
@@ -63,6 +57,12 @@ define [
         # 路由后执行
         after: ->
             window.addRoute("/##{ Backbone.history.fragment }")
+
+        # 不存在的地址显示
+        notFound: (path) ->
+            self = @
+            require ['views/notfound'], (NotFoundView) ->
+                self.switchView(new NotFoundView)
 
         # views start ->
         loginByApi: ->
@@ -83,7 +83,8 @@ define [
                 self.switchView(new LoginView)
 
         logout: ->
-            # 清除本地存储 Store.remove('current_user')...
+            # 清除本地存储 
+            # Store.remove('current_user')...
             if window.isie6
                 Store.clear()
             date = new Date()

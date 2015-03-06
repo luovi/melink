@@ -25,14 +25,7 @@
         'cars/:id/edit': 'carsEdit',
         '*path': 'notFound'
       },
-      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset'],
-      notFound: function(path) {
-        var self;
-        self = this;
-        return require(['views/notfound'], function(NotFoundView) {
-          return self.switchView(new NotFoundView);
-        });
-      },
+      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset', 'home'],
       before: function() {
         var _current_user, _ref;
         if (!(_ref = this.current_route().route, __indexOf.call(this.anonymous, _ref) >= 0)) {
@@ -51,6 +44,13 @@
       },
       after: function() {
         return window.addRoute("/#" + Backbone.history.fragment);
+      },
+      notFound: function(path) {
+        var self;
+        self = this;
+        return require(['views/notfound'], function(NotFoundView) {
+          return self.switchView(new NotFoundView);
+        });
       },
       loginByApi: function() {
         var self;
