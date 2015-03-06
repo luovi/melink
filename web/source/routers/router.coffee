@@ -23,7 +23,7 @@ define [
             'cargos/new': 'cargoAdd'
             'cargo/:id/edit': 'cargoEdit'
             'cargo/:id/detail': 'cargoDetail'
-            'cargo/detail': 'cargoDetail'
+            'cargo/:id/push': 'cargoPush'
 
             # 车辆
             'cars': 'cars'

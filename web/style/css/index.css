@@ -99,9 +99,8 @@ i{
   margin-right:5px;
   vertical-align:middle;
 }
-i:hover{
-  cursor:pointer;
-}
+
+
 
 .clearfix:before,  .clearfix:after{
   display: table;
@@ -267,5 +266,136 @@ i:hover{
   width:960px;
   margin-left:auto;
   margin-right:auto;
+}
+
+
+
+
+
+/*@module pagination 分页*/
+.pagination{
+  height:36px;
+  margin:30px 0;
+}
+.pagination ul{
+  display: inline-block;
+  border-radius:3px;
+}
+.pagination li {
+  display: inline;
+}
+.pagination a {
+  float: left;
+  padding: 0 14px;
+  line-height: 34px;
+  border: 1px solid #ddd;
+  border-left-width: 0;
+}
+.pagination a:hover,
+.pagination .active a {
+  background-color: #f5f5f5;
+}
+.pagination .active a{
+  color: #999999;
+}
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+  color: #999999;
+  cursor: default;
+  background-color: transparent;
+}
+.pagination li:first-child a {
+  border-left-width: 1px;
+  border-radius: 3px 0 0 3px;
+}
+
+.pagination li:last-child a {
+  border-radius: 0 3px 3px 0;
+}
+.pagination .list-define{
+  float: right;
+  color: #888;
+}
+.pagination .list-define input{
+  width: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.pagination .list-define button{
+  padding:4px 10px;
+  margin-left: 5px;
+}
+
+/*@module table 表格*/
+table{
+  margin-bottom:20px;
+  border-color:#ddd;
+  width:100%;
+}
+table .btn-more{
+  padding:0;
+}
+tr.row-sep{
+  height:12px;
+}
+/*圆角*/
+table tr:first-child th:first-child,table tr:first-child td:first-child{
+  border-radius: 4px 0px 0px 0px;
+}
+table tr:first-child th:last-child,table tr:first-child td:last-child{
+  border-radius: 4px 0px 0px 0px;
+}
+table tr:last-child td:first-child{
+  border-radius: 0px 0px 0px 4px;
+}
+table tr:last-child td:last-child{
+  border-radius: 0px 0px 4px 0px;
+}
+
+table th, table td{
+  padding:10px 0px 10px 12px;
+  text-align:left;
+  border-top:1px solid #ddd;
+}
+table th{
+  font-weight:bold;
+}
+thead th,thead td{
+  border-top:0;
+}
+table.striped tbody tr:nth-child(odd) th, table.striped tbody tr:nth-child(odd) td{
+  background-color:#f9f9f9;
+}
+
+
+table.bordered{
+  border:1px solid transparent;
+}
+table.bordered td{
+  border:1px solid #ddd;
+}
+table input[type="checkbox"],table input[type="radio"]{
+  float:none;
+  margin-left: 0;
+}
+table i{
+  margin: -2px 0 2px 3px;
+}
+table a{margin-right:5px;display: inline-block;*display:inline;}
+table label{
+  margin-bottom: 0px; 
+  margin-right: 4px;
+}
+/*table seperated*/
+table.seperated{
+  width:748px;
+}
+table.seperated td{
+  padding:20px 25px;
+  border:1px solid #ddd;
+}
+table.seperated td span{
+  line-height: 24px;
 }
 

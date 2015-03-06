@@ -19,7 +19,7 @@
         'cargos/new': 'cargoAdd',
         'cargo/:id/edit': 'cargoEdit',
         'cargo/:id/detail': 'cargoDetail',
-        'cargo/detail': 'cargoDetail',
+        'cargo/:id/push': 'cargoPush',
         'cars': 'cars',
         'cars/new': 'carsNew',
         'cars/:id/edit': 'carsEdit',
