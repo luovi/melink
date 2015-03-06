@@ -10,7 +10,13 @@
  6|[/users](#userlist)				|GET 	|获取用户列表
  7|[/users/token](#token)			|POST	|为其它App提交接口,仅供MeFP访问
  8|[/users/consignors](#consignors)|POST	|添加货主信息
- 9|[/users/drivers](#drivers)		|POST	|添加车主信息
+ 9|[/users/consignors/:id](#update_consignors)|PUT|修改货主信息
+ 10|[/users/consignors/:id](#consignors_info)|GET|获取车主信息
+ 11|[/users/drivers](#drivers)				|POST|添加车主信息
+ 12|[/users/driver/:id](#update_drivers)	|PUT|修改货主信息
+ 13|[/users/drivers/:id](#drivers_info)	|GET|获取车主信息
+ 14|[/users/check](#user_check)		|GET	|验证用户是否存在
+ 15|[/users/captcha](#captcha)		|GET	|验证发送
  
 #### 1. <label id="login">用户登录</label>
 
@@ -98,6 +104,8 @@
 
 说明:
 
+	注册是指本系统与MeFP中都不存在的用户，注册时要在MeFP端注册用户，然后在本系统增加用户
+	
 	组织参数 login_name,password,captcha,向 MeFP_Portal/auth/register 发起请求
 	返回成功后,将login_name,user_name,city,sign,memo,reg_time(当前时间)等入到数据库表users中
 	
@@ -119,14 +127,16 @@
 
 |参数名称|可空|说明|
 |:--|:--------|
-|login_name|N|登录名|
-|user_name|N|昵称|
-|city|N|所在城市|
-|sign|N|签名档|
-|memo|N|备注信息|
+|login_name	|N	|登录名|
+|user_name	|	|昵称|
+|city		|	|所在城市|
+|sign		|	|签名档|
+|memo		|	|备注信息|
 
 说明:
-
+	
+	激活是指在MeFP中存在，但是本系统中不存在的用户，在第一次登录时需要进行激活操作
+	
 	向 MeFP_Portal/auth/check 发起请求,确认用户存在后
 	将login_name,user_name,city,sign,memo,reg_time(当前时间)等添加到数据库表users中
 	
@@ -252,11 +262,11 @@
 				},
 				"drivers":{
 					"id":345,
+					"idcard_number":"330323198010101234",
 					"contact_number":"货方联系电话",
 					"contact_name":"货方联系人",
 					"plate_number":"车牌",
-					"location":"最新位置",
-					"lng":119.12345,
+					"location":"最新位置",							"lng":119.12345,
 					"lat":38.123456,
 					"app_id":"车主端appid"
 				}
@@ -299,3 +309,216 @@
 		"token":"xxxxxxxxxxxxxxxxxxx"
 	}
 
+#### 8. <label id="consignors">添加货主信息</label>
+
+|方法名称|/users/consignors|
+|:----|:--------|
+|请求方式|POST|
+
+|参数名称|可空|说明|
+|:--|:--------|
+|login_name		|N|登录名|
+|contact_name	|N|联系人|
+|contact_number	|N|联系电话|
+|company		||公司名|
+|address		||地址|
+|device_id		||手机设备号|
+|weixin_id		||微信号|
+|jpush_sn		||极光推送序列号|
+|img_org		||组织代码证照片|
+|img_biz		||营业执照证照片|
+|memo			||备注|
+
+
+返回数据:
+>
+	{
+		"result":1
+	}
+
+#### 9. <label id="update_consignors">修改货主信息</label>
+
+|方法名称|/users/consignors/:id|
+|:----|:--------|
+|请求方式|PUT|
+
+|参数名称|可空|说明|
+|:--|:--------|
+|contact_name	||联系人|
+|contact_number	||联系电话|
+|company		||公司名|
+|address		||地址|
+|device_id		||手机设备号|
+|weixin_id		||微信号|
+|jpush_sn		||极光推送序列号|
+|img_org		||组织代码证照片|
+|img_biz		||营业执照证照片|
+|memo			||备注|
+
+
+返回数据:
+>
+	{
+		"result":1
+	}	
+
+#### 10. <label id="consignors_info">获取货主信息</label>
+
+|方法名称|/users/consignors/:id|
+|:----|:--------|
+|请求方式|GET|
+
+
+返回数据:
+>
+	{
+		"result":1,
+		"data":{
+			"id":123,
+			"login_name":"13812345678",
+			"company":"杭州米阳科技有限公司"，
+			“address”:"杭州市拱墅区北部软件园D座220室"，
+			“contact_name”:"张三"，
+			“contact_number”:"13812345678",
+			"decice_id":"",
+			"weixin_id":"",
+			"jpush_sn":"",
+			"img_org":"",
+			"img_biz":"",
+			"memo":""
+		}
+	}
+	
+#### 11. <label id="drivers">添加车主信息</label>
+
+|方法名称|/users/drivers|
+|:----|:--------|
+|请求方式|POST|
+
+|参数名称|可空|说明|
+|:--|:--------|
+|login_name		|N|登录名|
+|plate_number	|N|车牌|
+|contact_name	|N|联系人|
+|contact_number	|N|联系电话|
+|idcard_number||身份证号|
+|driving_license||驾驶证编号|
+|locate_number	||定位手机|
+|device_id		||手机设备号|
+|weixin_id		||微信号|
+|jpush_sn		||极光推送序列号|
+|img_car		||车身照片|
+|img_driver		||驾驶证证照片|
+|img_driving	||行驶证照证照片|
+|img_opt		||营运证照片|
+|memo			||备注|
+
+
+返回数据:
+>
+	{
+		"result":1
+	}
+
+#### 13. <label id="update_drivers">修改车主信息</label>
+
+|方法名称|/users/drivers/:id|
+|:----|:--------|
+|请求方式|PUT|
+
+|参数名称|可空|说明|
+|:--|:--------|
+|plate_number		||车牌|
+|idcard_number		||身份证|
+|driving_license	||行驶证|
+|contact_name		||联系人|
+|contact_number		||联系电话|
+|driving_license	||驾驶证编号|
+|locate_number		||定位手机|
+|device_id			||手机设备号|
+|weixin_id			||微信号|
+|jpush_sn			||极光推送序列号|
+|img_car			||车身照片|
+|img_driver			||驾驶证证照片|
+|img_driving		||行驶证照证照片|
+|img_opt			||营运证照片|
+|memo				||备注|
+
+
+返回数据:
+>
+	{
+		"result":1
+	}
+
+
+#### 13. <label id="drivers_info">获取车主信息</label>
+
+|方法名称|/users/drivers/:id|
+|:----|:--------|
+|请求方式|GET|
+
+
+返回数据:
+>
+	{
+		"result":1,
+		"data":{
+			"id":123,
+			"login_name":"13812345678",
+			"plate_number":"浙A12345"，
+			“contact_name”:"张三"，
+			“contact_number”:"13812345678",
+			"idcard_number":"身份证号",
+			"driving_license":"",
+			"decice_id":"",
+			"weixin_id":"",
+			"jpush_sn":"",
+			"img_car":"",
+			"img_driver":"",
+			"img_driving":"",
+			"img_opt":"",
+			"memo":""
+		}
+	}
+
+#### 14. <label id="user_check">验证用户是否存在</label>
+
+|方法名称|/users/check|
+|:----|:--------|
+|请求方式|GET|
+
+|参数名称|可空|说明|
+|:--|:--------|
+|login_name||登录名|
+
+返回数据:
+>
+	{
+		"result":1,
+		"data:{
+			"reg_app": "melink"	,//不存在时值为空字符串
+        	"reg_time": "2011-07-23 20:27:00"
+		}
+	}	
+
+#### 15. <label id="captcha">验证用户是否存在</label>
+
+|方法名称|/users/captcha|
+|:----|:--------|
+|请求方式|POST|
+
+|参数名称|可空|说明|
+|:--|:--------|
+|login_name||登录名|
+|usage||用途，1注册，2找回密码|
+
+说明：
+	
+	成功后向目标手机发送验证码
+	
+返回数据:
+>
+	{
+		"result":1
+	}	

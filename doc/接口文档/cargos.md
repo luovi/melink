@@ -6,8 +6,7 @@
   2|[/cargos](#cargo_list)			|GET 	|获取货单列表
   3|[/cargos/:id](#view_cargo)		|GET 	|获取货单详情
   4|[/cargos/:id](#update_cargo)	|PUT 	|修改货单
-  5|[/cargos/:id](#del_cargo)		|DELETE	|删除货单 
-  6|[/cargos/:id/status](#cargos_status)|GET |获取货单状态
+  5|[/cargos/:id](#del_cargo)		|DELETE	|删除货单
 
 
 #### 1. <label id="add_cargo">发布货单</label>
@@ -20,11 +19,12 @@
 |:--|:--------|
 |login_name|N|发货用户的登录名|
 |title|N|货货名称,长度不超过200个字符|
-|origin_city|N|启运地所在城市(地级市)|
+|type|N|货单来源，0本系统，1联联看，10以上对外接口，默认0|
+|origin_city||启运地所在城市(地级市)|
 |origin_addr||启运地详细地址|
 |origin_lng||启运地经度(从百度地图API中获取)|
 |origin_lat||启运地纬度(从百度地图API中获取)|
-|destin_city|N|抵达地所在城市(地级市)|
+|destin_city||抵达地所在城市(地级市)|
 |destin_addr||抵达地详细地址|
 |destin_lng||抵达地经度(从百度地图API中获取)|
 |destin_lat||抵达地纬度(从百度地图API中获取)|
@@ -65,6 +65,7 @@
 
 |参数名称|可空|说明|
 |:--|:--------|
+|type||货单来源|
 |login_name||发货用户的登录名|
 |origin_city||启运地所在城市(地级市)|
 |destin_city||抵达地所在城市(地级市)|
@@ -99,6 +100,7 @@
 		"result":1
 		"data":[
 			{
+				"type":0,
 				"login_name":"13812345678",
 				"title":"duang~duang~duang~",
 				"origin_city":"杭州",
@@ -113,8 +115,8 @@
 				"car_model":"CM02",
 				"ref_distance":5.1,//参考货运距离
 				"distance":10.3,//参考距离,只有传入指定的lng与lat,才会有值
-				"ref_carriage":200,
-				"carriage":250,
+				"ref_carriage":200,//参考运费
+				"carriage":250,//运费报价
 				"sender_name":"张三",
 				"sender_phone":"13812345678",
 				"receiver_name":"李四",
@@ -131,7 +133,7 @@
 	
 #### 3. <label id="view_cargo">货单详情</label>
 
-|方法名称|/cargos|
+|方法名称|/cargos/:id|
 |:----|:--------|
 |请求方式|GET|
 
@@ -145,6 +147,7 @@
 	{
 		"result":1
 		"data":{
+				"type":0,
 				"login_name":"13812345678",
 				"title":"duang~duang~duang~",
 				"origin_city":"杭州",
@@ -252,17 +255,3 @@
 		"result":1
 	}
 	
-#### 6. <label id="cargos_status">货单状态</label>
-
-|方法名称|/cargos/:id/status|
-|:----|:--------|
-|请求方式|GET|
-
-返回数据:
->
-	{
-		"result":1
-		"data":{
-			"status":10
-		}
-	}
