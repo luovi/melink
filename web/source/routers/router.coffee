@@ -38,7 +38,7 @@ define [
 
         # 匿名权限页面
         anonymous: [
-            'notFound', 'login', 'signup', 'loginByApi', 'pswReset','cargoAdd'
+            'notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd', 'cargos'
             ]
 
 

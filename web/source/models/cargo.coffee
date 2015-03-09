@@ -13,17 +13,16 @@ define [
             "receiver_phone": 'contact_number'
             "sender_phone": 'contact_number'
             "delivery_name": 'short_title'
-        # _status:
-        #     100: '已正式'
-        #     200: '已发布'
-        #     300: '已接单'
-        #     400: '已转包'
-        #     500: '已启运'
-        #     600: '已转运'
-        #     800: '已收货'
+        # 状态,货单状态,0已取消,10未成交(默认),20待成交(车找货),30待成交(货找车),99已成交
+        _status:
+            0: '已取消'
+            10: '已成交'
+            20: '待成交'
+            30: '待成交'
+            99: '已成交'
         
-        # getStatusName: (_status) ->
-        #     @_status[_status]
+        getStatusName: (_status) ->
+            @_status[_status]
         
         # getFlagIndex: (flagName) ->
         #     item = _.find  @get('item').locate_methods, (item) ->

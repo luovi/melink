@@ -12,6 +12,16 @@
         "sender_phone": 'contact_number',
         "delivery_name": 'short_title'
       },
+      _status: {
+        0: '已取消',
+        10: '已成交',
+        20: '待成交',
+        30: '待成交',
+        99: '已成交'
+      },
+      getStatusName: function(_status) {
+        return this._status[_status];
+      },
       parse: function(response) {
         var item, self;
         self = this;
