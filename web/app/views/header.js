@@ -7,8 +7,10 @@
         return this.render();
       },
       render: function() {
+        var user;
+        user = Store.get('current_user').username;
         return this.$el.html(this.template(tmp_header, {
-          aaa: 0
+          user: user
         }));
       },
       remove: function() {

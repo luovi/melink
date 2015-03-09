@@ -137,6 +137,7 @@ i.drop-down-gray{background-position:-176px -64px;}
 .w30{width: 30px;}
 .h40{height: 40px;clear: both;}
 .mt10{margin-top: 10px;}
+.mt20{margin-top: 20px;}
 .mt70{margin-top: 70px;}
 .mr0{margin-right: 0;}
 .mr5{margin-right: 5px;}
@@ -151,6 +152,7 @@ i.drop-down-gray{background-position:-176px -64px;}
 .ml160{margin-left: 160px;}
 .m-auto{margin: 0 auto;}
 .p5{padding:0 5px;}
+.p50{padding:0 50px;}
 .inline-block{
   display: inline-block;
            *display: inline;
@@ -177,13 +179,21 @@ i.drop-down-gray{background-position:-176px -64px;}
 .border-l{
   border-left: 1px solid #e5e5e5;
 }
+select{
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #bebebe;
+  background: #fff;
+  border-radius: 1px;
+}
 input.text{
   height: 14px;
   line-height: 14px;
   border: 1px solid #bebebe;
   background: #fff;
-  padding: 7px;
+  padding: 7px 0;
 }
+
 .input-xslarge{
   width: 78px;
 }
@@ -291,7 +301,7 @@ input.input-high{
 }
 /*@module 网格系统*/
 .row{
-  margin-left:-40px;
+  /*margin-left:-40px;*/
 }
 .row:before,.row:after{
   display: table;
@@ -303,7 +313,7 @@ input.input-high{
 }
 .row [class*="span"]{
   float:left;
-  margin-left:40px;
+  margin-left:30px;
 }
 .span10{width: 920px;}
 .span8{width: 749px; padding-right: 1px;} /*table右边border能显示*/
@@ -367,10 +377,71 @@ input.input-high{
   margin-left:auto;
   margin-right:auto;
 }
+.content-box{
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  margin-bottom: 26px;
+  padding-top:20px;
+}
 
-
-
-
+.red{
+  color:#ff4a00;
+}
+/*头部*/
+.site-header{
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+  height: 108px;
+}
+.site-header .logo{
+  float: left;
+}
+.site-header .header-nav-tab{
+  float: right;
+}
+.header-nav-tab li{
+  float: left;
+  height: 65px;
+  line-height: 90px;
+  margin-right: 34px;
+  font-size: 18px;
+}
+.header-nav-tab li a{
+  color: #959595;
+  display: inline-block;
+  height: 65px;
+}
+.header-nav-tab li.active{
+  border-bottom: 2px solid #ff4a00;
+}
+.header-nav-tab li.active a{
+  color: #313131;
+}
+.header-toper{
+  background: #414141;
+  height: 30px;
+  line-height: 30px;
+}
+.header-toper-info{
+  float: right;
+  color: #fff;
+  padding-right: 160px;
+}
+/*底部*/
+.footer{
+  height: 70px;
+  background: #fafafa;
+  padding:30px 0;
+}
+.footer p{
+  text-align: center;
+  color:#a6a6a6;
+  line-height: 34px;
+}
+.footer a{
+  color: #6b6b6b;
+  margin: 0 16px;
+}
 
 /*@module pagination 分页*/
 .pagination{
@@ -390,6 +461,7 @@ input.input-high{
   line-height: 34px;
   border: 1px solid #ddd;
   border-left-width: 0;
+  color: #525252;
 }
 .pagination a:hover,
 .pagination .active a {

@@ -1,0 +1,22 @@
+<div class="pagination">
+    <ul>
+        <% if (page==1) { %>
+        <li class="disabled"><a href="javascript:;"><上一页</a></li>
+        <% } else { %>
+        <li><a href="javascript:;" data-page="<%= page-1 %>"><上一页</a></li>
+        <li><a href="javascript:;" data-page="1">1</a></li>
+            <% if (page > 2) { %>
+            <li class="disabled"><a href="javascript:;">...</a></li>
+            <li><a href="javascript:;" class="paging" data-page="<%= page-1 %>"><%= page-1 %></a></li>
+            <% }; %>
+        <% }; %>
+        <li class="active"><a href="javascript:;" class="paging" data-page="<%= page %>"><%= page %></a></li>
+        <% if (has_next) { %>
+        <li><a href="javascript:;" class="paging" data-page="<%= page+1 %>"><%= page+1 %></a></li>
+        <li class="disabled"><a href="javascript:;">...</a></li>
+        <li><a href="javascript:;" class="paging" data-page="<%= page+1 %>">下一页></a></li>
+        <% } else { %>
+        <li class="disabled"><a href="javascript:;" class="paging">下一页></a></li>
+        <% }; %>
+    </ul>
+</div>
