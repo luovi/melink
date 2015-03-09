@@ -12,7 +12,6 @@ define [
         initialize: (opts={})->
 
             @render()
-        
         render: ->
             self = @
             $container = $('<div class="container"></div>')

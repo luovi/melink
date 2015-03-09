@@ -1,5 +1,5 @@
 (function() {
-  define(['backbone', 'store', 'lib/city_data', 'lib/city_web', 'text!templates/modules/crumb.html', 'text!templates/forms/cargo_add.html'], function(Backbone, Store, City_data, City_web, tmp_crumb, tmp_cargo_add) {
+  define(['backbone', 'store', 'modal', 'text!templates/modules/crumb.html', 'text!templates/forms/cargo_add.html'], function(Backbone, Store, Modal, tmp_crumb, tmp_cargo_add) {
     'use strict';
     var cargoAddView;
     return cargoAddView = Backbone.View.extend({
@@ -10,14 +10,24 @@
         'submit form': 'submit'
       },
       submit: _.debounce(function(event) {
-        var $target, attr, self;
+        var $target, modal, self;
         self = this;
         this.dirty = false;
         event.preventDefault();
         $target = $(event.currentTarget);
-        attr = _.extend(this._arguments($target.serialize()));
-        return this.log(attr);
-      }, 2000),
+        return modal = new Modal({
+          title: "确定删除联系人",
+          content: "<div ><p>您确定要删除联系人 吗？</p></div>",
+          button: [
+            {
+              value: "确定",
+              "class": "btn-small btn-confirm",
+              callback: function() {},
+              autoremove: true
+            }
+          ]
+        });
+      }, 800),
       render: function() {
         var $container, user;
         $container = $('<div class="container"></div>');

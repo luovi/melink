@@ -1,11 +1,10 @@
 define [
     'backbone',
     'store',
-    'lib/city_data'
-    'lib/city_web'
+    'modal'
     'text!templates/modules/crumb.html'
     'text!templates/forms/cargo_add.html'
-], (Backbone,Store,City_data,City_web,tmp_crumb,tmp_cargo_add) ->
+], (Backbone,Store,Modal,tmp_crumb,tmp_cargo_add) ->
     'use strict'
 
     cargoAddView = Backbone.View.extend
@@ -20,9 +19,20 @@ define [
             event.preventDefault()
             $target = $(event.currentTarget)
 
-            attr = _.extend @_arguments($target.serialize())
-            @log attr
-        ,2000
+            # attr = _.extend @_arguments($target.serialize())
+            # @log attr
+            modal = new Modal
+                title: "确定删除联系人"
+                content: "<div ><p>您确定要删除联系人 吗？</p></div>"
+                button: [
+                    value: "确定"
+                    class: "btn-small btn-confirm"
+                    callback: ->
+                       
+                    autoremove: true
+                ]
+
+        ,800
         render:->
             $container = $('<div class="container"></div>')
             user = Store.get('current_user').username
