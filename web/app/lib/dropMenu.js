@@ -9,7 +9,7 @@
         menus: '.drop-menu',
         namespaces: 'dropMenu',
         activeClassName: 'active',
-        foot_h: 50,
+        foot_h: 0,
         tip_h: 8
       };
 
