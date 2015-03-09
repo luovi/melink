@@ -39,7 +39,10 @@ abbr,acronym {
 a:focus, input[type=button] ,input[type=submit] {
   outline:none;
 }
-
+textarea{
+  outline: none;
+  resize: none;
+}
 /*components*/
 /***********************************************************************************************/
 
@@ -47,7 +50,7 @@ a:focus, input[type=button] ,input[type=submit] {
 /***********************************************************************************************/
 body{
   font-size:13px; 
-  color:#333; 
+  color:#313131; 
   line-height:20px;
   font-family: 'Open Sans', Arial, 'Microsoft Yahei','宋体',  sans-serif;
 }
@@ -136,18 +139,66 @@ i:hover{
 .mr0{margin-right: 0;}
 .mr5{margin-right: 5px;}
 .mr20{margin-right: 20px;}
+.mr48{margin-right: 49px;}
 .mr58{margin-right: 58px;}
 .ml10{margin-left: 10px;}
 .ml19{margin-left: 19px;}
 .ml20{margin-left: 20px;}
 .ml30{margin-left: 30px;}
 .ml160{margin-left: 160px;}
+.m-auto{margin: 0 auto;}
 .p5{padding:0 5px;}
 .inline-block{
   display: inline-block;
            *display: inline;
            zoom: 1;
 }
+.algin-l{
+  text-align: left;
+}
+.algin-c{
+  text-align: center;
+}
+.algin-r{
+  text-align: right;
+}
+.border-b{
+  border-bottom: 1px solid #e5e5e5;
+}
+.border-r{
+  border-right: 1px solid #e5e5e5;
+}
+.border-t{
+  border-top: 1px solid #e5e5e5;
+}
+.border-l{
+  border-left: 1px solid #e5e5e5;
+}
+input.text{
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #bebebe;
+  background: #fff;
+}
+.input-xslarge{
+  width: 78px;
+}
+.input-xlarge{
+  width: 186px;
+}
+.input-slarge{
+  width: 232px;
+}
+.input-mlarge{
+  width: 278px;
+}
+.input-llarge{
+  width: 398px;
+}
+.input-xllarge{
+  width: 608px;
+}
+
 .pull-right {
   float: right;
 }
@@ -160,6 +211,38 @@ i:hover{
 .show {
   display: block;
 }
+.btn{
+  height: 34px;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+}
+.btn-normal{
+  background: #ff4a00;
+  color:#fff;
+}
+.btn-cancel{
+  background: #a0a0a0;
+  color:#fff;
+}
+.btn-xslarge{
+  width: 70px;
+}
+.btn-xlarge{
+  width: 100px;
+}
+.btn-slarge{
+  width: 150px;
+}
+.btn-mlarge{
+  width: 200px;
+}
+/*.btn-llarge{
+  width: 398px;
+}
+.btn-xllarge{
+  width: 608px;
+}*/
 .affix {
   position: fixed;
 }
@@ -274,6 +357,8 @@ i:hover{
 /*头部*/
 .site-header{
   background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+  height: 108px;
 }
 .site-header .logo{
   float: left;
@@ -310,12 +395,82 @@ i:hover{
   padding-right: 160px;
 }
 /*底部*/
+.footer{
+  height: 70px;
+  background: #fafafa;
+  padding:30px 0;
+}
 .footer p{
   text-align: center;
   color:#a6a6a6;
+  line-height: 34px;
 }
 .footer a{
   color: #6b6b6b;
   margin: 0 16px;
 }
-.
+/*面包屑*/
+.crumb{
+  height: 50px;
+  line-height: 50px;
+}
+.form-box{
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding:0 128px;
+  margin-bottom: 26px;
+}
+/*表单*/
+.required{
+  color: #ff4a00;
+  margin-right: 2px;
+}
+.group{
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+}
+.group-y{
+  float: left;
+}
+.group-min{
+  height: 50px;
+  margin-bottom: 10px;
+}
+.label,.control-holder{
+  float: left;
+}
+.label{
+  width: 78px;
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+  padding-right: 14px;
+}
+.label.algin-l{
+  text-align: left;
+}
+.open-cargo-info{
+  height: 43px;
+  line-height: 43px;
+  cursor: pointer;
+}
+.form-box .title{
+  margin: 30px 0  20px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+.cargo-other-info textarea{
+  width: 608px;
+  height: 66px;
+}
+.cargo-remark{
+  height: 90px;
+}
+.add-cargo-btn{
+  width: 275px;
+  margin: 30px auto;
+}
+/*.control-holder{
+  display: inline;
+}*/

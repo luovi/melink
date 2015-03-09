@@ -7,7 +7,9 @@
         return this.render();
       },
       render: function() {
-        return this.$el.html(this.template(tmp_header, {}));
+        return this.$el.html(this.template(tmp_header, {
+          aaa: 0
+        }));
       },
       remove: function() {
         return this._super('remove');

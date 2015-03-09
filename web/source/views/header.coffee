@@ -9,7 +9,7 @@ define [
         initialize: ->
         	@render()
         render: ->
-        	@$el.html @template(tmp_header, {})
+        	@$el.html @template(tmp_header, {aaa:0})
         remove: ->
             @_super('remove')
 
