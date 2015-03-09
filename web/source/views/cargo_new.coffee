@@ -1,9 +1,11 @@
 define [
     'backbone',
     'store',
+    'lib/city_data'
+    'lib/city_web'
     'text!templates/modules/crumb.html'
     'text!templates/forms/cargo_add.html'
-], (Backbone,Store,tmp_crumb,tmp_cargo_add) ->
+], (Backbone,Store,City_data,City_web,tmp_crumb,tmp_cargo_add) ->
     'use strict'
 
     cargoAddView = Backbone.View.extend
@@ -12,6 +14,15 @@ define [
 
         events:
             'submit form': 'submit'
+        submit: _.debounce (event) ->
+            self = @
+            @dirty = false
+            event.preventDefault()
+            $target = $(event.currentTarget)
+
+            attr = _.extend @_arguments($target.serialize())
+            @log attr
+        ,2000
         render:->
             $container = $('<div class="container"></div>')
             user = Store.get('current_user').username

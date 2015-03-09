@@ -25,7 +25,7 @@ define [
             'cargo/:id/edit': 'cargoEdit'
             'cargo/:id/detail': 'cargoDetail'
             'cargo/:id/push': 'cargoPush'
-
+            'cargo/:id/update/done':'cargoAddDone'
             # 车辆
             'cars': 'cars'
             'cars/new': 'carsNew'
@@ -115,13 +115,15 @@ define [
                 self.switchView(new SignupView)
                 document.title='注册'
 
+        
+        home: ->
+            @cargos()
+
         cargoAdd:->
             self = @
             require ['views/cargo_new'], (cargoAddView) ->
                 self.switchView(new cargoAddView)
                 document.title='新增货源'
-        home: ->
-            @cargos()
          
         cargoDetail:->
             self = @
@@ -134,7 +136,11 @@ define [
             require ['views/cargos'], (cargosView) ->
                 self.switchView(new cargosView)
                 document.title='货物列表'
-
+        cargoAddDone: (id)->
+            self = @
+            require ['views/cargo_add_done'], (CargoAddDoneView) ->
+                self.switchView(new CargoAddDoneView(id:id))
+                document.title = '添加完成 - 联联看官网 - 车辆定位调度监控系统'
         # 切换页面
         switchView: (view) ->
             self = @

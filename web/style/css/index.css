@@ -106,7 +106,14 @@ i{
 i.cog-gray{background-position:-160px -64px;}
 i.drop-down-gray{background-position:-176px -64px;}
 
-
+em.icon_em{
+  width: 56px;
+  height: 56px;
+  display:inline-block;
+  background:url(/static/v/v1/images/llk_icon.png) no-repeat;
+  margin-right:5px;
+  vertical-align:middle;
+}
 
 .clearfix:before,  .clearfix:after{
   display: table;
@@ -150,6 +157,9 @@ i.drop-down-gray{background-position:-176px -64px;}
 .ml30{margin-left: 30px;}
 .ml160{margin-left: 160px;}
 .m-auto{margin: 0 auto;}
+.p-auto-50{
+  padding: 50px 0;
+}
 .p5{padding:0 5px;}
 .p50{padding:0 50px;}
 .inline-block{
@@ -184,33 +194,52 @@ select{
   border: 1px solid #bebebe;
   background: #fff;
   border-radius: 1px;
+  padding: 0 4px;
 }
 input.text{
   height: 28px;
   line-height: 28px;
   border: 1px solid #bebebe;
   background: #fff;
+  padding:0 4px;
 }
 
 .input-xslarge{
-  width: 78px;
+  width: 70px;
 }
 .input-xlarge{
-  width: 186px;
+  width: 178px;
 }
 .input-slarge{
-  width: 232px;
+  width: 224px;
 }
 .input-mlarge{
-  width: 278px;
+  width: 270px;
 }
 .input-llarge{
-  width: 398px;
+  width: 390px;
 }
 .input-xllarge{
-  width: 608px;
+  width: 600px;
 }
-
+select.input-xslarge{
+  width: 80px;
+}
+select.input-xlarge{
+  width: 188px;
+}
+select.input-slarge{
+  width: 234px;
+}
+select.input-mlarge{
+  width: 280px;
+}
+select.input-llarge{
+  width: 400px;
+}
+select.input-xllarge{
+  width: 610px;
+}
 .pull-right {
   float: right;
 }
@@ -235,6 +264,7 @@ input.text{
   border: none;
   border-radius: 3px;
   font-size: 14px;
+  cursor:pointer;
 }
 .btn-normal{
   background: #ff4a00;
@@ -262,6 +292,12 @@ input.text{
 .btn-xllarge{
   width: 608px;
 }*/
+.done_render_title{
+  font-size: 40px;
+  height: 40px;
+  line-height: 40px;
+  color: #414141;
+}
 .affix {
   position: fixed;
 }

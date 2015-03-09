@@ -1,5 +1,5 @@
 (function() {
-  define(['backbone', 'store', 'text!templates/modules/crumb.html', 'text!templates/forms/cargo_add.html'], function(Backbone, Store, tmp_crumb, tmp_cargo_add) {
+  define(['backbone', 'store', 'lib/city_data', 'lib/city_web', 'text!templates/modules/crumb.html', 'text!templates/forms/cargo_add.html'], function(Backbone, Store, City_data, City_web, tmp_crumb, tmp_cargo_add) {
     'use strict';
     var cargoAddView;
     return cargoAddView = Backbone.View.extend({
@@ -9,6 +9,15 @@
       events: {
         'submit form': 'submit'
       },
+      submit: _.debounce(function(event) {
+        var $target, attr, self;
+        self = this;
+        this.dirty = false;
+        event.preventDefault();
+        $target = $(event.currentTarget);
+        attr = _.extend(this._arguments($target.serialize()));
+        return this.log(attr);
+      }, 2000),
       render: function() {
         var $container, user;
         $container = $('<div class="container"></div>');

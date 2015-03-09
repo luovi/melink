@@ -20,6 +20,7 @@
         'cargo/:id/edit': 'cargoEdit',
         'cargo/:id/detail': 'cargoDetail',
         'cargo/:id/push': 'cargoPush',
+        'cargo/:id/update/done': 'cargoAddDone',
         'cars': 'cars',
         'cars/new': 'carsNew',
         'cars/:id/edit': 'carsEdit',
@@ -107,6 +108,9 @@
           return document.title = '注册';
         });
       },
+      home: function() {
+        return this.cargos();
+      },
       cargoAdd: function() {
         var self;
         self = this;
@@ -114,9 +118,6 @@
           self.switchView(new cargoAddView);
           return document.title = '新增货源';
         });
-      },
-      home: function() {
-        return this.cargos();
       },
       cargoDetail: function() {
         var self;
@@ -132,6 +133,16 @@
         return require(['views/cargos'], function(cargosView) {
           self.switchView(new cargosView);
           return document.title = '货物列表';
+        });
+      },
+      cargoAddDone: function(id) {
+        var self;
+        self = this;
+        return require(['views/cargo_add_done'], function(CargoAddDoneView) {
+          self.switchView(new CargoAddDoneView({
+            id: id
+          }));
+          return document.title = '添加完成 - 联联看官网 - 车辆定位调度监控系统';
         });
       },
       switchView: function(view) {
