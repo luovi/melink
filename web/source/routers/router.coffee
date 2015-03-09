@@ -24,7 +24,7 @@ define [
             'cargos/new': 'cargoAdd'
             'cargo/:id/edit': 'cargoEdit'
             'cargo/:id/detail': 'cargoDetail'
-            'cargo/detail': 'cargoDetail'
+            'cargo/:id/push': 'cargoPush'
 
             # 车辆
             'cars': 'cars'
@@ -38,7 +38,7 @@ define [
 
         # 匿名权限页面
         anonymous: [
-            'notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd'
+            'notFound', 'login', 'signup', 'loginByApi', 'pswReset','cargoAdd'
             ]
 
 
@@ -121,15 +121,19 @@ define [
                 self.switchView(new cargoAddView)
                 document.title='新增货源'
         home: ->
-            self = @
-            require ['views/index'], (IndexView) ->
-                self.switchView(new IndexView)
-                document.title='首页'
+            @cargos()
+         
         cargoDetail:->
             self = @
             require ['views/cargo_detail'], (cargoDetailView) ->
                 self.switchView(new cargoDetailView)
                 document.title='货源详情'
+
+        cargos: ->
+            self =@
+            require ['views/cargos'], (cargosView) ->
+                self.switchView(new cargosView)
+                document.title='货物列表'
 
         # 切换页面
         switchView: (view) ->
@@ -140,8 +144,10 @@ define [
             @header?.remove() # 因为是view所以需要remove
             @el.html view.el
             @header = new HeaderView
+            @view.notify().init()
             @el.prepend(@header.el)
             @el.append(@template(footer,{}))
+
         hasChange: ->
             self = @
             (event) ->

@@ -19,13 +19,13 @@
         'cargos/new': 'cargoAdd',
         'cargo/:id/edit': 'cargoEdit',
         'cargo/:id/detail': 'cargoDetail',
-        'cargo/detail': 'cargoDetail',
+        'cargo/:id/push': 'cargoPush',
         'cars': 'cars',
         'cars/new': 'carsNew',
         'cars/:id/edit': 'carsEdit',
         '*path': 'notFound'
       },
-      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd'],
+      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset', 'cargoAdd'],
       before: function() {
         var _current_user, _ref;
         if (!(_ref = this.current_route().route, __indexOf.call(this.anonymous, _ref) >= 0)) {
@@ -116,12 +116,7 @@
         });
       },
       home: function() {
-        var self;
-        self = this;
-        return require(['views/index'], function(IndexView) {
-          self.switchView(new IndexView);
-          return document.title = '首页';
-        });
+        return this.cargos();
       },
       cargoDetail: function() {
         var self;
@@ -129,6 +124,14 @@
         return require(['views/cargo_detail'], function(cargoDetailView) {
           self.switchView(new cargoDetailView);
           return document.title = '货源详情';
+        });
+      },
+      cargos: function() {
+        var self;
+        self = this;
+        return require(['views/cargos'], function(cargosView) {
+          self.switchView(new cargosView);
+          return document.title = '货物列表';
         });
       },
       switchView: function(view) {
@@ -143,6 +146,7 @@
         }
         this.el.html(view.el);
         this.header = new HeaderView;
+        this.view.notify().init();
         this.el.prepend(this.header.el);
         return this.el.append(this.template(footer, {}));
       },

@@ -1,23 +1,30 @@
 <div class="form-box">
+	<form>
+	<input type="hidden" name="type" id="type" value="0">
+	<input type="hidden" name="origin_lng" id="origin_lng">
+	<input type="hidden" name="origin_lat" id="origin_lat">
+	<input type="hidden" name="destin_lng" id="destin_lng">
+	<input type="hidden" name="destin_lat" id="destin_lat">
+	<input type="hidden" name="login_name" id="login_name" value="<%= user%>">
 	<div class="cargo-base-info">
 		<div class="title">基本信息</div>
 		<div class="group clearfix">
 			<label class="label"><span class="required">*</span>货物名称</label>
 			<div class="control-holder">
-				<input type="text" class="text input-xllarge">
+				<input type="text" id="title" name="title" class="text input-xllarge">
 			</div>
 		</div>
 		<div class="group clearfix">
 			<div class="group-y mr48">
 				<label class="label"><span class="required">*</span>发货地址</label>
 				<div class="control-holder">
-					<input type="text" class="text input-mlarge">
+					<input type="text" name="origin_city" id="origin_city" class="text input-mlarge">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<input type="text" class="text input-mlarge" >
+					<input type="text" name="origin_addr" id="origin_addr" class="text input-mlarge" >
 				</div>
 			</div>
 		</div>
@@ -25,13 +32,13 @@
 			<div class="group-y mr48">
 				<label class="label"><span class="required">*</span>收货地址</label>
 				<div class="control-holder">
-					<input type="text" class="text input-mlarge">
+					<input type="text" name="destin_city" id="destin_city" class="text input-mlarge">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<input type="text" class="text input-mlarge" >
+					<input type="text" name="destin_addr" id="destin_addr" class="text input-mlarge" >
 				</div>
 			</div>
 		</div>
@@ -39,14 +46,14 @@
 			<div class="group-y mr48">
 				<label class="label">装货时间</label>
 				<div class="control-holder">
-					<input type="text" class="text input-mlarge">
+					<input type="text" name="load_time" id="load_time" class="text input-mlarge">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
 					<label class="label algin-l">运费（元）:</label>
-					<input type="text" class="text input-xlarge" >
+					<input type="text" name="carriage" id="carriage" class="text input-xlarge" >
 				</div>
 			</div>
 		</div>
@@ -54,14 +61,14 @@
 			<div class="group-y mr48">
 				<label class="label">参考距离</label>
 				<div class="control-holder">
-					<input type="text" class="text input-mlarge">
+					<input type="text" name="ref_distance" id="ref_distance" class="text input-mlarge">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
 					<label class="label  algin-l">参考运费</label>
-					<input type="text" class="text input-xslarge mr5" >
+					<input type="text" name="ref_carriage" id="ref_carriage" class="text input-xslarge mr5" >
 					<a href="#">运费参考标准>></a>
 				</div>
 			</div>
@@ -74,14 +81,14 @@
 			<div class="group-y mr48">
 				<label class="label">重量</label>
 				<div class="control-holder">
-					<input type="text" class="text input-slarge">
+					<input type="text" name="weight" id="weight" class="text input-slarge">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
 					<label class="label algin-l">所需车长</label>
-					<input type="text" class="text input-slarge" >
+					<input type="text" name="car_length" id="car_length" class="text input-slarge" >
 				</div>
 			</div>
 		</div>
@@ -89,14 +96,18 @@
 			<div class="group-y mr48">
 				<label class="label">体积</label>
 				<div class="control-holder">
-					<input type="text" class="text input-slarge">
+					<input type="text" name="volume" id="volume" class="text input-slarge">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<label class="label algin-l">体积</label>
-					<input type="text" class="text input-slarge" >
+					<label class="label algin-l">所需车型</label>
+					<select class="input-slarge" name="car-model_1">
+                        <option value="">请选择</option>
+                       
+                        <option>sfsda</option>
+                    </select>
 				</div>
 			</div>
 		</div>
@@ -105,7 +116,7 @@
 			<div class="group-y mr48">
 				<label class="label">长度</label>
 				<div class="control-holder">
-					<input type="text" class="text input-slarge">
+					<input type="text" name="length" id="length" class="text input-slarge">
 				</div>
 			</div>
 		</div>
@@ -124,13 +135,13 @@
 				<div class="clearfix group-min">
 					<label class="label">发货人</label>
 					<div class="control-holder">
-						<input type="text" class="text input-slarge">
+						<input type="text" name="sender_name" id="sender_name" class="text input-slarge">
 					</div>
 				</div>
 				<div class="clearfix group-min">
 					<label class="label">联系电话</label>
 					<div class="control-holder">
-						<input type="text" class="text input-slarge">
+						<input type="text" name="sender_phone" id="sender_phone" class="text input-slarge">
 					</div>
 				</div>
 			</div>
@@ -139,22 +150,23 @@
 				<div class="clearfix group-min">
 					<label class="label">收货人</label>
 					<div class="control-holder">
-						<input type="text" class="text input-slarge">
+						<input type="text" name="receiver_name" id="receiver_name" class="text input-slarge">
 					</div>
 				</div>
 				<div class="clearfix group-min">
 					<label class="label">联系电话</label>
 					<div class="control-holder">
-						<input type="text" class="text input-slarge">
+						<input type="text" name="receiver_phone" id="receiver_phone" class="text input-slarge">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="group">
 			<div class="add-cargo-btn">
-				<input type="button" class ="btn btn-slarge btn-normal mr48" value="发布货源">
+				<input type="submit" id="submit" class ="btn btn-slarge btn-normal mr48" value="发布货源">
 				<input type="button" class="btn btn-xslarge btn-cancel" value="取消">
 			</div>
 		</div>
 	</div>
+	</form>
 </div>

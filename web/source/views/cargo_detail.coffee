@@ -15,7 +15,6 @@ define [
                 self.render()
             )
         render:->
-           
             $container = $('<div class="container"></div>')
             $container.append(@template(tmp_crumb, {urls:[{url:'#',name:'货源信息'}],current:'货源详情'}))
             $container.append(@template(tmp_cargo_detail, {item:@cargo}))
