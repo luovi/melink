@@ -203,6 +203,7 @@
 				"company":"公司名",
 				"address":"地址",
 				"memo":"货方备注信息",
+				"img_idcard":"idcard/123.jpg",
 				"img_org":"org/123.jpg",
 				"img_biz":"biz/123.jpg",
 			},
