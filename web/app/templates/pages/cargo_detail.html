@@ -1,0 +1,96 @@
+<div class="row">
+	<div class="span5">
+		<h2>货物信息</h2>
+        <div class="text-block">
+			<p>
+				<label>货源信息：</label>
+				<span>ddd</span>
+            </p>
+			<p>
+				<label>货物信息：</label>
+				<span><%= item.get('locate_number') ||'-'%></span>
+			</p>
+      		<p>
+				<label>发布时间：</label>
+				<span><%= item.get('car').trailer_number ||'-'%></span>
+			</p>
+
+			<p>
+				<label>装货时间：</label>
+				<span><%= item.get('driver').driver_name || '-' %></span>
+			</p>
+			<p>
+				<label>货源状态：</label>
+				<span><%= item.get('expected_flow', '全国')||'-' %></span>
+			</p>
+		</div>
+        <% if (!item.isPublic && item.get('locate_status_name') != '未开通') { %>
+            <h2>车辆已开通定位方式</h2>
+            <div class="text-block">
+                <ul>
+                    <% _.each(item.get('locate_methods'), function(methods) { %>
+                    <li><label><%= methods[1] ||'-'%>:</label> <span><%= methods[2][1]||'-' %></span></li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% }; %>
+		<h2>司机信息</h2>
+		<div class="text-block">
+			<p>
+				<label>司机性别：</label>
+				<span><%= item.get('driver').driver_gender_name || '-' %></span>
+			</p>
+			<p>
+				<label>身份证号：</label>
+				<span><%= item.get('driver').id_number || '-' %></span>
+			</p>
+		</div>
+	</div>
+	<div class="span5">
+		<h2>其他信息</h2>
+		<div class="text-block">
+            <p>
+                <label>拖挂轮轴：</label>
+                <span class="CONVERT_CAR"><%= item.get('car').model_1_name || "-" %></span>
+            </p>
+            <p>
+                <label>货箱结构：</label>
+                <span class="CONVERT_CAR"><%= item.get('car').model_2_name || '-' %></span>
+            </p>
+            <p>
+                <label>特殊功能：</label>
+                <span class="CONVERT_CAR"><%= item.get('car').model_3_name || '-' %></span>
+            </p>
+            <p>
+                <label>厂商品牌：</label>
+                <span class="CONVERT_CAR"><%= item.get('car').model_4_name|| '-' %></span>
+            </p>
+			<p>
+				<label>车长：</label>
+				<span><%= item.get('car')._length || '-' %></span>
+			</p>
+			<p>
+				<label>车宽：</label>
+				<span><%= item.get('car').width || '-' %></span>
+			</p>
+			<p>
+				<label>车高：</label>
+				<span><%= item.get('car').height || '-' %></span>
+			</p>
+			<p>
+				<label>吨位：</label>
+				<span><%= item.get('car').tonnage || '-' %></span>
+			</p>
+			<p>
+				<label>容积：</label>
+				<span><%= item.get('car').volume || '-' %></span>
+			</p>
+            <% if (!item.isPublic) { %>
+			<p>
+				<label>备注信息：</label>
+				<span><%= item.get('description') || '-' %></span>
+			</p>
+            <% }; %>
+		</div>
+	</div>
+</div>

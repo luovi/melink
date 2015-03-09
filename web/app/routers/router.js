@@ -111,7 +111,8 @@
         var self;
         self = this;
         return require(['views/cargo_new'], function(cargoAddView) {
-          return self.switchView(new cargoAddView);
+          self.switchView(new cargoAddView);
+          return document.title = '新增货源';
         });
       },
       home: function() {
@@ -120,6 +121,14 @@
         return require(['views/index'], function(IndexView) {
           self.switchView(new IndexView);
           return document.title = '首页';
+        });
+      },
+      cargoDetail: function() {
+        var self;
+        self = this;
+        return require(['views/cargo_detail'], function(cargoDetailView) {
+          self.switchView(new cargoDetailView);
+          return document.title = '货源详情';
         });
       },
       switchView: function(view) {

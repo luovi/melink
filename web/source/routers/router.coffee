@@ -119,13 +119,17 @@ define [
             self = @
             require ['views/cargo_new'], (cargoAddView) ->
                 self.switchView(new cargoAddView)
-
+                document.title='新增货源'
         home: ->
             self = @
             require ['views/index'], (IndexView) ->
                 self.switchView(new IndexView)
                 document.title='首页'
-
+        cargoDetail:->
+            self = @
+            require ['views/cargo_detail'], (cargoDetailView) ->
+                self.switchView(new cargoDetailView)
+                document.title='货源详情'
 
         # 切换页面
         switchView: (view) ->
