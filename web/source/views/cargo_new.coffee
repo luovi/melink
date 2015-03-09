@@ -21,12 +21,36 @@ define [
 
             # attr = _.extend @_arguments($target.serialize())
             # @log attr
+            tmp_1 = """
+                <div class="modal-content">
+                    <div class="group clearfix">
+                        <div class="group-y">
+                            <label class="label">车牌号码：</label>
+                            <div class="control-holder">
+                                <input type="text" name="" id="" class="text input-slarge">
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="group clearfix">
+                        <div class="group-y">
+                            <label class="label">随车手机：</label>
+                            <div class="control-holder">
+                                <input type="text" name="" id="" class="text input-slarge">
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <p class="font_hint">若已有车辆承运该单货，请输入车辆车牌号和司机手机号码如：浙A45321 ，13977852256</p>
+                </div>
+            """
             modal = new Modal
-                title: "确定删除联系人"
-                content: "<div ><p>您确定要删除联系人 吗？</p></div>"
+                title: "计划计划"
+                width:500
+                content: tmp_1
                 button: [
                     value: "确定"
-                    class: "btn-small btn-confirm"
+                    class: "btn btn-xslarge btn-normal"
                     callback: ->
                        
                     autoremove: true

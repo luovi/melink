@@ -52,7 +52,7 @@ body{
   font-size:13px; 
   color:#313131; 
   line-height:20px;
-  font-family: 'Open Sans', Arial, 'Microsoft Yahei','宋体',  sans-serif;
+  font-family: 'Open Sans', Arial, '宋体', 'Microsoft Yahei', sans-serif
 }
 a{
   outline: none;
@@ -427,6 +427,7 @@ input.input-high{
   background: #fafafa;
   border-bottom: 1px solid #e5e5e5;
   height: 108px;
+  font-family: 'Microsoft Yahei';
 }
 .site-header .logo{
   float: left;
@@ -724,6 +725,7 @@ table .drop-menu a{
 .crumb{
   height: 50px;
   line-height: 50px;
+  font-family: 'Microsoft Yahei';
 }
 .form-box{
   border: 1px solid #e5e5e5;
@@ -904,25 +906,26 @@ table .drop-menu a{
   position: fixed;
   top:50%;
   left:50%;
-  margin-left: -350px;
+  margin-left: -550px;
   margin-top: -250px;
-  border:1px solid black;
-  border-radius:4px;
+  border:6px solid #515151;
   background-color: white;
-  width:700px;
+  width:500px;
 }
 .modal-header{
-  border-radius: 4px 4px 0 0;
-  border-bottom:1px solid #ddd;
-  background-color: #f9f9f9;
-  padding:16px 18px;
+  background-color: #eeeeee;
+  padding:0 14px;
+  height: 32px;
+  line-height: 32px;
+  color: #313131;
 }
 .modal-header h2{
   margin-bottom: 0px;
+  color: #626262;
 }
 .modal-header .close{
   float:right;
-  margin-top:3px;
+  margin-top:6px;
   cursor:pointer;
 }
 .modal-header .close:hover{
@@ -933,13 +936,22 @@ table .drop-menu a{
   *position: relative;
   max-height: 400px;
   overflow-y: auto;  
+  padding: 40px 0;
+  
 }
 .modal-body .modal-content{
-  padding:25px !important;
+  padding:0 76px !important;
+  font-size: 12px;
 }
 .modal-body p{
   margin-bottom: 0;
-  text-align: center;
+  color: #626262;
+  font-size: 16px;
+}
+.modal-body .modal-content .font_hint
+{
+  color: #a3a3a3;
+  font-size: 12px;
 }
 .modal-body .modal-header i{
   margin-top:-3px;
@@ -947,10 +959,7 @@ table .drop-menu a{
 
 .modal-footer{
   padding:15px 15px;
-  text-align: right;
-  background-color: #f9f9f9;
-  border-top:1px solid #ddd;
-  border-radius:0 0 4px 4px;
+  text-align: center;
 }
 .modal-footer .btn-confirm{
   margin-right: 8px;

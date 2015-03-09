@@ -60,13 +60,13 @@ define [
                 <input class="<%= b.class %>" style="<%= b.style %>" type="button" value="<%= b.value %>" />
                 <% }); %>
                 <% }; %>
-                <input class="btn-small btn-cancel" type="button" value="取消" />
+                <input class="btn btn-xslarge btn-cancel" type="button" value="取消" />
             """
             @$modal = $(_.template(tmp_modal,@options))
             footer = []
             _.each @options.button, (b) ->
                 footer.push "<input class=\"#{ b.class }\" style=\"#{ b.style }\" type=\"button\" value=\"#{ b.value }\" />"
-            $('.modal-footer', @$modal).html(footer.join('') + "<input class=\"btn-small btn-cancel\" type=\"button\" value=\"取消\" />")
+            $('.modal-footer', @$modal).html( "<input class=\"btn btn-xslarge btn-cancel mr20\" type=\"button\" value=\"取消\" />"+footer.join('') )
             $('.modal-body', @$modal).html(@options.content)
             # form
             @$form = $('form', @$modal)

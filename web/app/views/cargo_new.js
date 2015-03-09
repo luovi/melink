@@ -10,18 +10,20 @@
         'submit form': 'submit'
       },
       submit: _.debounce(function(event) {
-        var $target, modal, self;
+        var $target, modal, self, tmp_1;
         self = this;
         this.dirty = false;
         event.preventDefault();
         $target = $(event.currentTarget);
+        tmp_1 = "<div class=\"modal-content\">\n    <div class=\"group clearfix\">\n        <div class=\"group-y\">\n            <label class=\"label\">车牌号码：</label>\n            <div class=\"control-holder\">\n                <input type=\"text\" name=\"\" id=\"\" class=\"text input-slarge\">\n            </div>\n        </div>\n       \n    </div>\n    <div class=\"group clearfix\">\n        <div class=\"group-y\">\n            <label class=\"label\">随车手机：</label>\n            <div class=\"control-holder\">\n                <input type=\"text\" name=\"\" id=\"\" class=\"text input-slarge\">\n            </div>\n        </div>\n       \n    </div>\n    <p class=\"font_hint\">若已有车辆承运该单货，请输入车辆车牌号和司机手机号码如：浙A45321 ，13977852256</p>\n</div>";
         return modal = new Modal({
-          title: "确定删除联系人",
-          content: "<div ><p>您确定要删除联系人 吗？</p></div>",
+          title: "计划计划",
+          width: 500,
+          content: tmp_1,
           button: [
             {
               value: "确定",
-              "class": "btn-small btn-confirm",
+              "class": "btn btn-xslarge btn-normal",
               callback: function() {},
               autoremove: true
             }

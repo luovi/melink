@@ -42,14 +42,14 @@
       };
 
       Modal.prototype.create = function() {
-        "<% if (button) { %>\n<% _.each(button, function(b) { %>\n<input class=\"<%= b.class %>\" style=\"<%= b.style %>\" type=\"button\" value=\"<%= b.value %>\" />\n<% }); %>\n<% }; %>\n<input class=\"btn-small btn-cancel\" type=\"button\" value=\"取消\" />";
+        "<% if (button) { %>\n<% _.each(button, function(b) { %>\n<input class=\"<%= b.class %>\" style=\"<%= b.style %>\" type=\"button\" value=\"<%= b.value %>\" />\n<% }); %>\n<% }; %>\n<input class=\"btn btn-xslarge btn-cancel\" type=\"button\" value=\"取消\" />";
         var footer;
         this.$modal = $(_.template(tmp_modal, this.options));
         footer = [];
         _.each(this.options.button, function(b) {
           return footer.push("<input class=\"" + b["class"] + "\" style=\"" + b.style + "\" type=\"button\" value=\"" + b.value + "\" />");
         });
-        $('.modal-footer', this.$modal).html(footer.join('') + "<input class=\"btn-small btn-cancel\" type=\"button\" value=\"取消\" />");
+        $('.modal-footer', this.$modal).html("<input class=\"btn btn-xslarge btn-cancel mr20\" type=\"button\" value=\"取消\" />" + footer.join(''));
         $('.modal-body', this.$modal).html(this.options.content);
         this.$form = $('form', this.$modal);
         $('body').append(this.$modal);
