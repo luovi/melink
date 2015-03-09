@@ -2,7 +2,8 @@ define [
     'backbone',
     'store',
     'views/header',
-], (Backbone, Store, HeaderView) ->
+    'text!templates/modules/footer.html'
+], (Backbone, Store, HeaderView,footer) ->
     'use strict'
 
     AppRouter = Backbone.Router.extend
@@ -37,7 +38,7 @@ define [
 
         # 匿名权限页面
         anonymous: [
-            'notFound', 'login', 'signup', 'loginByApi', 'pswReset', 'home'
+            'notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd'
             ]
 
 
@@ -114,11 +115,19 @@ define [
                 self.switchView(new SignupView)
                 document.title='注册'
 
-        home: ->
+        cargoAdd:->
             self = @
-            require ['views/index'], (IndexView) ->
-                self.switchView(new IndexView)
-                document.title='首页'
+            require ['views/cargo_new'], (cargoAddView) ->
+                self.switchView(new cargoAddView)
+
+        home: ->
+            @cargos()
+
+        cargos: ->
+            self =@
+            require ['views/cargos'], (cargosView) ->
+                self.switchView(new cargosView)
+                document.title='货物列表'
 
 
         # 切换页面
@@ -130,7 +139,9 @@ define [
             @header?.remove() # 因为是view所以需要remove
             @el.html view.el
             @header = new HeaderView
+            @view.notify().init()
             @el.prepend(@header.el)
+            @el.append(@template(footer,{}))
 
         hasChange: ->
             self = @
