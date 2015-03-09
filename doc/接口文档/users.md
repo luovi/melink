@@ -177,13 +177,6 @@
 |:----|:--------|
 |请求方式|GET|
 
-|参数名称|可空|说明|
-|:--|:--------|
-|keyword||关键字模糊查询,匹配login_name,user_name,city,sign,memo|
-|role| |角色|
-|status| |状态|
-|checked| |审核状况|
-
 返回数据:
 >
 	{
@@ -210,6 +203,7 @@
 				"company":"公司名",
 				"address":"地址",
 				"memo":"货方备注信息",
+				"img_idcard":"idcard/123.jpg",
 				"img_org":"org/123.jpg",
 				"img_biz":"biz/123.jpg",
 			},
@@ -237,11 +231,20 @@
 |:----|:--------|
 |请求方式|GET|
 
+|参数名称|可空|说明|
+|:--|:--------|
+|keyword||关键字模糊查询,匹配login_name,user_name,city,sign,memo|
+|role| |角色|
+|status| |状态|
+|checked| |审核状况|
 
 返回数据:
 >
 	{
 		"result":1,
+		"total":30,/记录数
+		"page_no":1,//当前页码1开始
+		"page_size":20,//每页记录数
 		"data":[
 			{
 				"login_name":"13812345678",

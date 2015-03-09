@@ -97,7 +97,10 @@
 返回数据:
 >
 	{
-		"result":1
+		"result":1,
+		"total":30,/记录数
+		"page_no":1,//当前页码1开始
+		"page_size":20,//每页记录数
 		"data":[
 			{
 				"type":0,
