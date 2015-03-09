@@ -1,5 +1,5 @@
 (function() {
-  define(['backbone', 'store', 'dropMenu', 'text!templates/pages/cargos.html'], function(Backbone, Store, DropMenu, tmp_cargos) {
+  define(['backbone', 'store', 'dropMenu', 'modal', 'text!templates/modules/crumb.html', 'text!templates/pages/cargos.html'], function(Backbone, Store, DropMenu, Modal, tmp_crumb, tmp_cargos) {
     'use strict';
     var IndexView;
     return IndexView = Backbone.View.extend({
@@ -23,7 +23,10 @@
         var $container, self, timeout;
         self = this;
         $container = $('<div class="container"></div>');
-        $container.append(this.template(tmp_cargos, {}));
+        $container.append(this.template(tmp_crumb, {
+          urls: [],
+          current: ''
+        })).append(this.template(tmp_cargos, {}));
         this.$el.html($container);
         this.dropMenu = new DropMenu({
           el: this.$('table'),

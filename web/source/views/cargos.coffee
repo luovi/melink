@@ -2,8 +2,10 @@ define [
     'backbone',
     'store',
     'dropMenu'
+    'modal'
+    'text!templates/modules/crumb.html'
     'text!templates/pages/cargos.html'
-], (Backbone, Store, DropMenu, tmp_cargos) ->
+], (Backbone, Store, DropMenu, Modal, tmp_crumb, tmp_cargos) ->
     'use strict'
            
     IndexView = Backbone.View.extend
@@ -23,6 +25,7 @@ define [
             self = @
             $container = $('<div class="container"></div>')
             $container
+                .append(@template(tmp_crumb, {urls:[],current:''}))
                 .append(@template(tmp_cargos, {}))
             @$el.html($container)
             @dropMenu = new DropMenu(el: @$('table'), name: 'table', target: '.drop-down-link')

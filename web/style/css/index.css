@@ -140,6 +140,7 @@ i.drop-down-gray{background-position:-176px -64px;}
 .mt70{margin-top: 70px;}
 .mr0{margin-right: 0;}
 .mr5{margin-right: 5px;}
+.mr15{margin-right: 15px;}
 .mr20{margin-right: 20px;}
 .mr48{margin-right: 49px;}
 .mr58{margin-right: 58px;}
@@ -177,10 +178,11 @@ i.drop-down-gray{background-position:-176px -64px;}
   border-left: 1px solid #e5e5e5;
 }
 input.text{
-  height: 28px;
-  line-height: 28px;
+  height: 14px;
+  line-height: 14px;
   border: 1px solid #bebebe;
   background: #fff;
+  padding: 7px;
 }
 .input-xslarge{
   width: 78px;
@@ -199,6 +201,10 @@ input.text{
 }
 .input-xllarge{
   width: 608px;
+}
+
+input.input-high{
+  height: 18px;
 }
 
 .pull-right {
@@ -225,6 +231,7 @@ input.text{
   border: none;
   border-radius: 3px;
   font-size: 14px;
+  cursor: pointer;
 }
 .btn-normal{
   background: #ff4a00;
@@ -493,6 +500,16 @@ table.seperated td span{
   line-height: 24px;
 }
 
+table .drop-menu{
+  z-index: 10;
+  top:25px;
+  left:0px;
+}
+table .drop-menu a{
+  margin-right: 0px;
+  padding:5px 12px 3px 12px;
+}
+
 .red{
   color:#ff4a00;
 }
@@ -553,12 +570,24 @@ table.seperated td span{
 }
 
 
+
+/*货源列表页*/
 .banner{
   width: 960px;height: 100px;
   background: url(http://gtms02.alicdn.com/tps/i2/TB1Fyx0GVXXXXaQaXXXnLSnFXXX-880-70.png);
   margin-bottom: 26px;
   background-size: 100%
 }
+
+.cargos-search{
+  margin-bottom: 22px;overflow: hidden;
+}
+
+.cargos-release{
+  width: 150px;height: 34px;
+  background: url(/style/images/push_btn.gif);
+}
+
 
 
 
@@ -677,15 +706,7 @@ table.seperated td span{
 
 
 
-table .drop-menu{
-  z-index: 10;
-  top:25px;
-  left:0px;
-}
-table .drop-menu a{
-  margin-right: 0px;
-  padding:5px 12px 3px 12px;
-}
+
 
 /*help class*/
 .relative{position: relative;}

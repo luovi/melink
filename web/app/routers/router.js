@@ -25,7 +25,7 @@
         'cars/:id/edit': 'carsEdit',
         '*path': 'notFound'
       },
-      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd'],
+      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd', 'cargos'],
       before: function() {
         var _current_user, _ref;
         if (!(_ref = this.current_route().route, __indexOf.call(this.anonymous, _ref) >= 0)) {
