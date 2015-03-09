@@ -9,7 +9,9 @@ define [
         initialize: ->
         	@render()
         render: ->
-        	@$el.html @template(tmp_header, {aaa:0})
+            user = Store.get('current_user').username
+            @$el.html @template(tmp_header, {user:user})
+
         remove: ->
             @_super('remove')
 

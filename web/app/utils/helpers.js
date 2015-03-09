@@ -546,9 +546,12 @@
     */
 
     Backbone.View.prototype.createPage = function(cols, options) {
-      var colsname, self;
+      var colsname, self, _ref;
       if (options == null) {
         options = {};
+      }
+      if ((_ref = $('.pagination')) != null) {
+        _ref.remove();
       }
       if (options.change == null) {
         options.change = true;
@@ -579,7 +582,7 @@
           $page_obj = $(self.template(tmp, data));
           $('li:not(.disabled,.active)>a', $page_obj).on('click', function() {
             var pagesize;
-            pagesize = $('.text', $page_obj).val();
+            pagesize = $('.text', $page_obj).val() || 20;
             if (cols) {
               return cols.fetch(self.fetchOptions({
                 data: {

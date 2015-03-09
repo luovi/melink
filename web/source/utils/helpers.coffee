@@ -462,6 +462,7 @@ define [
     page_no也可以options的data中传入，为不调用changeQuery时也能使用分页功能
     ###
     Backbone.View.prototype.createPage = (cols, options={}) ->
+        $('.pagination')?.remove()
         options.change ?= true
         self = @
         if cols.url.indexOf('cars') >0
@@ -487,7 +488,7 @@ define [
                 $page_obj = $(self.template(tmp, data))
 
                 $('li:not(.disabled,.active)>a', $page_obj).on 'click', ->
-                    pagesize = $('.text', $page_obj).val()
+                    pagesize = $('.text', $page_obj).val() || 20
                     if cols
                         cols.fetch self.fetchOptions(data:page_no:$(this).data('page'),page_size:pagesize, options.change)
                 if options.target and _.isElement(options.target[0])

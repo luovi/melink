@@ -25,7 +25,7 @@
         'cars/:id/edit': 'carsEdit',
         '*path': 'notFound'
       },
-      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd'],
+      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd', 'cargos'],
       before: function() {
         var _current_user, _ref;
         if (!(_ref = this.current_route().route, __indexOf.call(this.anonymous, _ref) >= 0)) {
@@ -111,11 +111,20 @@
         var self;
         self = this;
         return require(['views/cargo_new'], function(cargoAddView) {
-          return self.switchView(new cargoAddView);
+          self.switchView(new cargoAddView);
+          return document.title = '新增货源';
         });
       },
       home: function() {
         return this.cargos();
+      },
+      cargoDetail: function() {
+        var self;
+        self = this;
+        return require(['views/cargo_detail'], function(cargoDetailView) {
+          self.switchView(new cargoDetailView);
+          return document.title = '货源详情';
+        });
       },
       cargos: function() {
         var self;
