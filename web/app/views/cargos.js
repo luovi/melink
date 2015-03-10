@@ -14,10 +14,35 @@
         };
         this.cargos = new CargosCtrl;
         this.cargos.fetch(this.fetchOptions(this.options, true));
-        this.$el.append(this.spinner().el);
         this.render();
         return this.listenTo(this.cargos, 'sync', this.renderList);
       },
+      events: {
+        'click .nav-tabs li a': 'changeList',
+        'submit form': 'search',
+        'click .select_tab_btn': 'toggleList'
+      },
+      toggleList: function(event) {
+        return $('.nav-tabs').toggle();
+      },
+      search: _.debounce(function(event) {
+        var $target;
+        $target = $(event.target);
+        _.extend(this.options.data, {
+          q: this.$keyword.val()
+        });
+        return this.cargos.fetch(this.fetchOptions(this.options, true));
+      }, 800, true),
+      changeList: _.debounce(function(event) {
+        var $target;
+        $target = $(event.target);
+        _.extend(this.options.data, {
+          status: $target.data('status')
+        });
+        $('.select_tab_btn', $target.parents('.select_tab')).val($target.html());
+        $target.parents('.nav-tabs').hide();
+        return this.cargos.fetch(this.fetchOptions(this.options, true));
+      }, 800, true),
       render: function() {
         var $container;
         $container = $('<div class="container"></div>');
@@ -25,14 +50,23 @@
           urls: [],
           current: ''
         })).append(this.template(tmp_cargos, {}));
-        return this.$el.html($container);
+        this.$el.html($container);
+        this.$('.J_cargo_list').append(this.spinner().el);
+        this.$keyword = this.$('#J_qsearchvalue', this.$el);
+        return $(document).bind("click", function(e) {
+          var target;
+          target = $(e.target);
+          if (target.closest(".select_tab_btn").length === 0) {
+            return $('.nav-tabs').hide();
+          }
+        });
       },
       renderList: function() {
-        $('.J_cargo_list').empty().append(this.template(tmp_cargos_list, {
+        this.$('.J_cargo_list').empty().html(this.template(tmp_cargos_list, {
           cargos: this.cargos
         }));
         this.dropMenu = new DropMenu({
-          el: this.$('table'),
+          el: this.$('.J_cargo_list').children(),
           name: 'table',
           target: '.drop-down-link'
         });

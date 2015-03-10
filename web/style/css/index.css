@@ -754,7 +754,12 @@ table .drop-menu a{
 }
 
 .cargos-status{
-  height: 32px;padding: 10px 0;
+  height: 32px;padding: 10px 10px;border: 1px solid #E4E4E4;border-bottom: none;
+
+}
+
+.J_cargo_list{
+
 }
 
 .cars-search{
@@ -1103,4 +1108,114 @@ label{
 
 .modal .group:last-child{
   margin-bottom: 0;
+}
+
+
+/*发短信页*/
+.msgTips{
+  border:1px dashed #ddd;
+  border-radius: 4px;
+  padding:15px;
+  margin-left: 96px;
+  *margin-left: 0;
+  background-color: #fbfbfb;
+  color:#888;
+}
+.msgTips p{
+  margin:0;
+}
+.msgTips span{
+  color:#B94A48;
+}
+.msgPreview{
+  border:1px solid #e8d9c0;
+  border-radius: 4px;
+  padding:15px;
+  margin-left: 96px;
+  *margin-left: 0;
+  background-color: #fcf8e3;
+  color:#555;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.msgPreview p{
+  margin:0;
+}
+
+.inside-checkbox{
+  margin-left: 160px;
+}
+.car-info{
+  white-space: nowrap;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.car-destination{
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#message_block{
+  display: none;
+  position: fixed;
+  z-index: 900;
+  top:63px;
+  right:0;
+  height: 100%;
+  background-color: #f6f6f6;
+  border-left:1px solid #bbb;
+  width:240px;
+  overflow-y:auto; 
+
+}
+#message_block .header{
+  background-color: white;
+  padding:12px 13px 0;
+  _overflow: visible;
+}
+#message_block .header .btn-menu {
+    margin-bottom: 12px;
+}
+#message_toggle{
+  display: none;
+  width:20px;
+  height: 100px;
+  background-color: #f6f6f6;
+  border: 1px solid #ccc;
+  border-right: none;
+  position: fixed;
+  top:50%;
+  right:240px;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  margin-top: -51px;
+  z-index: 900;
+}
+.unfold-message{
+  right:0 !important;
+}
+.unfold-message i{
+  background-position: -160px -48px !important;
+}
+#message_toggle i{
+  background-position: -176px -48px;
+  margin-top: 40px;
+  margin-left: 2px
+}
+
+#message_block a.send_msg,#message_block a.edit_tag,#message_block a.send_weixin{margin-right: 10px}
+
+#message_block table{
+  background-color: white;
+  box-shadow:0px 3px 6px #ddd;
+}
+#message_block table td{
+  border-radius: 0!important;
+  border-bottom: 1px solid #ddd;
+  padding:10px 0px 10px 8px;
+}
+#message_block table td:last-child{
+  padding-right: 10px;
 }

@@ -7,7 +7,9 @@
   3|[/cargos/:id](#view_cargo)		|GET 	|获取货单详情
   4|[/cargos/:id](#update_cargo)	|PUT 	|修改货单
   5|[/cargos/:id](#del_cargo)		|DELETE	|删除货单
-
+  6|[/cargos/logs](#add_cargolog)	|POST 	|新增车货匹配记录
+  7|[/cargos/logs](#cargolog_list)	|GET 	|匹配记录列表
+  8|[/cargos/logs/:id/confirm](#cargolog_cfm)|POST |确认 
 
 #### 1. <label id="add_cargo">发布货单</label>
 
@@ -16,7 +18,7 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------|
 |login_name|N|发货用户的登录名|
 |title|N|货货名称,长度不超过200个字符|
 |type|N|货单来源，0本系统，1联联看，10以上对外接口，默认0|
@@ -41,7 +43,7 @@
 |sender_phone||发货方联系电话|
 |receiver_name||收货方联系人姓名|
 |receiver_phone||收货方联系电话|
-|status||状态,货单状态,0已取消,10未成交(默认),20待成交(车找货),30待成交(货找车),99已成交|
+|status||货单状态,0已取消,10未成交(默认),20待成交(车找货),30待成交(货找车),999已成交|
 |voice||语音文件路径与文件名|
 |img||图片文件路径与文件名|
 |attch||附件路径与文件名,只允许一个附件,多个附件建议压缩成一个包,留作以后扩展用|
@@ -49,7 +51,7 @@
 
 说明:
 
-	附件,图片,语音等,前端实现时,先调用上传的接口,上传成功返回相应的文件名
+	附件,图片,语音等,前端实现时,先调用上传的接口,上传成功返回相应的相对url
 
 返回数据:
 >
@@ -64,7 +66,7 @@
 |请求方式|GET|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:--|:--------|:--------|
 |type||货单来源|
 |login_name||发货用户的登录名|
 |origin_city||启运地所在城市(地级市)|
@@ -92,7 +94,6 @@
 	附件,图片,语音等,前端实现时,先调用上传的接口,上传成功返回相应的文件名
 	排序方式为distance时,必须传入lng与lat,以计算指定位置与启运地的距离,如果启运地的位置由(origin_lng,origin_lat)确定,如果为空或者值错误,该信息将不会出现在结果中.
 	为提高查询效率,建议前端指定默认的publish_time_from
-	
 
 返回数据:
 >
@@ -125,7 +126,7 @@
 				"receiver_name":"李四",
 				"receiver_phone":"13087654321",
 				"status":10,
-				"voice":"voice/20150302.voc",
+				"voice":"voice/20150302/123.voc",
 				"img":"img/20150302/123.jpg",
 				"attch":"attch/20150302/123.zip"
 			}
@@ -141,9 +142,9 @@
 |请求方式|GET|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:--|:--------|:--------|
 |lng||指定位置的经度|
-|lat||指定位置的纬度,与经度一起确定指定位置(一般为手机当前定位位置),计算启运地与当前位置的距离|
+|lat||指定位置的纬度,与经度一起确定指定位置,计算启运地与当前位置的直线距离|
 
 返回数据:
 >
@@ -190,8 +191,8 @@
 |请求方式|PUT|
 
 |参数名称|可空|说明|
-|:--|:--------|
-|title||货货名称,长度不超过200个字符|
+|:--|:--------|:--------|
+|title||货物名称,长度不超过200个字符|
 |origin_city||启运地所在城市(地级市)|
 |origin_addr||启运地详细地址|
 |origin_lng||启运地经度(从百度地图API中获取)|
@@ -227,7 +228,7 @@
 			cargos.status==10
 			
 		2. 只有管理员与发布人能修改,
-			token.login_name==cargos.login_name or token.role==99
+			token.login_name==cargos.login_name or token.role==999
 	
 
 返回数据:
@@ -249,7 +250,7 @@
 			cargos.status==10
 			
 		2. 只有管理员与发布人能删除,
-			token.login_name==cargos.login_name or token.role==99
+			token.login_name==cargos.login_name or token.role==999
 	
 
 返回数据:
@@ -258,3 +259,124 @@
 		"result":1
 	}
 	
+#### 6. <label id="add_cargolog">新增车货匹配记录</label>
+
+|方法名称|/cargos/logs|
+|:----|:--------|
+|请求方式|POST|
+
+|参数名称|可空|说明|
+|:--|:--------|:--------|
+|carog_id		|N	|货单id|
+|type			|N	|交易类型,1,车找货,2货找车|
+|login_name		|N	|车方登录名|
+|create_time	|	|匹配时间，默认当前时间|
+|status			|	|状态，type=1时，默认20，type=2时默认为30,999为已成交|
+
+说明:
+
+	已成交的cargos(cargos.status==999)不能添加交易记录
+	添加cargo_logs记录时要同步置cargos.status = cargo_logs.status
+	
+	根据login_name在drivers表中找到plate_number
+	
+返回数据:
+>
+	{
+		"result":1
+	}
+  
+#### 7. <label id="cargolog_list">匹配记录列表</label>
+
+|方法名称|/cargos/logs|
+|:----|:--------|
+|请求方式|GET|
+
+|参数名称|可空|说明|
+|:--|:--------|:--------|
+|carog_id		|	|货单id|
+|title			|	|货单标题,cargos.title|
+|type			|	|交易类型,1,车找货,2货找车|
+|login_name		|	|车方登录名|
+|plate_number	|	|车牌号，drivers.plate_number|
+|status			|	|状态|
+|create_time_from|	|创建时间|
+|create_time_to	|	|创建时间|
+
+说明：
+
+	查询时要连接drivers, drivers.plate_number={plate_number}
+	
+返回数据:
+>
+	{
+		"result":1,
+		"total":30,/记录数
+		"page_no":1,//当前页码1开始
+		"page_size":20,//每页记录数
+		"data":[
+			{
+				"cargo_id":123,
+				"type":1,
+				"plate_number":"浙A12345"，//drivers.plate_number
+				"login_name":"13812345678",
+				"status":20,
+				"create_time":"2015-03-02 12:30:00"
+			},
+			{
+				...
+			},
+			...
+		]
+	}
+
+
+#### 8. <label id="cargolog_cfm">确认匹配</label>
+
+|方法名称|/cargos/logs/:id/confirm|
+|:----|:--------|
+|请求方式|POST|
+
+|参数名称|可空|说明|
+|:----|:--------|:--------|
+|type	|	|类型,1,车方确认,2货方确认|
+
+说明:
+
+	1.根据cargo_logs.id找到对应的货单，
+	2.已完成的cargos不能确认
+		if (cargos.status==999){
+			return error
+		}
+	3.只有交易双方可以确认，从token中找到当前操作用户login_name
+		if (cargologs.login_name!=login_name || cargos.login_name!=login_name){
+			return error;
+		}
+	
+	4.根据cargo_logs.status 与传入的type判断后续的status
+	
+		if(cargo_logs.status==10){
+			if(type==1){
+				status = 20
+			}else if(type==2){
+				status = 30;
+			}
+		}else if(cargo_logs.status==20){//车方已经确认
+			if(type==2){//货方确认
+				status=999 //完成
+			}
+		}else if(cargo_logs.status==30){//货方已经确认
+			if(type==1){//车方确认
+				status=999 //完成
+			}
+		}
+		读取cargo_logs的信息，修改状态为status,create_time 为当前时间 ，新加一条匹配记录
+	4. 同步修改cargos.status ＝ status
+	
+	5.如果新加的记录status==999，还要生成一条交易记录 trades
+	
+返回数据:
+>
+	{
+		"result":1
+	}
