@@ -24,6 +24,8 @@
         'cars': 'cars',
         'cars/new': 'carsNew',
         'cars/:id/edit': 'carsEdit',
+        'center': 'center',
+        'perfect/info': 'perfectInfo',
         '*path': 'notFound'
       },
       anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset', 'cargos'],
@@ -151,7 +153,23 @@
           self.switchView(new CargoAddDoneView({
             id: id
           }));
-          return document.title = '添加完成 - 联联看官网 - 车辆定位调度监控系统';
+          return document.title = '添加完成';
+        });
+      },
+      center: function() {
+        var self;
+        self = this;
+        return require(['views/center'], function(centerView) {
+          self.switchView(new centerView);
+          return document.title = '用户中心';
+        });
+      },
+      perfectInfo: function() {
+        var self;
+        self = this;
+        return require(['views/perfect_info'], function(PerfectInfoView) {
+          self.switchView(new PerfectInfoView);
+          return document.title = '完善资料';
         });
       },
       switchView: function(view) {
