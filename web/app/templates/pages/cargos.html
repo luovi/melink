@@ -10,19 +10,31 @@
 	</div>
 
 	<div class="cargos-box J_cargos_box">
-		<div class="cargos-status"></div>
+		<div class="cargos-status clearfix">
+			<div class="select_tab">
+				<input class="input-medium select_tab_btn" readonly="readonly" type="text" name="" id="dd_nav" value="全部货源">
+				<a href="javascript:;" class="select-btn select_tab_btn"><i class="triangle_w_d"></i></a>
+				<ul class="nav-tabs top-tabs clearfix" style="display: none;">
+					<li class=""><a href="javascript:;" data-status="">全部货源</a></li>
+					<li><a href="javascript:;" data-status="opened">未成交</a></li>
+					<li><a href="javascript:;" data-status="closed">待成交</a></li>
+					<li><a href="javascript:;" data-status="closed">已成交</a></li>
+					<li><a href="javascript:;" data-status="closed">推送记录</a></li>
+				</ul>
+			</div>
+		</div>
 		<div class="cargos-list">
 			<table class="striped" style="table-layout:fixed;">
 				<thead>
 					<tr>
 						<th class="w60">货单号</th>
-						<th class="w155" style="padding-left:30px;">货源信息</th>
+						<th class="w155 pl30">货源信息</th>
 						<th class="w80">发布时间</th>
 						<th class="w80">承运车辆</th>
 						<th class="w80">司机信息</th>
-						<th class="w155" style="padding-left:30px;">当前货运位置</th>
+						<th class="w155 pl30">当前货运位置</th>
 						<th class="w60">状态</th>
-						<th class="w60">操作</th>
+						<th class="w70">操作</th>
 					</tr>
 				</thead>
 				<tbody class="J_cargo_list">

@@ -128,6 +128,14 @@
           return document.title = '货源详情';
         });
       },
+      cargoPush: function() {
+        var self;
+        self = this;
+        return require(['views/cargo_push'], function(cargoPushView) {
+          self.switchView(new cargoPushView);
+          return document.title = '货源推送';
+        });
+      },
       cargos: function() {
         var self;
         self = this;

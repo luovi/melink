@@ -139,6 +139,7 @@ em.icon_em{
 .w80{width: 80px;}
 .w70{width: 70px;}
 .w50{width:50px;}
+.w40{width:40px;}
 .w60{width: 60px;}
 .w20{width: 20px;}
 .w30{width: 30px;}
@@ -150,13 +151,16 @@ em.icon_em{
 .mr5{margin-right: 5px;}
 .mr15{margin-right: 15px;}
 .mr20{margin-right: 20px;}
+.mr30{margin-right: 30px;}
 .mr48{margin-right: 49px;}
 .mr58{margin-right: 58px;}
+.mr140{margin-right: 140px;}
 .ml10{margin-left: 10px;}
 .ml19{margin-left: 19px;}
 .ml20{margin-left: 20px;}
 .ml30{margin-left: 30px;}
 .ml160{margin-left: 160px;}
+.pl30{padding-left: 30px;}
 .m-auto{margin: 0 auto;}
 .p-auto-50{
   padding: 50px 0;
@@ -271,7 +275,14 @@ input.input-high{
   border-radius: 3px;
   font-size: 14px;
   cursor: pointer;
+  text-align: center;
 }
+.btn-search{
+  background: #525252;
+  color:#fff;
+  border-radius: 0 3px 3px 0;
+}
+
 .btn-normal{
   background: #ff4a00;
   color:#fff;
@@ -543,7 +554,7 @@ table{
   margin-bottom:20px;
   border-color:#ddd;
   width:100%;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #E4E4E4;
 }
 table .btn-more{
   padding:0;
@@ -566,9 +577,9 @@ table tr:last-child td:last-child{
 }
 
 table th, table td{
-  padding:10px 0px 10px 12px;
+  padding:20px 0px 20px 12px;
   text-align:left;
-  border: 1px solid #ccc;
+  border: 1px solid #E4E4E4;
 }
 table th{
   font-weight:bold;
@@ -704,6 +715,26 @@ table .drop-menu a{
 .cargos-release{
   width: 150px;height: 34px;
   background: url(/style/images/push_btn.gif);
+}
+
+.cargos-status{
+  height: 32px;padding: 10px 0;
+}
+
+.cars-search{
+  overflow: hidden;margin-bottom: 22px;
+}
+
+.cars-search .mr140{
+  height: 40px;line-height: 40px;
+}
+
+.my-cargos{
+  width: 104px;height: 30px;background: url(/style/images/btn_mycargos.gif);
+}
+
+.net-cars{
+  width: 104px;height: 30px;background: url(/style/images/btn_netcars.gif);
 }
 
 
@@ -849,6 +880,61 @@ table .drop-menu a{
 }
 .drop-menu a:hover{
   background-color: #f9f9f9;
+}
+
+/*selector 下拉选择*/
+.select_tab {
+  position: relative;
+  width:156px;
+  /*height: 22px;*/
+  float: right;
+}
+.select_tab .input-medium{
+  width: 144px;
+  border: 1px solid #E4E4E4;
+  padding: 4px 6px;
+  border-radius:2px;
+  margin: 0;
+  font-size: 12px;
+}
+.select_tab a.select-btn{
+  position: absolute;
+  top:1px;
+  right: -1px;
+  width: 28px;
+  height: 26px;
+  background: #fff;
+  text-align: center;
+}
+.select_tab .nav-tabs{
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #E4E4E4;
+  border-radius:2px;
+  display: none;
+  z-index: 1000;
+}
+.select_tab .top-tabs{
+   top:26px;
+} 
+.select_tab .bottom-tabs{
+  bottom:28px;
+}
+.select_tab .nav-tabs li{
+  padding: 6px;
+  font-size: 12px;
+}
+.select_tab .nav-tabs li a{
+  display: block;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 2px;
+}
+.select_tab .nav-tabs li a:hover{
+  background:#f8f8f8;
+  
 }
 
 
