@@ -25,12 +25,15 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |login_name|N|登录名,目前的Login_name为手机号码|
+|client|N|客户端,driver或consignor或web|
 |password|N|联系人姓名|
 
 说明:
 
+** 此接口不需要token **
+	
 	根据用户与密码,加密后提交到 MeFP_Protal/auth/login
 	
 	根据返回值处理
@@ -82,6 +85,10 @@
 				"contact_name":"货方联系人",
 				"plate_number":"车牌",
 				"memo":"车方备注"
+			},
+			"settings":{
+				//根据client从settings表中读取 client=user or client={client}的记录
+				//key : value
 			}
 		}
 	}
@@ -93,7 +100,7 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |login_name|N|登录名|
 |password|N|密码|
 |captcha|N|手机验证码|
@@ -103,7 +110,9 @@
 |memo||备注信息|
 
 说明:
-
+	
+** 此接口不需要token **
+	
 	注册是指本系统与MeFP中都不存在的用户，注册时要在MeFP端注册用户，然后在本系统增加用户
 	
 	组织参数 login_name,password,captcha,向 MeFP_Portal/auth/register 发起请求
@@ -126,7 +135,7 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |login_name	|N	|登录名|
 |user_name	|	|昵称|
 |city		|	|所在城市|
@@ -154,7 +163,7 @@
 |请求方式|PUT|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |user_name| |昵称|
 |city| |所在城市|
 |sign| |签名档|
@@ -232,7 +241,7 @@
 |请求方式|GET|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |keyword||关键字模糊查询,匹配login_name,user_name,city,sign,memo|
 |role| |角色|
 |status| |状态|
@@ -285,12 +294,12 @@
 |说明|传入与输出的内容都须经过加密|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |login_name||登录名|
 
 说明:
 	
-	本接口不对外开放,只允许MeFP访问,要做IP限制,IP要写在配置文件中
+	本接口不对外开放,只允许MeFP访问,要做IP限制,IP要写在配置文件中(IP可能有多个)
 	本接口接收与返回的数据均为加密数据
 	
 	接收的数据先进行Base64解密,然后用AES解密,AES加密所需要的密钥写在配置文件,
@@ -300,13 +309,13 @@
 	返回的数据,先经AES加密,然后再经Base64加密.
 	返回的数据格式参阅<统一验证接口文档.md>
 	
-传入的数据解密后:
+传入的数据(解密后):
 >
 	{
 		"login_name":"13812345678"
 	}
 
-返回数据加密前:
+返回数据(加密前):
 >
 	{
 		"token":"xxxxxxxxxxxxxxxxxxx"
@@ -319,18 +328,18 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
-|login_name		|N|登录名|
-|contact_name	|N|联系人|
-|contact_number	|N|联系电话|
-|company		||公司名|
-|address		||地址|
-|device_id		||手机设备号|
-|weixin_id		||微信号|
-|jpush_sn		||极光推送序列号|
-|img_org		||组织代码证照片|
-|img_biz		||营业执照证照片|
-|memo			||备注|
+|:-------------|:----|:---------------------|
+|login_name		|N	|登录名|
+|contact_name	|N	|联系人|
+|contact_number	|N	|联系电话|
+|company		|	|公司名|
+|address		|	|地址|
+|device_id		|	|手机设备号|
+|weixin_id		|	|微信号|
+|jpush_id		|	|极光推送sn|
+|img_org		|	|组织代码证照片,url相对路径|
+|img_biz		|	|营业执照证照片,url相对路径|
+|memo			|	|备注|
 
 
 返回数据:
@@ -346,14 +355,14 @@
 |请求方式|PUT|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |contact_name	||联系人|
 |contact_number	||联系电话|
 |company		||公司名|
 |address		||地址|
 |device_id		||手机设备号|
 |weixin_id		||微信号|
-|jpush_sn		||极光推送序列号|
+|jpush_id		||极光推送sn|
 |img_org		||组织代码证照片|
 |img_biz		||营业执照证照片|
 |memo			||备注|
@@ -385,7 +394,7 @@
 			“contact_number”:"13812345678",
 			"decice_id":"",
 			"weixin_id":"",
-			"jpush_sn":"",
+			"jpush_id":"",
 			"img_org":"",
 			"img_biz":"",
 			"memo":""
@@ -399,7 +408,7 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |login_name		|N|登录名|
 |plate_number	|N|车牌|
 |contact_name	|N|联系人|
@@ -409,7 +418,7 @@
 |locate_number	||定位手机|
 |device_id		||手机设备号|
 |weixin_id		||微信号|
-|jpush_sn		||极光推送序列号|
+|jpush_id		||极光推送序列号|
 |img_car		||车身照片|
 |img_driver		||驾驶证证照片|
 |img_driving	||行驶证照证照片|
@@ -430,7 +439,7 @@
 |请求方式|PUT|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-------------|:----|:---------------------|
 |plate_number		||车牌|
 |idcard_number		||身份证|
 |driving_license	||行驶证|
@@ -440,7 +449,7 @@
 |locate_number		||定位手机|
 |device_id			||手机设备号|
 |weixin_id			||微信号|
-|jpush_sn			||极光推送序列号|
+|jpush_id			||极光推送序列号|
 |img_car			||车身照片|
 |img_driver			||驾驶证证照片|
 |img_driving		||行驶证照证照片|
@@ -476,7 +485,7 @@
 			"driving_license":"",
 			"decice_id":"",
 			"weixin_id":"",
-			"jpush_sn":"",
+			"jpush_id":"",
 			"img_car":"",
 			"img_driver":"",
 			"img_driving":"",
@@ -492,7 +501,7 @@
 |请求方式|GET|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:-----|:----|:---------------------|
 |login_name||登录名|
 
 返回数据:
@@ -517,6 +526,8 @@
 |usage||用途，1注册，2找回密码|
 
 说明：
+
+** 此接口不需要token **
 	
 	成功后向目标手机发送验证码
 	

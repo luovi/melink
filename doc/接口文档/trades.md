@@ -17,17 +17,19 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:------|:--------|:--------|
 |cargo_id		|N	|货单id|
-|login_name	|N	|车方登录名,货方的信息在货单中已经存在|
-|trade_time	|	|交易达成时间,默认为当前服务器时间|
-|carriage		|	|运费|
-|pre_pay		|	|预付,默认为0|
-|status			|	|状态,默认为10|
+|login_name		|N	|车方登录名,货方的信息在货单中已经存在|
+|trade_time		|	|交易达成时间,默认为当前服务器时间|
+|carriage		|	|运费，默认为0|
+|pre_pay		|	|预付款,默认为0|
+|pay_type		|	|支付方式,0未知(默认),1月结,2提付,3到付,4回单付,999其它|
+|status			|	|状态,状态,0取消,10待装货(默认),80支付,90评价,999完成|
+|memo			|	|备注|
 
 说明:
 
-	交易订单生成后,要同时在trade_log中增加一条记录 status为当前交易订单的状态
+	根据login_name查找到车方的plate_number写入数据库
 	
 返回数据:
 >
@@ -42,7 +44,7 @@
 |请求方式|GET|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:------|:--------|:--------|
 |cargo_id		|	|货单id|
 |login_name		|	|车方登录名,货方的信息在货单中已经存在|
 |trade_time_from|	|交易达成时间,默认为当前服务器时间|
@@ -50,10 +52,11 @@
 |carriage_from	|	|运费|
 |carriage_to	|	|运费|
 |status			|	|状态,默认为10|
+|pay_type		|	|支付方式|
 
-排序:
+说明:
 
-	cargo_id desc,trade_time desc,status desc
+	排序：cargo_id desc,trade_time desc,status desc
 
 返回数据:
 >
@@ -66,9 +69,9 @@
 			{
 				"cargo_id":123,
 				"login_name":"13812345678",
+				"plate_number":"浙A12345",
 				"trade_time":"2015-03-02 12:30:00",
 				"carriage":150.00,
-				"pay_type":0,
 				"status":10
 			},
 			{
@@ -91,10 +94,13 @@
 		"data":{
 				"cargo_id":123,
 				"login_name":"13812345678",
+				"plate_number":"浙A12345",
 				"trade_time":"2015-03-02 12:30:00",
-				"carriage":150.00,
+				"carriage":150.00
+				"pre_pay":0,
 				"pay_type":0,
-				"status":10
+				"status":10,
+				"memo":""
 			}
 	}
 
@@ -121,35 +127,22 @@
 |请求方式|POST|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:------|:--------|:--------|
 |trade_id		|N	|订单id|
-|login_name	|	|变更用户,默认为空|
+|login_name		|	|变更用户|
 |type			|	|变更类型,默认为0|
 |change_time	|	|变更时间,默认为服务器当前时间|
 |status			|N	|变更状态|
-	
+|memo			|	|备注，变动原因|
+
 说明:
 
-	变量要同时修改trades.status	
+	变量要同时修改 trades.status	
 	
 返回数据:
 >
 	{
-		"result":1,
-		"data":[
-			{
-				"cargo_id":123,
-				"trade_id":345,
-				"type":"0",//变更类型,1为车方发起,2为货方发起,0为系统自动变更
-				"login_name":"13812345678",//当type=1时,为车方,type=2时为货方,type=0时,此值为空
-				"status":20,
-				"memo":"变动原因"
-			},
-			{
-				...
-			}
-			...
-		]
+		"result":1
 	}
 		
 #### 6. <label id="trade_log">交易状态变更记录</label>
@@ -159,7 +152,7 @@
 |请求方式|GET|
 
 |参数名称|可空|说明|
-|:--|:--------|
+|:------|:--------|:--------|
 |trade_id		|	|订单id|
 |cargo_id		|	|货单id|
 |login_name		|	|变更用户|
@@ -169,6 +162,9 @@
 >
 	{
 		"result":1,
+		"total":30,/记录数
+		"page_no":1,//当前页码1开始
+		"page_size":20,//每页记录数
 		"data":[
 			{
 				"cargo_id":123,
@@ -176,6 +172,7 @@
 				"type":"0",//变更类型,1为车方发起,2为货方发起,0为系统自动变更
 				"login_name":"13812345678",//当type=1时,为车方,type=2时为货方,type=0时,此值为空
 				"status":20,
+				"change_time":"2015-03-02 12:30:00"
 				"memo":"变动原因"
 			},
 			{
