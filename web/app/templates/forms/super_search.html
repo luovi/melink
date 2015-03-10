@@ -1,0 +1,246 @@
+<form id="car_filter" method="get" onsubmit="return false;">
+    <div class="data-holder">
+        <input class="CONVERT_CITY_DATA" id="location" name="location" type="hidden" value="<%= getArguments('location') %>">
+        <input class="CONVERT_CITY_DATA" id="destination" name="destination" type="hidden" value="<%= getArguments('destination') %>">
+        <input class="CONVERT_CAR_DATA" id="wheel" name="wheel" type="hidden" value="<%= getArguments('wheel') %>" data-content="">
+        <input class="CONVERT_CAR_DATA" id="cart" name="cart" type="hidden" value="<%= getArguments('cart') %>" data-content="">
+        <input class="CONVERT_CAR_DATA" id="spec" name="spec" type="hidden" value="<%= getArguments('spec') %>" data-content="">
+        
+        <input id="tag_id" name="tag_id" type="hidden" value="<%= getArguments('tag_id') %>">
+
+        <input id="cg_location" name="cg_location" type="hidden" value="<%= getArguments('cg_location')%>">
+        <input id="lng" name="lng" type="hidden" value="<%= getArguments('lng')%>">
+        <input id="lat" name="lat" type="hidden" value="<%= getArguments('lat')%>">
+
+    </div>
+    <div class="filter">
+        <div class="filter-header J_filterHead ">
+            <label>筛选条件：</label>
+            <div class="tag-group">
+                <div class="tag-holder-filter_plate"></div>
+                <div class="tag-holder-filter_mobile"></div>
+                <div class="tag-holder-filter_name"></div>
+
+                <div class="tag-holder-location"></div>
+                <div class="tag-holder-destination"></div>
+
+                <div class="tag-holder-wheel"></div>
+                <div class="tag-holder-cart"></div>
+                <div class="tag-holder-spec"></div>
+
+                <div class="tag-holder-carlen"></div>
+                <div class="tag-holder-load"></div>
+            <% var cg_location = getArguments('cg_location') %>
+            <% if (cg_location) { %>
+                <div class="tag filter-tag">
+                    <span>货物位置：</span><a class="pushpin-switch" href="javascript:;"><em><%= cg_location %></em></a>
+                    <i class="filter-close"></i>
+                </div>
+            <% }; %>
+
+            </div>
+        </div>
+        <div class="filter-body">
+
+            <div class="clearfix">
+                <dl class="input-inside car-filter-location "  style="z-index:11">
+                    <dt>发货城市：</dt>
+                    <dd class="pl60 relative" style="z-index:11">
+                        <div class="input-append ">
+                            <input class="text input-slarge input-location" type="text" placeholder="请输入城市拼音/区号" />
+                            <i class="city_ico btn-city-selelt">城市</i>
+                            <button class="btn-confirm btn-small ml10 mr5" id="switch_pos" type="submit">
+                                待运货物位置
+                            </button>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            
+            <div class="clearfix">
+                <dl class="input-inside car-filter-destination ">
+                    <dt>到货城市：</dt>
+                    <dd class="pl60 relative">
+                        <div class="input-append ">
+                            <input class="text input-slarge input-destination" type="text" placeholder="请输入城市拼音/区号" />
+                            <i class="city_ico btn-city-selelt">城市</i>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div>
+                <dl class="car-filter-wheel input-inside">
+                    <dt>挂轮挂轴：</dt>
+                    <dd class="pl60">
+                        <div class="more">
+                            <a href="javascript:void(0);">></a>
+                        </div>
+                        <div class="filter-link">
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_06">前四后四</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_07">前四后六</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_08">前四后八</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_09">前四后十</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_12">单桥</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_13">双桥</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_14">四桥</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_15">五桥</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_16">六桥</a>
+                            
+                            <em class="filter-hidden">
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_20">全挂</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_01">半挂一拖二</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_02">半挂一拖三</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_03">半挂二拖二</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_04">半挂二拖三</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_05">前四后四半挂</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_10">后八轮</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_11">五轮车</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_17">七桥</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_18">八桥</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_19">九桥</a>
+                                <span></span>
+                                <a href="javascript:void(0);" data-type="wheel" data-wheel="CM1_99">其他轮轴</a>
+                            </em>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <dl class="car-filter-cart input-inside">
+                <dt>货箱结构：</dt>
+                <dd class="pl60">
+                    <div class="more">
+                        <a href="javascript:void(0);">></a>
+                    </div>
+                    <div class="filter-link">
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_01">普通</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_02">平板</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_04">厢式</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_05">封闭</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_08">集装厢</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_03">高低平板</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_06">开顶厢</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_07">罐式</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_09">自卸</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="cart" data-cart="CM2_10">高栏</a>
+                       
+                        <em class="filter-hidden">
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_11">轴线板</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_12">满轮车</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_13">框架板</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_14">高低高板</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_15">抽拉板</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_16">簸箕板</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_17">超低板</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_18">笼子车</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_19">叶片车</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="cart" data-cart="CM2_99">其他结构</a>
+                        </em>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="car-filter-spec input-inside">
+                <dt>特殊功能：</dt>
+                <dd class="pl60">
+                    <div class="more">
+                        <a href="javascript:void(0);">></a>
+                    </div>
+                    <div class="filter-link">
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_01">冷藏车</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_02">危险品车</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_15">大件车</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_16">罐体专用车</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_10">平地机</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_11">压路机</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_12">爬梯车</a>
+                        <span></span>
+                        <a href="javascript:void(0);" data-type="spec" data-spec="CM3_13">随车吊</a>
+                        
+                        <em class="filter-hidden">
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_14">汽车吊</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_03">邮政车</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_04">棉被车</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_05">起重车</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_06">搅拌机</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_07">推土机</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_08">装卸机</a>
+                            <span></span>
+                            <a href="javascript:void(0);" data-type="spec" data-spec="CM3_09">挖掘机</a>
+                        </em>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="input-inside car-filter-carlen">
+                <dt>箱体长度：</dt>
+                <dd class="pl60">
+                    <input class="text input-mini J_filter_count J_carlen" type="text" data-type="carlen" data-carlen="min" id="min_len" name="min_len"  value="<%= getArguments('min_len') %>">
+                    <span>米 ～</span>
+                    <input class="text input-mini J_filter_count J_carlen" type="text" data-type="carlen" data-carlen="max" id="max_len" name="max_len" value="<%= getArguments('max_len') %>">
+                    <span>米</span>
+                    <span class="help-msg">请输入正确的数字组合</span>
+                </dd>
+            </dl>
+            <dl class="input-inside car-filter-load">
+                <dt>载重吨位：</dt>
+                <dd class="pl60">
+                    <input class="text input-mini J_filter_count J_load" type="text" data-type="load" data-load="min" id="min_tonnage" name="min_tonnage" value="<%= getArguments('min_tonnage') %>">
+                    <span>吨 ～</span>
+                    <input class="text input-mini J_filter_count J_load" type="text" data-type="load" data-load="max" id="max_tonnage" name="max_tonnage" value="<%= getArguments('max_tonnage') %>">
+                    <span>吨</span>
+                    <span class="help-msg">请输入正确的数字组合</span>
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+</form>

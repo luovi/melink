@@ -1,7 +1,7 @@
 (function() {
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  define(['backbone', 'store', 'modal_r', 'modal', 'bmaps', 'city', 'cars_filter', 'text!templates/forms/super_search.html'], function(Backbone, Store, ModalR, Modal, Map, city, carsFilter, tmp_adv_search) {
+  define(['backbone', 'store', 'modal', 'bmaps', 'city', 'cars_filter', 'text!templates/forms/super_search.html'], function(Backbone, Store, Modal, Map, city, carsFilter, tmp_adv_search) {
     'use strict';
     var CarsFilterView;
     return CarsFilterView = Backbone.View.extend({
@@ -10,7 +10,6 @@
         if (options == null) {
           options = {};
         }
-        alert(1);
         self = this;
         this.isPublic = options.isPublic;
         this.pageSize = Store.get('carsPagesize') || 20;
@@ -24,14 +23,13 @@
         }
         this.list = list;
         return $('#J_advSearch').click(function() {
-          alert(1);
           return self.showModal.call(self);
         });
       },
       showModal: _.debounce(function() {
         var self;
         self = this;
-        return this.modal = new ModalR({
+        return this.modal = new Modal({
           title: "高级搜索",
           content: $(this.template(tmp_adv_search, {
             isPublic: this.isPublic

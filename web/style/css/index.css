@@ -143,6 +143,7 @@ em.icon_em{
 /*通用css*/
 .w300{width: 300px;}
 .w240{width: 240px;}
+.w236{width: 236px;}
 .w200{width: 200px;}
 .w180{width: 180px;}
 .w155{width: 155px;}
@@ -597,9 +598,13 @@ table tr:last-child td:last-child{
 }
 
 table th, table td{
-  padding:20px 0px 20px 12px;
+  padding:20px 6px 20px 6px;
   text-align:left;
+}
+
+table.striped th, table.striped td{
   border: 1px solid #E4E4E4;
+
 }
 table th{
   font-weight:bold;
@@ -1154,10 +1159,11 @@ label{
   display: none;
   position: fixed;
   z-index: 900;
-  top:63px;
+  /*top:109px;*/
+  top: 0;
   right:0;
   height: 100%;
-  background-color: #f6f6f6;
+  background-color: #ffffff;
   border-left:1px solid #bbb;
   width:240px;
   overflow-y:auto; 
@@ -1167,6 +1173,7 @@ label{
   background-color: white;
   padding:12px 13px 0;
   _overflow: visible;
+  border-top: 1px solid #ddd;
 }
 #message_block .header .btn-menu {
     margin-bottom: 12px;
@@ -1198,7 +1205,9 @@ label{
   margin-left: 2px
 }
 
-#message_block a.send_msg,#message_block a.edit_tag,#message_block a.send_weixin{margin-right: 10px}
+#message_block a.btn-menu{
+  margin-right: 10px
+}
 
 #message_block table{
   background-color: white;
@@ -1212,3 +1221,36 @@ label{
 #message_block table td:last-child{
   padding-right: 10px;
 }
+
+.side-title{
+  font-size: 16px;color: #FF6200;line-height: 50px;height: 50px;border-bottom: 1px solid #ddd;
+  text-align: center;margin-bottom: 24px;
+}
+
+.side-txt{
+  padding-left: 20px;height: 30px;line-height: 30px;
+}
+
+.side-cargos{
+  margin: 0 auto;width: 180px;border: 1px solid #FF6B0B;border-radius: 3px;
+  background: #FFF1EB;padding: 5px 15px; line-height: 22px;margin-bottom: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,7 +2,7 @@
 	<% cars.each(function(car){%>
 		<tr>
 			<th class="w40 pl30">
-				<input class ="datch" type="checkbox" data-id="<%=car.get('id')%>"/>
+				<input class ="datch" type="checkbox" value="<%= car.id %>" data-title="<%= car.get('car').plate_number %>" data-name="<%= car.get('driver').driver_name %>"/>
 			</th>
 			<td  class="algin-c">
 				  12312312
