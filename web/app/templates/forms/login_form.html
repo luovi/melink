@@ -1,14 +1,31 @@
 <div class="login_form">
-	<form>
-		<div>登录</div>
-		<div>
-			<label>昵称/手机号</label>
-			<input type="text" class="text input-llarge" name="" id="">
+	<form onsubmit="return false;">
+		<p class="login_form_title">登录</p>
+		<p><label>昵称/手机号</label></p>
+		<div class="group relative">
+			<input type="text" class="text input-llarge" name="login" id="login">
+			<i class="icon_into"></i>
+			<p class="login_error"></p>
 		</div>
-		<div>
-			<label>密码</label>
-			<input type="text" class="text input-llarge" name="" id="">
+		<p><label>密码</label></p>
+		<div class="group relative">
+			<input type="text" class="text input-llarge " name="password" id="password">
+			<i class="icon_into"></i>
+
 		</div>
-		<div></div>
+			
+		<div>
+			<label class="checkbox">
+            	<input id="remember" name="remember" type="checkbox" value="y">
+       			两周内自动登录
+            </label>
+            <a class="pull-right gray" href="">忘记密码？</a>
+		</div>
+		<div class="mt20">
+			<input type="submit" class="btn btn-normal btn-llarge" value="登录">
+		</div>
+		<div class="mt20">
+			<a href="javascript:;" class="gray">使用第三方账号登录：<i></i></a>
+		</div>
 	</form>
 </div>

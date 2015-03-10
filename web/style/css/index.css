@@ -59,10 +59,17 @@ a{
   color:#ff4a00; 
   text-decoration:none;
 }
+a.gray{
+  color:#999; 
+}
 a:hover{color:#f53e14;}
+a.gray:hover{
+  color:#999; 
+}
 h1, h2, h3, h4, h5, h6{
   font-weight:bold;
 }
+
 h4, h5, h6{
   margin-bottom:5px;
 }
@@ -93,6 +100,9 @@ select{
   margin:0;
   border-radius:3px;
 }
+span.error{
+  color: #B94A48;
+}
 /*@module i 16*16图标*/
 i{
   display:inline-block;
@@ -105,7 +115,11 @@ i{
 
 i.cog-gray{background-position:-160px -64px;}
 i.drop-down-gray{background-position:-176px -64px;}
-
+i.icon_into{
+  position: absolute;
+  right: 1px;
+  top:7px;
+}
 em.icon_em{
   width: 56px;
   height: 56px;
@@ -165,6 +179,7 @@ em.icon_em{
 .p-auto-50{
   padding: 50px 0;
 }
+
 .p5{padding:0 5px;}
 .p50{padding:0 50px;}
 .inline-block{
@@ -208,7 +223,11 @@ input.text{
   background: #fff;
   padding: 7px 4px;
 }
+input.error, select.error, textarea.error {
+  color: #B94A48;
+  border-color: #B94A48
 
+}
 .input-xslarge{
   width: 70px;
 }
@@ -222,7 +241,7 @@ input.text{
   width: 270px;
 }
 .input-llarge{
-  width: 306px;
+  width: 298px;
 }
 .input-xllarge{
   width: 600px;
@@ -303,10 +322,11 @@ input.input-high{
 .btn-mlarge{
   width: 200px;
 }
-/*.btn-llarge{
-  width: 398px;
+.btn-llarge{
+  width: 306px;
+  letter-spacing:8px;
 }
-.btn-xllarge{
+/*.btn-xllarge{
   width: 608px;
 }*/
 .done_render_title{
@@ -698,7 +718,17 @@ table .drop-menu a{
   background: url(/style/images/login_banner.jpg) no-repeat;
 }
 .login_form{
-  border: 1px solid #d2d2d2;
+  border: 2px solid #d2d2d2;
+  padding: 29px;
+}
+.login_form_title{
+  height: 30px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.login_form .text{
+  height: 18px;
+  line-height: 18px;
 }
 /*货源列表页*/
 .banner{
@@ -790,6 +820,9 @@ table .drop-menu a{
 .group-min{
   height: 50px;
   margin-bottom: 10px;
+}
+label{
+  color: #999;
 }
 .label,.control-holder{
   float: left;
