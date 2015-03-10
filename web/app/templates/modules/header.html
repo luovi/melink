@@ -1,6 +1,10 @@
 <header id="header" class="site-header clearfix">
     <div class="header-toper">
-        <p class="header-toper-info">您好！<span class="p5 red"><a href="#"><%= user%></a></span>欢迎来到货源交易中心<a class="p5" href="javascript:;">退出</a></p>
+    <%if(current_user){%>
+        <p class="header-toper-info">您好！<span class="p5 red"><a href="#"><%= current_user.get('username')%></a></span>欢迎来到货源交易中心<a class="p5 " href="#logout">退出</a></p>
+    <%}else{%>
+        <p class="header-toper-info no-login"><a class="p5" href="">设为首页</a>|<a class="p5" href="">加入收藏</a></p>
+    <%}%>
     </div>
 	<div class="container">
 		<div class="logo">

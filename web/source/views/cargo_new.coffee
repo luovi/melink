@@ -6,7 +6,7 @@ define [
     'text!templates/forms/cargo_add.html'
 ], (Backbone,Store,Modal,tmp_crumb,tmp_cargo_add) ->
     'use strict'
-
+            
     cargoAddView = Backbone.View.extend
         initialize: ->
             @render()

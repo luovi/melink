@@ -26,7 +26,7 @@
         'cars/:id/edit': 'carsEdit',
         '*path': 'notFound'
       },
-      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset,cargoAdd', 'cargos'],
+      anonymous: ['notFound', 'login', 'signup', 'loginByApi', 'pswReset', 'cargos'],
       before: function() {
         var _current_user, _ref;
         if (!(_ref = this.current_route().route, __indexOf.call(this.anonymous, _ref) >= 0)) {
@@ -76,6 +76,7 @@
       },
       logout: function() {
         var date;
+        Store.remove('current_user');
         if (window.isie6) {
           Store.clear();
         }
