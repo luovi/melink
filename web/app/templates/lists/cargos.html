@@ -5,7 +5,7 @@
 				  12312312
 			</td>
 			<td >
-				按时发发呆是发的是发送到发送到
+				按时发发呆是发的是发送到发送到<a href="#cargo/<%=cargo.get('id')%>/detail">[详情]</a>
 			</td>
 			<td>
 			  	asdfadsfadsf
@@ -29,12 +29,10 @@
 					  	<i class="drop-down-gray"></i>
 					</a>
 					<div class="drop-menu">
-						<a href="#cargo/1975/detail">详情</a>
-						<a href="javascript:;" data-cid="" data-cname="" class="track-notify">
-							授权跟踪
-						</a>
-						<a href="javascript:;" data-cid="" class="confirm">确认收货</a>
-						<a href="javascript:;" class="add-notify" value="" data-title="" data-origin="" data-name="" data-destination="" data-carriernum="" data-deliverynum="" data-takenum="">设置提醒</a>
+						<a href="#cargo/<%=cargo.get('id')%>/push">推送</a>
+						<a href="#cargo/<%=cargo.get('id')%>/edit">编辑</a>
+						<a href="javascript:;" data-cid="<%=cargo.get('id')%>" class="confirm">删除</a>
+						<a href="javascript:;" data-cid="<%=cargo.get('id')%>" class="confirm">已成交</a>
 					</div>
 				</div>
 			</td>

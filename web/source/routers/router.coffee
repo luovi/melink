@@ -131,6 +131,12 @@ define [
                 self.switchView(new cargoDetailView)
                 document.title='货源详情'
 
+        cargoPush:->
+            self = @
+            require ['views/cargo_push'], (cargoPushView) ->
+                self.switchView(new cargoPushView)
+                document.title='货源推送'
+
         cargos: ->
             self =@
             require ['views/cargos'], (cargosView) ->
