@@ -106,15 +106,16 @@ span.error{
 /*@module i 16*16图标*/
 i{
   display:inline-block;
-  background:url(/static/v/v1/images/llk_icon.png) no-repeat;
+  background:url(/style/images/icon24.png) no-repeat;
   width:16px;
   height:16px;
   margin-right:5px;
   vertical-align:middle;
 }
-
-i.cog-gray{background-position:-160px -64px;}
-i.drop-down-gray{background-position:-176px -64px;}
+i.password{background-position:1px -0px ;}
+i.user{background-position:-15px -0px ;}
+i.triangle_w_d{background-position:-64px -0px ;}
+i.untriangle_w_d{background-position:-64px -16px ;}
 i.icon_into{
   position: absolute;
   right: 1px;
@@ -161,6 +162,7 @@ em.icon_em{
 .h40{height: 40px;clear: both;}
 .mt10{margin-top: 10px;}
 .mt20{margin-top: 20px;}
+.mt40{margin-top: 40px;}
 .mt70{margin-top: 70px;}
 .mr0{margin-right: 0;}
 .mr5{margin-right: 5px;}
@@ -244,9 +246,13 @@ input.error, select.error, textarea.error {
 .input-llarge{
   width: 298px;
 }
+.input-minxlarge{
+  width: 420px;
+}
 .input-xllarge{
   width: 600px;
 }
+
 select.input-xslarge{
   width: 80px;
 }
@@ -290,12 +296,17 @@ input.input-high{
   display: block;
 }
 .btn{
+  display: inline-block;
   height: 34px;
+  line-height: 34px;
   border: none;
   border-radius: 3px;
   font-size: 14px;
   cursor: pointer;
   text-align: center;
+}
+.btn:hover{
+  color: #fff;
 }
 .btn-search{
   background: #525252;
@@ -383,7 +394,7 @@ input.input-high{
   margin-left:30px;
 }
 .span10{width: 920px;}
-.span8{width: 749px; padding-right: 1px;} /*table右边border能显示*/
+.span8{width: 670px; padding-right: 1px;} /*table右边border能显示*/
 .span6{width: 599px; padding-right: 1px;}
 .span5{width: 460px;}
 .span4{width: 320px;}
@@ -513,7 +524,33 @@ input.input-high{
   color: #6b6b6b;
   margin: 0 16px;
 }
+/*用户中心 左边导航*/
+.sidebar{
+  /*width: 100px;*/
+}
+.sidebar dt ,.sidebar dl,.sidebar a{
+  display: inline-block;
+  width: 156px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  margin-bottom: 6px;
+  color: #313131;
+}
 
+.sidebar a:hover,.sidebar a.active{
+  background: #ffede5;
+  transition:  .6s;
+}
+.sidebar dt {
+  border-bottom: 1px solid #ff9e77;
+  font-size: 14px;
+  font-weight: bold;
+}
+.info-face{
+  padding: 30px;
+  background: #eee;
+}
 /*@module pagination 分页*/
 .pagination{
   height:36px;
@@ -857,6 +894,13 @@ label{
   font-size: 14px;
   font-weight: bold;
 }
+.form-title{
+  height: 34px;
+  line-height: 34px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 .cargo-other-info textarea{
   width: 608px;
   height: 66px;
@@ -934,19 +978,20 @@ label{
 }
 .select_tab .input-medium{
   width: 144px;
-  border: 1px solid #E4E4E4;
-  padding: 4px 6px;
+  border: 1px solid #414141;
+  padding: 7px 6px;
   border-radius:2px;
   margin: 0;
   font-size: 12px;
+  height: 14px;
 }
 .select_tab a.select-btn{
   position: absolute;
   top:1px;
   right: -1px;
   width: 28px;
-  height: 26px;
-  background: #fff;
+  height: 28px;
+  background: #414141;
   text-align: center;
 }
 .select_tab .nav-tabs{

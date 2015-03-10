@@ -11,11 +11,20 @@
 			<a href="#"><img src="/style/images/login.png"></a>
         </div>
         <div class="header-nav-tab">
-            <ul>
+           
+            <%if(current_user){%>
+             <ul>
                 <li class="active"><a href="">货源信息</a></li>
-                <li><a href="">车源信息</a></li>
-                <li><a href="">用户中心</a></li>
+                <li><a href="#cars">车源信息</a></li>
+                <li><a href="#center">用户中心</a></li>
             </ul>
+            <%}else{%>
+            <div class="mt20">
+                <a href="" class="gray mr20">还么有账号？</a>
+                <a href="" class="btn btn-normal btn-xslarge">注册</a>
+            </div>
+            <%}%>
+            
         </div>
 	</div>
 </header>

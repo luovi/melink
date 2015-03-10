@@ -32,7 +32,8 @@ define [
             'cars/:id/edit': 'carsEdit'
 
             # 用户
-            
+            'center':'center'
+            'perfect/info':'perfectInfo'
             # 404
             '*path': 'notFound'
 
@@ -146,7 +147,17 @@ define [
             self = @
             require ['views/cargo_add_done'], (CargoAddDoneView) ->
                 self.switchView(new CargoAddDoneView(id:id))
-                document.title = '添加完成 - 联联看官网 - 车辆定位调度监控系统'
+                document.title = '添加完成'
+        center:->
+            self =@
+            require ['views/center'], (centerView) ->
+                self.switchView(new centerView)
+                document.title='用户中心'
+        perfectInfo:->
+            self =@
+            require ['views/perfect_info'], (PerfectInfoView) ->
+                self.switchView(new PerfectInfoView)
+                document.title='完善资料'
         # 切换页面
         switchView: (view) ->
             self = @

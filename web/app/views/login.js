@@ -63,7 +63,7 @@
           ],
           current: '欢迎登录'
         }));
-        $content = $('<div class="row"><div class="pull-left login_banner_box mr48"></div><div class="login_form_box pull-left"></div></div>');
+        $content = $('<div class="row"><div class="pull-left login_banner_box mr48"></div><div class="login_form_box pull-right"></div></div>');
         $('.login_banner_box', $content).append(this.template(tmp_login_banner, {}));
         $('.login_form_box', $content).append(this.template(tmp_login_form, {}));
         $container.append($content);
