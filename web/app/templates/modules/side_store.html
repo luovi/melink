@@ -1,0 +1,35 @@
+<div id="message_toggle"><i></i></div>
+<div id="message_block">
+    <div class="side-title">货源信息推送</div>
+    <p class="side-txt">货源信息推送</p>
+    <div class="side-cargos">
+        联联看向您提供以下货物信息
+        【起运地到抵达地，货物名称，
+        货物量（吨），备注；请联
+        系公司名称，联系人，固定电话，
+        手机号码】【米阳科技】
+    </div>
+    <div class="header clearfix" style="*height:85px;width:220px\9;">
+            <a href="javascript:;" class="btn-menu send_msg"><i class="mail-gray"></i>短信群发</a>
+            <a href="javascript:;" class="btn-menu send_weixin"><i class="unweixin"></i>微信推送</a>
+            <a href="javascript:;" class="btn-menu send_app"><i class="cog-gray"></i>app 推送</a>
+            <a href="javascript:;" class="btn-menu close_side"><i class="cog-gray"></i>取消推送</a>
+    </div>
+    <table>
+        <tbody>
+            <tr>
+                <td>车辆</td>
+
+                <td style=""></td>
+                <td style="padding: 0;"><a class="store_clear" href="javascript:;" data-id="">清除</a></td>
+            </tr>
+            <% _.each(_.pairs(data), function (d) { %>
+            <tr>
+                <td><%= d[1][0] %></td>
+                <td ><%= d[1][1] %></td>
+                <td style="+padding-right:20px;"><i class="trash" data-id="<%= d[0] %>"></i></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

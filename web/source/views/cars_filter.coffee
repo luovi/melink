@@ -1,18 +1,16 @@
 define [
     'backbone',
     'store',
-    'modal_r',
     'modal',
     'bmaps',
     'city',
     'cars_filter'
     'text!templates/forms/super_search.html',
-], (Backbone,Store, ModalR,Modal, Map, city,carsFilter ,tmp_adv_search) ->
+], (Backbone, Store ,Modal, Map, city, carsFilter, tmp_adv_search) ->
     'use strict'
 
     CarsFilterView = Backbone.View.extend
         initialize: (options={},list) ->
-            alert 1
             self = @
             @isPublic = options.isPublic
             @pageSize = Store.get('carsPagesize')||20
@@ -21,12 +19,11 @@ define [
             @list = list
 
             $('#J_advSearch').click ->
-                alert 1
                 self.showModal.call(self)
 
         showModal: _.debounce () ->
             self = @
-            @modal = new ModalR
+            @modal = new Modal
                 title: "高级搜索"
                 content: $(@template(tmp_adv_search,{isPublic: @isPublic}))
                 i_class:'add'
