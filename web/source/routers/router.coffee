@@ -85,7 +85,7 @@ define [
 
         logout: ->
             # 清除本地存储 
-            # Store.remove('current_user')...
+            Store.remove('current_user')
             if window.isie6
                 Store.clear()
             date = new Date()

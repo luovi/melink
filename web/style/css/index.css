@@ -218,7 +218,7 @@ input.text{
   width: 270px;
 }
 .input-llarge{
-  width: 390px;
+  width: 306px;
 }
 .input-xllarge{
   width: 600px;
@@ -463,6 +463,9 @@ input.input-high{
   color: #fff;
   padding-right: 160px;
 }
+.no-login a{
+  color: #fff;
+}
 /*底部*/
 .footer{
   height: 70px;
@@ -677,8 +680,15 @@ table .drop-menu a{
   margin: 0 16px;
 }
 
-
-
+/*登录*/
+.login_banner{
+  width: 530px;
+  height: 394px;
+  background: url(/style/images/login_banner.jpg) no-repeat;
+}
+.login_form{
+  border: 1px solid #d2d2d2;
+}
 /*货源列表页*/
 .banner{
   width: 960px;height: 100px;

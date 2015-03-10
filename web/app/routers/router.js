@@ -76,6 +76,7 @@
       },
       logout: function() {
         var date;
+        Store.remove('current_user');
         if (window.isie6) {
           Store.clear();
         }
