@@ -40,7 +40,7 @@
         $container.append(this.template(tmp_crumb, {
           urls: [
             {
-              url: '#',
+              url: 'center',
               name: '用户中心'
             }
           ],

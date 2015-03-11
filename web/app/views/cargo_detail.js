@@ -23,7 +23,7 @@
         $container.append(this.template(tmp_crumb, {
           urls: [
             {
-              url: '#',
+              url: 'cargos',
               name: '货源信息'
             }
           ],

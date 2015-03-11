@@ -38,7 +38,7 @@ define [
             @userInfo = new userInfoView
             @subViews.push(@userInfo)
             $container = $('<div class="container"></div>')
-            $container.append(@template(tmp_crumb, {urls:[{url:'#',name:'用户中心'}],current:'修改资料'}))
+            $container.append(@template(tmp_crumb, {urls:[{url:'center',name:'用户中心'}],current:'修改资料'}))
                 .append($('<div class="row content-box"><div class="span2"></div><div class="span8"></div></div>'))
             $('.row>.span2', $container).append(@template(tmp_sidebar,{}))
             $('.row>.span8', $container).append(@userInfo.el)

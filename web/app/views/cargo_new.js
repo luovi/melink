@@ -1,12 +1,14 @@
 (function() {
-  define(['backbone', 'store', 'modal', 'text!templates/modules/crumb.html', 'text!templates/forms/cargo_add.html'], function(Backbone, Store, Modal, tmp_crumb, tmp_cargo_add) {
+  define(['backbone', 'store', 'modal', 'lib/city_web', 'models/cargo', 'text!templates/modules/crumb.html', 'text!templates/forms/cargo_add.html'], function(Backbone, Store, Modal, City, Cargo, tmp_crumb, tmp_cargo_add) {
     'use strict';
     var cargoAddView;
     return cargoAddView = Backbone.View.extend({
       initialize: function() {
+        this.cargo = new Cargo;
         return this.render();
       },
       events: {
+        'blur input:text': 'ajaxValid',
         'submit form': 'submit'
       },
       submit: _.debounce(function(event) {
@@ -30,14 +32,24 @@
           ]
         });
       }, 800),
+      ajaxValid: function(event) {
+        var $target, self;
+        self = this;
+        $target = $(event.target);
+        return this.cargo.validateOne($target).done(function() {
+          return self.hideErrors($target);
+        }).fail(function(errors) {
+          return self.showErrors(errors);
+        });
+      },
       render: function() {
-        var $container, user;
+        var $container, city, user;
         $container = $('<div class="container"></div>');
         user = Store.get('current_user').username;
         $container.append(this.template(tmp_crumb, {
           urls: [
             {
-              url: '#',
+              url: 'cargos',
               name: '货源信息'
             }
           ],
@@ -46,7 +58,10 @@
         $container.append(this.template(tmp_cargo_add, {
           user: user
         }));
-        return this.$el.html($container);
+        this.$el.html($container);
+        return city = new City({
+          inputEl: '#origin_city'
+        });
       },
       remove: function() {
         return this._super('remove');

@@ -1,8 +1,8 @@
 'use strict'
 define [
     'backbone'
-    '/component/models/cargo/cargo_orbits.js'
-], (Backbone, orbitsModel) ->
+    # 'models/cargo_orbits.js'
+], (Backbone) ->
 
     CargoModel = Backbone.Model.extend
         validation:
@@ -51,7 +51,7 @@ define [
             opts.uid ?= @_current_user().id
             @urlRoot = "/api/cargos/#{ opts.uid }"
         
-        requires:["login_name", "title","type"]
+        requires:["title","origin_city","destin_city"]
         
        
         # valueLength:

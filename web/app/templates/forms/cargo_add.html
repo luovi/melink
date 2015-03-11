@@ -9,42 +9,42 @@
 	<div class="cargo-base-info">
 		<div class="title">基本信息</div>
 		<div class="group clearfix">
-			<label class="label"><span class="required">*</span>货物名称</label>
+			<label class="label"><span class="required">*</span>货物名称：</label>
 			<div class="control-holder">
 				<input type="text" id="title" name="title" class="text input-xllarge">
 			</div>
 		</div>
 		<div class="group clearfix">
 			<div class="group-y mr48">
-				<label class="label"><span class="required">*</span>发货地址</label>
+				<label class="label"><span class="required">*</span>发货地址：</label>
 				<div class="control-holder">
-					<input type="text" name="origin_city" id="origin_city" class="text input-mlarge">
+					<input type="text" name="origin_city" id="origin_city" class="text input-mlarge" placeholder="请选择地区">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<input type="text" name="origin_addr" id="origin_addr" class="text input-mlarge" >
+					<input type="text" name="origin_addr" id="origin_addr" class="text input-mlarge" placeholder="请输入详细街道">
 				</div>
 			</div>
 		</div>
 		<div class="group clearfix">
 			<div class="group-y mr48">
-				<label class="label"><span class="required">*</span>收货地址</label>
+				<label class="label"><span class="required">*</span>收货地址：</label>
 				<div class="control-holder">
-					<input type="text" name="destin_city" id="destin_city" class="text input-mlarge">
+					<input type="text" name="destin_city" id="destin_city" class="text input-mlarge" placeholder="请选择地区">
 				</div>
 			</div>
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<input type="text" name="destin_addr" id="destin_addr" class="text input-mlarge" >
+					<input type="text" name="destin_addr" id="destin_addr" class="text input-mlarge" placeholder="请输入详细街道">
 				</div>
 			</div>
 		</div>
 		<div class="group clearfix">
 			<div class="group-y mr48">
-				<label class="label">装货时间</label>
+				<label class="label">装货时间：</label>
 				<div class="control-holder">
 					<input type="text" name="load_time" id="load_time" class="text input-mlarge">
 				</div>
@@ -52,14 +52,14 @@
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<label class="label algin-l">运费（元）:</label>
+					<label class="label algin-l">运费（元）：</label>
 					<input type="text" name="carriage" id="carriage" class="text input-xlarge" >
 				</div>
 			</div>
 		</div>
 		<div class="group clearfix">
 			<div class="group-y mr48">
-				<label class="label">参考距离</label>
+				<label class="label">参考距离：</label>
 				<div class="control-holder">
 					<input type="text" name="ref_distance" id="ref_distance" class="text input-mlarge">
 				</div>
@@ -67,7 +67,7 @@
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<label class="label  algin-l">参考运费</label>
+					<label class="label  algin-l">参考运费：</label>
 					<input type="text" name="ref_carriage" id="ref_carriage" class="text input-xslarge mr5" >
 					<a href="#">运费参考标准>></a>
 				</div>
@@ -79,7 +79,7 @@
 		<div class="title">货物信息</div>
 		<div class="group clearfix">
 			<div class="group-y mr48">
-				<label class="label">重量</label>
+				<label class="label">重量（吨）：</label>
 				<div class="control-holder">
 					<input type="text" name="weight" id="weight" class="text input-slarge">
 				</div>
@@ -87,14 +87,14 @@
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<label class="label algin-l">所需车长</label>
+					<label class="label algin-l">所需车长：</label>
 					<input type="text" name="car_length" id="car_length" class="text input-slarge" >
 				</div>
 			</div>
 		</div>
 		<div class="group clearfix">
 			<div class="group-y mr48">
-				<label class="label">体积</label>
+				<label class="label">体积（方）：</label>
 				<div class="control-holder">
 					<input type="text" name="volume" id="volume" class="text input-slarge">
 				</div>
@@ -102,7 +102,7 @@
 			<div class="group-y">
 				
 				<div class="control-holder">
-					<label class="label algin-l">所需车型</label>
+					<label class="label algin-l">所需车型：</label>
 					<select class="input-slarge" name="car-model_1">
                         <option value="">请选择</option>
                        
@@ -114,7 +114,7 @@
 		
 		<div class="group clearfix">
 			<div class="group-y mr48">
-				<label class="label">长度</label>
+				<label class="label">长度（米）：</label>
 				<div class="control-holder">
 					<input type="text" name="length" id="length" class="text input-slarge">
 				</div>
@@ -122,7 +122,7 @@
 		</div>
 		<div class="group clearfix cargo-remark">
 			<div class="group-y clearfix">
-				<label class="label">备注</label>
+				<label class="label">备注：</label>
 				<div class="control-holder">
 					<textarea></textarea>
 				</div>
@@ -133,13 +133,13 @@
 			<div class="group-y mr48">
 				<div class="title">发货方</div>
 				<div class="clearfix group-min">
-					<label class="label">发货人</label>
+					<label class="label">发货人：</label>
 					<div class="control-holder">
 						<input type="text" name="sender_name" id="sender_name" class="text input-slarge">
 					</div>
 				</div>
 				<div class="clearfix group-min">
-					<label class="label">联系电话</label>
+					<label class="label">联系电话：</label>
 					<div class="control-holder">
 						<input type="text" name="sender_phone" id="sender_phone" class="text input-slarge">
 					</div>
@@ -148,13 +148,13 @@
 			<div class="group-y">
 				<div class="title">收货方</div>
 				<div class="clearfix group-min">
-					<label class="label">收货人</label>
+					<label class="label">收货人：</label>
 					<div class="control-holder">
 						<input type="text" name="receiver_name" id="receiver_name" class="text input-slarge">
 					</div>
 				</div>
 				<div class="clearfix group-min">
-					<label class="label">联系电话</label>
+					<label class="label">联系电话：</label>
 					<div class="control-holder">
 						<input type="text" name="receiver_phone" id="receiver_phone" class="text input-slarge">
 					</div>

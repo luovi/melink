@@ -150,7 +150,12 @@
         var $container;
         $container = $('<div class="container"></div>');
         $container.append(this.template(tmp_crumb, {
-          urls: [],
+          urls: [
+            {
+              url: 'cargos',
+              name: '货源信息'
+            }
+          ],
           current: '推送货源'
         })).append(this.template(tmp_push, {}));
         this.$el.html($container);

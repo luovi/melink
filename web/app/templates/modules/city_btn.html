@@ -1,0 +1,18 @@
+
+<%if(type === 'J_typePro' ){%>
+	<% $(data).each(function(num,item) { %>
+		<a href="javascript:;" class="cb-c-c-btn J_cityBtn J_typePro"><%= item%></a>
+	<%});%>
+<%}%>
+
+<%if(type === 'J_typeCity' ){%>
+	<% $(data).each(function(num,item) { %>
+		<a href="javascript:;" class="cb-c-c-btn J_cityBtn J_typeCity"><%= item%></a>
+	<%});%>
+<%}%>
+
+<%if(type === 'J_typeCounty' ){%>
+	<% $(data).each(function(num,item) { %>
+		<a href="javascript:;" class="cb-c-c-btn J_cityBtn J_typeCounty"><%= item%></a>
+	<%});%>
+<%}%> 

@@ -50,6 +50,7 @@
       'bmaps': 'lib/bmaps',
       'modal': 'lib/modal',
       'city': 'lib/city',
+      'cityWeb': 'lib/city_web',
       'datepicker': 'lib/datepicker',
       'notify_modal': 'lib/notify_modal',
       'tagging': 'lib/tagging',

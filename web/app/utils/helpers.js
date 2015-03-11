@@ -400,28 +400,13 @@
         target.removeClass('error');
         $wrap = $(target.data('wrap'), this.$el);
         if ($wrap && $wrap.length > 0) {
-          return $wrap.next('span.error').remove();
+          return $wrap.next('p.error').remove();
         } else {
-          return target.next('span.error').remove();
+          return target.next('p.error').remove();
         }
       } else {
         this.$('form input.error').removeClass('error');
-        return this.$('form span.error').remove();
-      }
-    };
-    Backbone.View.prototype.hideErrorsWeb = function(target) {
-      var $wrap;
-      if (target) {
-        target.removeClass('error');
-        $wrap = $(target.data('wrap'), this.$el);
-        if (($wrap != null ? $wrap.length : void 0) > 0) {
-          return $wrap.next('div.box_error').remove();
-        } else {
-          return target.next('div.box_error').remove();
-        }
-      } else {
-        this.$('form input.error').removeClass('error');
-        return this.$('form div.box_error').remove();
+        return this.$('form p.error').remove();
       }
     };
     Backbone.View.prototype.showErrors = function(errors, target) {
@@ -432,48 +417,20 @@
         input = self.$('input[name=' + error.name + ']');
         input.addClass('error');
         $wrap = input.data('wrap') ? $(input.data('wrap'), self.$el) : void 0;
-        $error = !($wrap && $wrap.length > 0) ? input.next('span.error') : $wrap.next('span.error');
+        $error = !($wrap && $wrap.length > 0) ? input.next('p.error') : $wrap.next('p.error');
         if ($error.length) {
           return $error.html(error.message);
         } else {
           if ($wrap && $wrap.length > 0) {
-            return $wrap.after('<span class="error">' + error.message + '</span>');
+            return $wrap.after('<p class="error">' + error.message + '</p>');
           } else {
-            return input.after('<span class="error">' + error.message + '</span>');
+            return input.after('<p class="error">' + error.message + '</p>');
           }
         }
       });
       if (target) {
         return self.$('input.error:first').focus();
       }
-    };
-    Backbone.View.prototype.showErrorsWeb = function(errors, target) {
-      var self, tmp_error;
-      self = this;
-      tmp_error = "<div class=\"prompt-box box_error\">\n    <div class=\"arrow-bg\"><div class=\"arrow\"></div></div>\n    <p>\n        <i class=\"prompt\"></i><span class=\"\"><%= error%></span>\n    </p>\n</div>";
-      if (target) {
-        $('.box_error', target.parent()).remove();
-      }
-      return _.each(errors, function(error) {
-        var $error, $wrap, input;
-        input = self.$('input[name=' + error.name + ']');
-        input.addClass('error');
-        $wrap = input.data('wrap') ? $(input.data('wrap'), self.$el) : void 0;
-        $error = !($wrap && $wrap.length > 0) ? input.next('span.error') : $wrap.next('span.error');
-        if ($error.length) {
-          return $error.html(error.message);
-        } else {
-          if ($wrap && $wrap.length > 0) {
-            return $wrap.after(self.template(tmp_error, {
-              error: error.message
-            }));
-          } else {
-            return input.after(self.template(tmp_error, {
-              error: error.message
-            }));
-          }
-        }
-      });
     };
     Backbone.View.prototype.miniPage = function(cols, options) {
       var $page_obj, getData, page, self, setBtn, setClass, tmp;
