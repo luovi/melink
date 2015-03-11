@@ -79,6 +79,8 @@
       logout: function() {
         var date;
         Store.remove('current_user');
+        Store.remove('push_car_list');
+        Store.remove('push_car_len');
         if (window.isie6) {
           Store.clear();
         }
@@ -94,10 +96,8 @@
         current_user = new UserModel(this._current_user());
         if (current_user.isGuest()) {
           Store.remove('current_user');
-          Store.remove('mylist');
-          Store.remove('pv_list');
-          Store.remove('cg_list');
-          Store.remove('pb_list');
+          Store.remove('push_car_list');
+          Store.remove('push_car_len');
           date = new Date();
           date.setTime(date.getTime() - 10000);
           document.cookie = "isLogin" + "=a; expires=" + date.toGMTString() + ";path=/";
