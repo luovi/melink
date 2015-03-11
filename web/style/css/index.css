@@ -1124,7 +1124,6 @@ label{
   *position: relative;
   max-height: 400px;
   overflow-y: auto;  
-  padding: 40px 0;
   
 }
 .modal-body .modal-content{
@@ -1387,6 +1386,390 @@ label{
 
 
 
+
+
+
+/*车辆筛选*/
+.filter{
+  padding: 15px;
+}
+.filter .filter-header{
+  border-bottom:none;
+  margin-right:15px;
+  padding: 10px 0;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+.J_filterHead{
+  display: none;
+}
+
+.filter .filter-header label{
+  float:left;
+  margin-bottom: 0;
+}
+.filter-header .tag-group{
+  margin-left: 70px;
+}
+
+.filter .filter-body{
+  /*display: none;*/
+}
+
+.filter .filter-body .input-inside{
+  margin-bottom: 5px;
+}
+.filter .filter-body dl{
+  padding:5px;
+}
+.filter .filter-body dd:before,.filter .filter-body dd:after{
+  display: table;
+  line-height: 0;
+  content:"";
+}
+
+
+.filter .filter-body dd:after{
+  clear:both;
+}
+.filter .filter-body dt{
+  float:left;
+}
+.filter .filter-body .input-inside dt{
+  margin-top:4px;
+}
+
+.filter .filter-body dd{
+  padding-left: 110px;
+}
+
+.filter .filter-body dd.pl60{
+  padding-left: 60px;
+}
+
+.filter .filter-body dd.pl60 .city-select{
+  left: 65px;
+}
+
+.filter-body .car-filter-location .auto-suggest,.filter-body .car-filter-destination .auto-suggest{
+  top:33px;
+  left:65px;
+}
+.filter-body .car-filter-location{
+  position: relative;
+}
+.filter-body .car-filter-destination{
+  position: relative;
+  z-index: 1;
+}
+.filter-body .help-msg{
+  display: none;
+  color:#B94A48;
+  margin-left: 20px;
+}
+.filter-body .car-filter-location .city-select,.filter-body .car-filter-destination .city-select{
+  left:125px;
+  top:33px;
+}
+.filter-footer{
+  border-top:1px solid #ddd; 
+}
+.filter-footer:hover{background-position:0px -34px }
+.filter-footer i {
+  margin-left: 420px;
+} 
+.filter-footer:before,
+.filter-footer:after{
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.filter-footer:after{
+  clear: both;
+}
+.filter-footer .btn-wrapper{
+  background-color: white;
+  border:1px solid #ddd;
+  float: left;
+  border-top:none;
+  margin-left: 400px;
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+}
+.filter-footer button{
+  margin:0px 15px 12px 15px;
+  /*display: none;*/
+}
+.filter-footer .filter-toggle{
+  display: none;
+  width:120px;
+  height: 20px;
+  background-color: #f9f9f9;
+  border-radius: 0 0 4px 4px;
+}
+.filter-footer .filter-toggle:hover{
+  cursor:pointer;
+}
+.filter-footer .filter-toggle i{
+  background-color: #f9f9f9;
+  margin-left:52px;
+  margin-top:-5px;
+}
+
+.tag-group{
+ /* overflow: hidden;*/
+}
+/* 车辆筛选排序 */
+.cars-sortbar {
+  color: #888;
+}
+.cars-sortbar strong{
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+.cars-sortbar .tag,  /* 车辆筛选排序 */
+.filter-tag{
+  color:#ee9760;
+  float:left;
+  line-height: 15px;
+  position: relative;
+  background-color: white;
+  border:1px solid #f29d67;
+  padding:3px 24px 2px 5px;
+  margin-right:6px;
+  margin-bottom:5px;
+  max-width:780px;
+  /*overflow: hidden;*/
+  text-overflow:ellipsis;
+  white-space: nowrap;
+
+}
+.cars-sortbar .tag{
+  float: none;
+  top:10px;
+  top:10px\0;
+      *top:10px;
+      display: inline-block;
+               *display:inline;
+               *zoom:1;   
+
+
+}
+.cars-sortbar i.close,  /* 车辆筛选排序 */
+.filter-tag .filter-close{
+  position: absolute;
+  right:-3px;
+  top:2px;
+}
+.cars-sortbar .tag span,  /* 车辆筛选排序 */
+.filter-tag span{
+  color:#888;
+}
+.cars-sortbar .tag a,  /* 车辆筛选排序 */
+.filter-tag em{
+  color:#ee9760;
+}
+
+.car-label{
+  color: #64b989;
+  border-color:#64b989;
+}
+.car-label em{
+  color:#35a97c;
+}
+
+.filter-body .more{
+  border:1px solid #ddd;
+  padding:0 10px;
+  float:right;
+  line-height: 26px;
+}
+
+.filter-body .more a{
+  color: #999
+}
+.filter-header .more {
+  padding:0 0 0 10px;
+}
+.filter-body .filter-link{
+  overflow: hidden;
+  line-height: 26px;
+  margin-right: 60px;
+}
+.filter-body .filter-link em{
+  /*margin-left: 5px;*/
+}
+.filter-body  .flow_match{
+/*  width: 100px;*/
+float: none;
+margin-left: 10px;
+}
+.filter-body .filter-link a{
+  line-height: 30px;
+  padding:6px 8px 5px 8px;
+  border:1px solid white;
+  white-space: nowrap;
+  border: 1px solid #cdcdcd;
+  color: #999;
+}
+.filter-body .filter-link a.current{
+  background-color: #f6f6f6;
+  border:1px dashed #cdcdcd;
+}
+
+
+.filter-body .filter-hidden{
+  display:none;
+}
+
+.filter-body .car-filter-location .auto-suggest{
+  top:36px;
+}
+
+
+
+
+.group .auto-suggest{
+  left: 120px;top: 30px;
+}
+
+.group .city-select{
+  left: 120px;top: 30px;
+}
+.group-y .city-select{
+  left: 76px;top: 36px;z-index: 20000
+}
+
+.group-y .auto-suggest{
+  left: 76px;top: 36px;z-index: 20000;
+}
+
+.adv-btn{
+  background: #318fea;
+  border:1px solid #00489d;
+  height: 30px;
+  line-height: 28px;
+  border-radius: 2px;
+  vertical-align: middle;
+
+}
+
+.J_filterHead{
+  display: none;
+}
+.btn-city-selelt{
+  width: 50px;
+  height: 28px;
+  background: #318fea;
+  color: #fff;
+  border: 1px solid #00489d;
+  font-size: 14px;
+  text-align: center;
+  line-height: 28px;
+  font-style: normal;
+  border-radius: 2px;
+   cursor: pointer;
+}
+
+/*自动完成城市控件样式*/
+.auto-suggest{
+  border:1px solid #ccc;
+  width:190px;
+  max-height: 340px;
+  overflow-y:auto; 
+  background-color: white; 
+  position: absolute;
+  z-index: 10001
+}
+.auto-suggest span{
+  float:right;
+}
+.auto-suggest a{
+  display: block;
+  padding:6px 6px 4px 10px;
+  border-top: 1px solid #ccc;
+}
+.auto-suggest a:first-child{
+  border-top: 0px;
+}
+.auto-suggest a span{
+  color: #888;
+}
+.auto-suggest a strong{
+  font-weight: normal;
+  margin-right: 6px;
+}
+.auto-suggest a:hover,.auto-suggest a.current{
+  cursor:pointer;
+  background-color: #f6f6f6;
+}
+.city-select, .modal-city-select{
+  width:430px;
+  position: absolute;
+  background-color: white;
+  border:1px solid #ccc;
+}
+.city-select a.current{
+  background-color: #f6f6f6;
+  border:1px dashed #cdcdcd;
+}
+.city-select-header ul{
+  height:32px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ccc;
+  padding:10px 12px 0px 12px;
+}
+.city-select-header ul li{
+  cursor: pointer;
+  float:left;
+  display: block;
+  padding:5px 8px 3px 10px;
+  border-width:1px;
+  margin-bottom: -1px;
+}
+.city-select-header li.active{
+  border:1px solid #ccc;
+  border-bottom: none;
+  background-color: white;
+}
+.city-select-body{
+  padding:10px;
+  background-color: white;
+}
+.city-select-body div{
+  overflow: hidden;
+}
+.city-select-body a{
+  display: block;
+  float:left;
+  border:1px solid white;
+  padding:5px 10px 4px 10px;
+}
+.city-select-body a:hover{
+  cursor: pointer;
+  border:1px dashed #cdcdcd;
+  background-color: #f9f9f9;
+}
+
+.modal-city-select{
+  left:13px;
+  bottom:13px;
+}
+.modal-city-select .city-select-header ul{
+  border-top: 1px solid #ccc;
+  border-bottom: none;
+  padding: 0px 12px 10px 12px; 
+}
+.modal-city-select .city-select-header ul li{
+  margin-bottom: 0px;
+  margin-top: -1px;
+}
+.modal-city-select .city-select-header li.active{
+  border-top: none;
+  border-bottom: 1px solid #ccc;
+}
 
 
 

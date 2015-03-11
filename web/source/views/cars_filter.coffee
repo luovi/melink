@@ -25,18 +25,17 @@ define [
             self = @
             @modal = new Modal
                 title: "高级搜索"
+                width:715
                 content: $(@template(tmp_adv_search,{isPublic: @isPublic}))
                 i_class:'add'
                 cb: ->
                     self.renderCb.call(self)
                 button: [
                     value: "确定"
-                    class: "btn-small btn-confirm"
+                    class: "btn btn-normal btn-xslarge"
+                    autoremove:true
                     callback: ->
-                        $('#tag_id').val('')
-                        $('.selectTag').removeClass('active').eq(0).addClass('active')
                         self.search.call(self)
-                        self.modal.destroy()
                 ]
         , 800, true
                 
@@ -44,9 +43,7 @@ define [
             self = @
             $('#J_qsearchvalue').val('')
             _.extend @options.data, @_arguments($('#car_filter').serialize()), page_no:1, page_size:@options.data.page_size,q:''
-            $.when( @list.getCars(@options) ).then( ->
-                self.miniPage self.list.cars
-            )
+            @list.fetch @fetchOptions(@options, true)
             @query = Backbone.history.fragment.split('?')[1]
             $('#to-public-cars').attr('href',"#public/cars?#{ @query }")
             
@@ -79,7 +76,7 @@ define [
                     content: """<div id="load_map" class="map-api modal-map"></div>"""
                     button: [
                         value: "切换城市"
-                        class: "btn-small btn-confirm"
+                        class: "btn btn-normal btn-xslarge"
                         style: "float: left;"
                         callback: ->
                             tabsel = _.reject(_.pairs(city.cityTabSel), (i)-> i[0] is '热门城市')
@@ -108,7 +105,7 @@ define [
 
                     ,
                         value: "确定"
-                        class: "btn-small btn-confirm"
+                        class: "btn btn-normal btn-xslarge"
                         callback: ->
                             label = self.mapInstance?._marker?.getLabel() # 获取标记label
                             if label
