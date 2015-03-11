@@ -10,8 +10,8 @@ define [
     SideStoreView = Backbone.View.extend
         initialize: (options={}) ->
             @options = options
-            @key = options.key or 'mylist'
-            @key_len = options.key_len or 'myLen';
+            @key = options.key or 'push_car_list'
+            @key_len = options.key_len or 'push_car_len';
             @len = Store.get(@key_len) or 0;
             @target = options.target
             @data = Store.get(@key) or {}

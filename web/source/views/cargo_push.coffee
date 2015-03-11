@@ -13,9 +13,9 @@ define [
            
     IndexView = Backbone.View.extend
         initialize: ->
-            # Store.set('myLen',0)
-            @key = 'mylist'
-            @key_len = 'myLen'
+            Store.set('myLen',0)
+            @key = 'push_car_list'
+            @key_len = 'push_car_len'
             @len = Store.get(@key_len) or 0
             @data = Store.get(@key) or {}
 
@@ -105,7 +105,7 @@ define [
 
             @side_store = new SideStoreView
                 $count:$('#J_selected')
-                key:'mylist'
+                key:'push_car_list'
                 target:$('input[type=checkbox]', @$el)
             @subViews.push(@side_store)
 

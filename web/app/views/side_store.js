@@ -11,8 +11,8 @@
           options = {};
         }
         this.options = options;
-        this.key = options.key || 'mylist';
-        this.key_len = options.key_len || 'myLen';
+        this.key = options.key || 'push_car_list';
+        this.key_len = options.key_len || 'push_car_len';
         this.len = Store.get(this.key_len) || 0;
         this.target = options.target;
         this.data = Store.get(this.key) || {};

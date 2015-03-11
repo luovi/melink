@@ -4,8 +4,9 @@
     var IndexView;
     return IndexView = Backbone.View.extend({
       initialize: function() {
-        this.key = 'mylist';
-        this.key_len = 'myLen';
+        Store.set('myLen', 0);
+        this.key = 'push_car_list';
+        this.key_len = 'push_car_len';
         this.len = Store.get(this.key_len) || 0;
         this.data = Store.get(this.key) || {};
         if (this.subViews == null) {
@@ -112,7 +113,7 @@
         });
         this.side_store = new SideStoreView({
           $count: $('#J_selected'),
-          key: 'mylist',
+          key: 'push_car_list',
           target: $('input[type=checkbox]', this.$el)
         });
         this.subViews.push(this.side_store);
