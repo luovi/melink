@@ -31,6 +31,7 @@
         self = this;
         return this.modal = new Modal({
           title: "高级搜索",
+          width: 715,
           content: $(this.template(tmp_adv_search, {
             isPublic: this.isPublic
           })),
@@ -41,12 +42,10 @@
           button: [
             {
               value: "确定",
-              "class": "btn-small btn-confirm",
+              "class": "btn btn-normal btn-xslarge",
+              autoremove: true,
               callback: function() {
-                $('#tag_id').val('');
-                $('.selectTag').removeClass('active').eq(0).addClass('active');
-                self.search.call(self);
-                return self.modal.destroy();
+                return self.search.call(self);
               }
             }
           ]
@@ -61,9 +60,7 @@
           page_size: this.options.data.page_size,
           q: ''
         });
-        $.when(this.list.getCars(this.options)).then(function() {
-          return self.miniPage(self.list.cars);
-        });
+        this.list.fetch(this.fetchOptions(this.options, true));
         this.query = Backbone.history.fragment.split('?')[1];
         return $('#to-public-cars').attr('href', "#public/cars?" + this.query);
       }, 800, true),
@@ -79,7 +76,7 @@
           button: [
             {
               value: "切换城市",
-              "class": "btn-small btn-confirm",
+              "class": "btn btn-normal btn-xslarge",
               style: "float: left;",
               callback: function() {
                 var $citySelect, renderCityList, tabsel;
@@ -125,7 +122,7 @@
               }
             }, {
               value: "确定",
-              "class": "btn-small btn-confirm",
+              "class": "btn btn-normal btn-xslarge",
               callback: function() {
                 var label, point, tag, _ref, _ref1;
                 label = (_ref = self.mapInstance) != null ? (_ref1 = _ref._marker) != null ? _ref1.getLabel() : void 0 : void 0;
