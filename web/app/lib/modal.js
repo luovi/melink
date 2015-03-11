@@ -43,7 +43,7 @@
 
       Modal.prototype.create = function() {
         "<% if (button) { %>\n<% _.each(button, function(b) { %>\n<input class=\"<%= b.class %>\" style=\"<%= b.style %>\" type=\"button\" value=\"<%= b.value %>\" />\n<% }); %>\n<% }; %>\n<input class=\"btn btn-xslarge btn-cancel\" type=\"button\" value=\"取消\" />";
-        var footer;
+        var footer, _base;
         this.$modal = $(_.template(tmp_modal, this.options));
         footer = [];
         _.each(this.options.button, function(b) {
@@ -54,7 +54,8 @@
         this.$form = $('form', this.$modal);
         $('body').append(this.$modal);
         this.bindEvent();
-        return $(document.body).css('overflow', 'hidden');
+        $(document.body).css('overflow', 'hidden');
+        return typeof (_base = this.options).cb === "function" ? _base.cb() : void 0;
       };
 
       Modal.prototype.release = function() {

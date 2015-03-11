@@ -74,6 +74,7 @@ define [
             # bind events
             @bindEvent()
             $(document.body).css('overflow','hidden')
+            @options.cb?()
 
         release: ->
             @$modal.remove()

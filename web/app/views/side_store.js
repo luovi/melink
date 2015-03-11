@@ -16,7 +16,7 @@
         this.len = Store.get(this.key_len) || 0;
         this.target = options.target;
         this.data = Store.get(this.key) || {};
-        this.dataId = this.arrData() || [];
+        this.$count = options.$count;
         return this.render();
       },
       events: {
@@ -24,14 +24,8 @@
         'click i.trash': 'delRow',
         'click a.send_msg': 'sendSMS',
         'click a.send_weixin': 'sendWX',
-        'click a.edit_tag': 'editTag',
         'click a.add_notify': 'addNotify',
         'click a.store_clear': 'clearAll'
-      },
-      arrData: function() {
-        return _.map(this.data, function(con, key) {
-          return key;
-        });
       },
       render: function() {
         this.$el.html(this.template(tmp_side_store, {
@@ -178,128 +172,6 @@
           return this.redirect("service/notify?key=" + this.key);
         }
       }, 800, true),
-      editTag: function(event) {
-        var $content, $tmp, bindClose, modal, self, tagging, timeout,
-          _this = this;
-        self = this;
-        $content = $(this.template("\n<div id=\"form_edit_tag\" class=\"modal-content form-y\">\n    <% var len = _.size(data) %>\n    <div class=\"group\">\n        <%if(options.key == 'pm_list'){%>\n            <label class=\"label type\" data-type=\"<%=options.key%>\">所选用户：</label>\n            <% if(len>=6){ %>\n            <div class=\"tag-select\">当前已选择 <span class=\"select-number\"><%= _.size(data) %></span> 个用户\n                <span class=\"tag-unfold tag-toggle\">\n                        <a href=\"javascript:void(0);\">详情<i class=\"drop-down-gray\"></i></a>\n                </span>\n            </div>\n            <% }; %>\n\n        <%}else{%>\n            <label class=\"label\">所选车辆：</label>\n            <% if(len>=6){ %>\n            <div class=\"tag-select\">当前已选择 <span class=\"select-number\"><%= _.size(data) %></span> 辆车\n                <span class=\"tag-unfold tag-toggle\">\n                        <a href=\"javascript:void(0);\">详情<i class=\"drop-down-gray\"></i></a>\n                </span>\n            </div>\n            <% }; %>\n\n        <%}%>\n        <div class=\"controls select-cars <% if(len>=6){ %>hide<% }; %>\">\n\n        </div>\n    </div>\n    <div class=\"label-group group clearfix\" style=\"margin-left:91px;\"></div>\n    <div class=\"group clearfix\">\n        <label class=\"label\">标签：</label>\n        <div class=\"controls\">\n            <input type=\"hidden\" class=\"input-xlarge\" name=\"tags\" />\n            <div class=\"tags-suggest\"></div>\n        </div>\n    </div>\n</div>", {
-          data: this.data,
-          options: this.options
-        }));
-        $tmp = $(this.template("<% _.each(_.pairs(data), function(d){ %>\n<div class=\"filter-tag\"><span><%= d[1][0] %>：</span><em><%= d[1][1] %></em><i class=\"filter-close\" data-id=\"<%= d[0] %>\"></i></div>\n<% }); %>\n", {
-          data: this.data
-        }));
-        timeout = setTimeout(function() {
-          return $('.select-cars', $content).html($tmp);
-        }, 0);
-        tagging = new Tagging($('input[name=tags]', $content), {
-          placeholder: '请输入标签, 空格或逗号结束',
-          inputZoneClass: 'input-xlarge mr5 pull-left',
-          tagwrap: $('.label-group', $content),
-          tagClass: 'filter-tag car-label',
-          closeClass: 'filter-close'
-        });
-        tagging.reload();
-        modal = new Modal({
-          title: "编辑标签",
-          width: 700,
-          content: $content,
-          button: [
-            {
-              value: "确定",
-              "class": "btn-small btn-confirm",
-              callback: function(data) {
-                var cids, tags;
-                tags = _.reject(self._arguments(data)['tags'].split(','), function(n) {
-                  return $.trim(n) === '';
-                });
-                cids = _.map(self.data, function(n, k) {
-                  return k;
-                });
-                if (_.isEmpty(tags) || _.isEmpty(cids)) {
-                  return;
-                }
-                if ($('.type').attr('data-type') === 'pm_list') {
-                  return $.ajax({
-                    url: "/api/partners/" + (self._current_user().id) + "/tags",
-                    type: 'POST',
-                    data: $.param({
-                      tag: tags,
-                      uid: cids
-                    }, true),
-                    dataType: 'json',
-                    success: function() {
-                      var msg;
-                      msg = "<p>用户批量新增标签成功</p>";
-                      return self.notify().show(msg, 'success');
-                    },
-                    error: function() {
-                      var msg;
-                      msg = "<p>用户批量新增标签失败，请稍后重试!</p>";
-                      return self.notify().show(msg, 'error');
-                    },
-                    beforeSend: function(xhr) {
-                      return xhr.setRequestHeader('Authorization', self._current_user().token);
-                    }
-                  });
-                } else {
-                  return $.ajax({
-                    url: "/api/cars/" + (self._current_user().id) + "/tags",
-                    type: 'POST',
-                    data: $.param({
-                      tag: tags,
-                      cid: cids
-                    }, true),
-                    dataType: 'json',
-                    success: function() {
-                      var msg;
-                      msg = "<p>车辆批量新增标签成功</p>";
-                      return self.notify().show(msg, 'success');
-                    },
-                    error: function() {
-                      var msg;
-                      msg = "<p>车辆批量新增标签失败，请稍后重试!</p>";
-                      return self.notify().show(msg, 'error');
-                    },
-                    beforeSend: function(xhr) {
-                      return xhr.setRequestHeader('Authorization', self._current_user().token);
-                    }
-                  });
-                }
-              },
-              autoremove: true
-            }
-          ]
-        });
-        if (_.size(this.data) < 6) {
-          setTimeout(function() {
-            return $('.filter-close', $content).on('click', bindClose);
-          }, 0);
-        }
-        $('.tag-toggle', $content).on('click', function() {
-          if ($('.select-cars', $content).hasClass('hide')) {
-            $('.select-cars', $content).removeClass('hide');
-            $('.filter-close', $content).on('click', bindClose);
-            return $('.tag-toggle a', $content).html('收起<i class="drop-down-gray"></i>');
-          } else {
-            $('.select-cars').addClass('hide');
-            return $('.tag-toggle a', $content).html('详情<i class="drop-down-gray"></i>');
-          }
-        });
-        return bindClose = function(event) {
-          var $target, id;
-          self = _this;
-          $target = $(event.target);
-          id = $target.data('id');
-          $target.parent().remove();
-          self.removeRow(id);
-          $('.select-number', $content).text(_.size(self.data));
-          self.rebuildCheckbox();
-          if (_.isEmpty(self.data)) {
-            return modal.release();
-          }
-        };
-      },
       clearAll: function(event) {
         var $target, self;
         self = this;
@@ -335,7 +207,7 @@
         this.$body.append($row);
         this.data[id] = args;
         this.len++;
-        $('.pm_length').html("当前选择:" + this.len + "用户");
+        this.$count.html(this.len);
         Store.set(this.key, this.data);
         Store.set(this.key_len, this.len);
         return this.show();
@@ -362,7 +234,7 @@
         if (this.len < 0) {
           this.len = 0;
         }
-        $('.pm_length').html("当前选择:" + this.len + "用户");
+        this.$count.html(this.len);
         this.load();
         Store.set(this.key, this.data);
         return Store.set(this.key_len, this.len);
@@ -374,12 +246,13 @@
         var self;
         self = this;
         if (this.target) {
-          return this.target.each(function() {
+          this.target.each(function() {
             var checked;
             checked = self.inData($(this).val()) ? true : false;
             return $(this).attr('checked', checked);
           });
         }
+        return this.$count.html(this.len);
       },
       clear: function() {
         Store.remove(this.key);
