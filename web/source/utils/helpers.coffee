@@ -335,24 +335,13 @@ define [
             target.removeClass('error')
             $wrap = $(target.data('wrap'), @$el)
             if $wrap and $wrap.length > 0
-                $wrap.next('span.error').remove()
+                $wrap.next('p.error').remove()
             else
-                target.next('span.error').remove()
+                target.next('p.error').remove()
         else
             @$('form input.error').removeClass('error')
-            @$('form span.error').remove()
-    Backbone.View.prototype.hideErrorsWeb = (target) ->
-        if target
-            target.removeClass('error')
-            $wrap = $(target.data('wrap'), @$el)
-            if $wrap?.length > 0
-                $wrap.next('div.box_error').remove()
-            else
-                target.next('div.box_error').remove()
-        else
-            @$('form input.error').removeClass('error')
-            @$('form div.box_error').remove()
-
+            @$('form p.error').remove()
+    
     # 显示表单错误
     Backbone.View.prototype.showErrors = (errors, target) ->
         self = @
@@ -360,42 +349,17 @@ define [
             input = self.$('input[name=' + error.name + ']')
             input.addClass('error')
             $wrap = if input.data('wrap') then $(input.data('wrap'), self.$el) else undefined
-            $error = if not ($wrap and $wrap.length > 0) then input.next('span.error') else $wrap.next('span.error')
+            $error = if not ($wrap and $wrap.length > 0) then input.next('p.error') else $wrap.next('p.error')
             if $error.length
                 $error.html error.message
             else
                 if $wrap and $wrap.length > 0
-                    $wrap.after '<span class="error">'+error.message+'</span>'
+                    $wrap.after '<p class="error">'+error.message+'</p>'
                 else
-                    input.after '<span class="error">'+error.message+'</span>'
+                    input.after '<p class="error">'+error.message+'</p>'
         if target
             self.$('input.error:first').focus()
-    Backbone.View.prototype.showErrorsWeb = (errors, target) ->
-        self = @
-        tmp_error = """
-            <div class="prompt-box box_error">
-                <div class="arrow-bg"><div class="arrow"></div></div>
-                <p>
-                    <i class="prompt"></i><span class=""><%= error%></span>
-                </p>
-            </div>
-        """
-
-        if target 
-            $('.box_error', target.parent()).remove()
-        _.each errors, (error) ->
-            input = self.$('input[name=' + error.name + ']')
-            input.addClass('error')
-            $wrap = if input.data('wrap') then $(input.data('wrap'), self.$el) else undefined
-            $error = if not ($wrap and $wrap.length > 0) then input.next('span.error') else $wrap.next('span.error')
-            if $error.length
-                $error.html error.message
-            else
-                if $wrap and $wrap.length > 0
-                    $wrap.after self.template tmp_error,{error:error.message}
-                else
-                    input.after self.template tmp_error,{error:error.message}
-   
+    
     Backbone.View.prototype.miniPage = (cols, options={}) ->
         options.change ?= true
         setBtn = () ->

@@ -1,4 +1,4 @@
-define(['jquery', 'underscore','/component/lib/city_data',
+define(['jquery', 'underscore','lib/city_data',
 		'text!templates/modules/city_select.html',
 		'text!templates/modules/city_btn.html'
 ],
@@ -115,7 +115,7 @@ function($, _ ,cityData, tmp_city, tmp_btn){
 			el.delegate('.J_cityBtn', 'click', function(){
 				var oBtn = $(this);
 				var btnStr = oBtn.html();
-
+				console.log(btnStr)
 				//省 -> 加载城市或区
 				if(oBtn.hasClass('J_typePro')){
 					aHidden.val('');

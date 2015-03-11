@@ -100,7 +100,8 @@ select{
   margin:0;
   border-radius:3px;
 }
-span.error{
+span.error,p.error{
+  line-height: 24px;
   color: #B94A48;
 }
 /*@module i 16*16图标*/
@@ -218,6 +219,9 @@ select{
   background: #fff;
   border-radius: 1px;
   padding: 0 4px;
+}
+textarea{
+  border: 1px solid #bebebe;
 }
 input.text{
   height: 14px;
@@ -1279,6 +1283,109 @@ label{
   margin: 0 auto;width: 180px;border: 1px solid #FF6B0B;border-radius: 3px;
   background: #FFF1EB;padding: 5px 15px; line-height: 22px;margin-bottom: 40px;
 }
+
+
+/*城市控件*/
+.citybox{
+  width: 270px;
+  border: 1px solid #e5e5e5;
+  position: absolute;
+  background: #fff;
+  display: none;
+}
+
+.citybox *{
+  color: #313131;
+}
+
+.cb-header{
+  height: 33px;
+  overflow: hidden;
+}
+
+.cb-h-tab{
+  float: left;
+  width: 240px;
+  overflow: hidden;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.cb-h-tab a{
+  float: left;
+  width: 59px;
+  height: 32px;
+  border-right: 1px solid #efefef;
+  margin-left: -1px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  background: #f6f6f6;
+  border-left: 1px solid #efefef;
+}
+
+.cb-h-tab a.active{
+  background: #fff;
+  color: #06c;
+}
+.cb-h-tab a:hover{
+  color: #313131;
+}
+.cb-close{
+  float: right;
+  width: 30px;
+  height: 33px;
+  color: #fff;
+  background: #FCE3DE;
+  text-align: center;
+  line-height: 33px;
+  font-size: 24px;
+}
+
+.cb-close:hover{
+  background: #F8AD9C;
+}
+
+.cb-content{
+  padding: 10px 5px;
+}
+
+.cb-c-cantainer{
+  display: none;
+}
+
+.cb-c-cantainer.active{
+  display: block;
+}
+
+.cb-c-c-btn{
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  padding: 0 10px;
+  display: inline-block;
+}
+
+.citybox .cb-c-c-btn:hover{
+  background: #D6EFD8;
+  color:#313131;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

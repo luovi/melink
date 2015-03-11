@@ -2,16 +2,20 @@ define [
     'backbone',
     'store',
     'modal'
+    'lib/city_web'
+    'models/cargo'
     'text!templates/modules/crumb.html'
     'text!templates/forms/cargo_add.html'
-], (Backbone,Store,Modal,tmp_crumb,tmp_cargo_add) ->
+], (Backbone,Store,Modal,City,Cargo,tmp_crumb,tmp_cargo_add) ->
     'use strict'
             
     cargoAddView = Backbone.View.extend
         initialize: ->
+            @cargo = new Cargo
             @render()
 
         events:
+            'blur input:text':'ajaxValid'
             'submit form': 'submit'
         submit: _.debounce (event) ->
             self = @
@@ -57,13 +61,28 @@ define [
                 ]
 
         ,800
+
+        ajaxValid: (event) ->
+            self = @
+            $target = $(event.target)
+            @cargo.validateOne($target)
+            .done(->
+                self.hideErrors($target)
+            ).fail((errors)->
+                self.showErrors(errors)
+            )
+
         render:->
             $container = $('<div class="container"></div>')
             user = Store.get('current_user').username
-            $container.append(@template(tmp_crumb, {urls:[{url:'#',name:'货源信息'}],current:'发布货源'}))
+            $container.append(@template(tmp_crumb, {urls:[{url:'cargos',name:'货源信息'}],current:'发布货源'}))
             $container.append(@template(tmp_cargo_add, {user:user}))
             @$el.html($container)
-        
+            city = new City
+                inputEl:'#origin_city'
+            # city2 = new City
+            #     inputEl:'#destin_city'
+
         remove: ->
             @_super('remove')
 

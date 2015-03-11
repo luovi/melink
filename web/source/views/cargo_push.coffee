@@ -91,7 +91,7 @@ define [
             self = @
             $container = $('<div class="container"></div>')
             $container
-                .append(@template(tmp_crumb, {urls:[],current:'推送货源'}))
+                .append(@template(tmp_crumb, {urls:[{url:'cargos',name:'货源信息'}],current:'推送货源'}))
                 .append(@template(tmp_push, {}))
             @$el.html($container)
             @$keyword = @$('#J_qsearchvalue', @$el)

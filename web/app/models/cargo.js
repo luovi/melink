@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  define(['backbone', '/component/models/cargo/cargo_orbits.js'], function(Backbone, orbitsModel) {
+  define(['backbone'], function(Backbone) {
     var CargoModel;
     return CargoModel = Backbone.Model.extend({
       validation: {
@@ -48,7 +48,7 @@
         }
         return this.urlRoot = "/api/cargos/" + opts.uid;
       },
-      requires: ["login_name", "title", "type"]
+      requires: ["title", "origin_city", "destin_city"]
     });
   });
 
